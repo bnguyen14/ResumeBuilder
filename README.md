@@ -1,7 +1,10 @@
 # ResumeBuilder
 
 #__INSTRUCTIONS__
-
+1. npm install
+2. delete the math folder in node_modules/docx/file/paragraph
+3. Comment out export * from "./math" in index.d.ts file
+4. Comment out export import {Math} from "./math" in paragraph.d.ts file
 
 Angular Requirements
 -Docx

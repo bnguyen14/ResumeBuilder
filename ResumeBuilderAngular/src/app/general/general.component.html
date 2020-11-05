@@ -1,0 +1,21 @@
+<div class="form-group">
+  <div>
+    <label for="name">name</label>
+    <input type="text" id="name"  #nameInput>
+  </div>
+
+  <div>
+    <label for="socials">Social</label>
+    <input type="text" id="socials" #socialInput>
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" #emailInput>
+  </div>
+  <div>
+    <label for="phoneNumber">Phone number</label>
+    <input type="tel" id="phoneNumber" maxlength="10" #numberInput>
+  </div>
+</div>
+
+<button type="submit" (click)="sendName()">Generate Resume</button>

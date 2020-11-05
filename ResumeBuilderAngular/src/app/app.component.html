@@ -1,1 +1,14 @@
 <button (click)="download()">generate word doc</button>
+
+
+<app-general (outputName)="display($event)"></app-general>
+
+<p *ngIf="newOutputName">
+  Name: {{newOutputName.name}}
+  <br>
+  Email: {{newOutputName.email}}
+  <br>
+  Socials: {{newOutputName.socials}}
+  <br>
+  Phone Number: {{newOutputName.phoneNumber}}
+</p>

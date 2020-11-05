@@ -7,6 +7,7 @@
 4. Comment out `import {Math} from "./math"` in paragraph.d.ts file
 
 Angular Requirements
+
 -Docx
  -https://www.npmjs.com/package/docx
  

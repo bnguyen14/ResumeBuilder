@@ -1,22 +1,20 @@
-/**
-
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeneralComponent } from './general.component';
+import { AngularResumeComponent } from './angular-resume.component';
 
-describe('GeneralComponent', () => {
-  let component: GeneralComponent;
-  let fixture: ComponentFixture<GeneralComponent>;
+describe('AngularResumeComponent', () => {
+  let component: AngularResumeComponent;
+  let fixture: ComponentFixture<AngularResumeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GeneralComponent ]
+      declarations: [ AngularResumeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GeneralComponent);
+    fixture = TestBed.createComponent(AngularResumeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -25,5 +23,3 @@ describe('GeneralComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
- */

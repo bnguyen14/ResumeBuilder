@@ -3,7 +3,7 @@
       <label for="name">name</label>
       <input type="text" id="name"  #nameInput>
     </div>
-  
+
     <div>
       <label for="socials">Social</label>
       <input type="text" id="socials" #socialInput>
@@ -17,53 +17,77 @@
       <input type="tel" id="phoneNumber" maxlength="10" #numberInput>
     </div>
   </div>
-  
+
   <p><button type="submit" (click)="sendName()">Generate Resume</button></p>
 
   <h1>Preparing Angular Resume Input Form...</h1>
 
-  
+
 <!-- Summary -->
-<h2>Summary</h2>
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>Summary</mat-panel-title>
+  </mat-expansion-panel-header>
+<mat-panel-description>
 <div class="form-group">
     <div>
       <label for="summary"></label>
       <textarea name="summary" rows="5" cols="60" #summary></textarea>
     </div>
   </div><br />
-  
+</mat-panel-description>
+
+  </mat-expansion-panel>
+</mat-accordion>
 <!-- Education -->
-<h2>Education</h2>
-<div class="form-group">
-    <div>
-      <label for="school">Add School</label><br />
-      <input type="text" id="school" #educationschool>
-    </div>
-    <div>
-        <label for="location">Add City/State</label><br />
-        <input type="text" id="location" #educationlocation>
-      </div>
-      <div>
-        <label for="educationstart">Start Date</label><br />
-        <input type="text" id="educationstart" #educationstart>
-      </div>
-      <div>
-        <label for="educationend">End Date</label><br />
-        <input type="text" id="educationend" #educationend>
-      </div>
-      <div>
-        <label for="educationcurrent">Currently Attending?</label>
-        <input type="checkbox" id="educationcurrent" #educationcurrent>
-      </div>
-      <div>
-        <label for="educationdegree">Degree</label><br />
-        <input type="text" id="educationdegree" #educationdegree>
-      </div>
-  </div><br />
-  
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Education
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+      <mat-panel-description>
+        <div class="form-group">
+          <div>
+            <label for="school">Add School</label><br />
+            <input type="text" id="school" #educationschool>
+          </div>
+          <div>
+              <label for="location">Add City/State</label><br />
+              <input type="text" id="location" #educationlocation>
+            </div>
+            <div>
+              <label for="educationstart">Start Date</label><br />
+              <input type="text" id="educationstart" #educationstart>
+            </div>
+            <div>
+              <label for="educationend">End Date</label><br />
+              <input type="text" id="educationend" #educationend>
+            </div>
+            <div>
+              <label for="educationcurrent">Currently Attending?</label>
+              <input type="checkbox" id="educationcurrent" #educationcurrent>
+            </div>
+            <div>
+              <label for="educationdegree">Degree</label><br />
+              <input type="text" id="educationdegree" #educationdegree>
+            </div>
+        </div><br />
+      </mat-panel-description>
+  </mat-expansion-panel>
+</mat-accordion>
 <!-- Experience -->
-<h2>Experience</h2>
-<div class="form-group">
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Experience
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+      <div class="form-group">
     <div>
       <label for="jobcompany">Add Company</label><br />
       <input type="text" id="jobcompany" #jobcompany>
@@ -89,19 +113,33 @@
           <textarea name="jobdescription" rows="5" cols="60" #jobdescription></textarea>
     </div>
   </div><br />
-
+    </mat-panel-description>
+  </mat-expansion-panel>
+</mat-accordion>
 <!-- Skills -->
-<h2>Skills</h2>
-<div class="form-group">
-    <div>
-        <label for="skillsdescription">Add Skills</label><br />
-          <textarea name="skillsdescription" rows="5" cols="60" #skillsdescription></textarea>
-    </div>
-  </div><br />
-
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Skills</mat-panel-title>
+    </mat-expansion-panel-header>
+      <mat-panel-description>
+        <div class="form-group">
+          <div>
+              <label for="skillsdescription">Add Skills</label><br />
+                <textarea name="skillsdescription" rows="5" cols="60" #skillsdescription></textarea>
+          </div>
+        </div><br />
+      </mat-panel-description>
+  </mat-expansion-panel>
+</mat-accordion>
 <!-- Projects -->
-<h2>Projects</h2>
-<div class="form-group">
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Projects</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+      <div class="form-group">
     <div>
         <label for="projecttitle">Add Project Title</label><br />
         <input type="text" id="projecttitle" #projecttitle>
@@ -111,10 +149,17 @@
           <textarea name="projectdescription" rows="5" cols="60" #projectdescription></textarea>
     </div>
   </div><br />
-
+    </mat-panel-description>
+  </mat-expansion-panel>
+</mat-accordion>
 <!-- Achievements -->
-<h2>Achievements</h2>
-<div class="form-group">
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Achievements</mat-panel-title>
+    </mat-expansion-panel-header>
+   <mat-panel-description>
+      <div class="form-group">
     <div>
         <label for="achievementissuer">Add Issuer</label><br />
         <input type="text" id="achievementissuer" #achievementissuer>
@@ -128,13 +173,23 @@
         <input type="text" id="achievementdate" #achievementdate>
       </div>
   </div><br />
-
+   </mat-panel-description>
+  </mat-expansion-panel>
+</mat-accordion>
 <!-- Websites -->
-<h2>Websites</h2>
-<div class="form-group">
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Websites</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+      <div class="form-group">
     <div>
         <label for="website">Add Website</label><br />
         <input type="text" id="website" #website>
       </div>
   </div><br />
+    </mat-panel-description>
+  </mat-expansion-panel>
+</mat-accordion>
 <h2>Submit Form Button here</h2>

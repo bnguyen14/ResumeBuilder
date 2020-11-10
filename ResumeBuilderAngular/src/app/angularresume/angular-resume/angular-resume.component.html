@@ -1,28 +1,39 @@
-<div class="form-group">
-    <div>
-      <label for="name">name</label>
-      <input type="text" id="name"  #nameInput>
-    </div>
 
-    <div>
-      <label for="socials">Social</label>
-      <input type="text" id="socials" #socialInput>
-    </div>
-    <div>
-      <label for="email">Email</label>
-      <input type="email" id="email" #emailInput>
-    </div>
-    <div>
-      <label for="phoneNumber">Phone number</label>
-      <input type="tel" id="phoneNumber" maxlength="10" #numberInput>
-    </div>
-  </div>
 
   <p><button type="submit" (click)="sendName()">Generate Resume</button></p>
 
   <h1>Preparing Angular Resume Input Form...</h1>
+<!-- Basic Info-->
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Basic Info</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+      <div class="form-group">
+        <div>
+          <label for="name">Name</label><br/>
+          <input type="text" id="name"  #nameInput>
+        </div>
 
+        <div>
+          <label for="socials">Social</label><br/>
+          <input type="text" id="socials" #socialInput>
+        </div>
+        <div>
+          <label for="email">Email</label><br/>
+          <input type="email" id="email" #emailInput>
+        </div>
+        <div>
+          <label for="phoneNumber">Phone Number</label><br/>
+          <input type="tel" id="phoneNumber" maxlength="10" #numberInput>
+        </div>
+      </div>
+      <br />
+    </mat-panel-description>
 
+  </mat-expansion-panel>
+</mat-accordion>
 <!-- Summary -->
 <mat-accordion>
   <mat-expansion-panel hideToggle>

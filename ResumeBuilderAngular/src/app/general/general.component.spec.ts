@@ -1,5 +1,3 @@
-/**
-
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GeneralComponent } from './general.component';
@@ -25,5 +23,3 @@ describe('GeneralComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
- */

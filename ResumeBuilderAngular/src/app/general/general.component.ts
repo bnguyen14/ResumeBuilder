@@ -1,4 +1,3 @@
-/**
 import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {General} from '../shared/general.model';
 
@@ -37,4 +36,3 @@ export class GeneralComponent implements OnInit {
     this.outputName.emit(general);
   }
 }
- */

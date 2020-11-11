@@ -2,7 +2,7 @@
 
 #__INSTRUCTIONS__
 1. npm install
-2. Delete the math folder in node_modules/docx/file/paragraph
+2. Delete the math folder in node_modules/docx/build/file/paragraph
 3. Comment out `export * from "./math"` in index.d.ts file
 4. Comment out `import {Math} from "./math"` in paragraph.d.ts file
 

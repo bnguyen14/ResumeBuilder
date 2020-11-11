@@ -50,9 +50,10 @@ export class Websites {
 }
 
 export class Resume {
-  constructor(general: General, summary: Summary,
-              education: Education[], experience: Experience[],
-              skills: Skills, projects: Projects[],
-              achievements: Achievements[], websites: Websites) {
+
+  constructor(public general: General, public summary: Summary,
+              public education: Education[], public experience: Experience[],
+              public skills: Skills, public projects: Projects[],
+              public achievements: Achievements[], public websites: Websites) {
   }
 }

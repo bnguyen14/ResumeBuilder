@@ -58,10 +58,14 @@ export class AngularResumeComponent implements OnInit {
   // Website
   @ViewChild('website', {static: false}) webSiteRef: ElementRef;
 
-  constructor() { }
+
+  constructor() {
+
+  }
 
   ngOnInit(): void {
   }
+
 
   sendName() {
 
@@ -77,16 +81,16 @@ export class AngularResumeComponent implements OnInit {
     // Education
     const schoolInput = this.schoolInputRef.nativeElement.value;
     const schoolLocation = this.schoolocRef.nativeElement.value;
-    const schoolStart = this.schoolStartRef.nativeElement.value;
-    const schoolEnd = this.schoolEndRef.nativeElement.value;
+    const schoolStart = new Date(this.schoolStartRef.nativeElement.value);
+    const schoolEnd = new Date(this.schoolEndRef.nativeElement.value);
     const schoolCurrent = this.schoolCurrRef.nativeElement.value;
     const degree = this.schoolDegreeRef.nativeElement.value;
 
     // Experience
     const jobInput = this.companyInputRef.nativeElement.value;
     const jobLocation = this.jobLocRef.nativeElement.value;
-    const jobStart = this.jobStarRef.nativeElement.value;
-    const jobEnd = this.jobEndRef.nativeElement.value;
+    const jobStart = new Date(this.jobStarRef.nativeElement.value);
+    const jobEnd = new Date(this.jobEndRef.nativeElement.value);
     const jobCurrent = this.jobCurrRef.nativeElement.value;
     const jobDesc = this.jobDescRef.nativeElement.value;
 
@@ -99,7 +103,7 @@ export class AngularResumeComponent implements OnInit {
 
     // Achievements
     const achievementIssuer = this.achievementIssRef.nativeElement.value;
-    const achievementDate = this.achievementDateRef.nativeElement.value;
+    const achievementDate = new Date(this.achievementDateRef.nativeElement.value);
     const achievementName = this.achievementNameRef.nativeElement.value;
 
     // Website
@@ -115,11 +119,13 @@ export class AngularResumeComponent implements OnInit {
     const achievements = [new Achievements(achievementIssuer, achievementName, achievementDate)];
     const websites = new Websites(websiteInput);
 
+
+    // console.log(general.name);
+    // console.log(general.socials);
+    // console.log(general.email);
+    // console.log(general.phoneNumber);
+
     const resume = new Resume(general, summary, education, experience, skills, projects, achievements, websites);
-    console.log(general.name);
-    console.log(general.socials);
-    console.log(general.email);
-    console.log(general.phoneNumber);
     this.outputName.emit(resume);
   }
 

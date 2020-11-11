@@ -10,7 +10,6 @@ import {
   Summary, Websites
 } from '../../shared/general.model';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import {General} from '../../shared/general.model';
 
 @Component({
   selector: 'app-angular-resume',
@@ -23,7 +22,7 @@ export class AngularResumeComponent implements OnInit {
 
   dynamicForm : FormGroup;
 
-  @Output() outputName = new EventEmitter<General>();
+  constructor(private formBuilder: FormBuilder){}
 
   @Output() outputName = new EventEmitter<Resume>();
   // General
@@ -65,11 +64,6 @@ export class AngularResumeComponent implements OnInit {
 
   // Website
   @ViewChild('website', {static: false}) webSiteRef: ElementRef;
-
-
-  constructor() {
-
-  }
 
   ngOnInit(): void {
     this.dynamicForm = this.formBuilder.group({

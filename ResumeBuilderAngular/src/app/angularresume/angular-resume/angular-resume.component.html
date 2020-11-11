@@ -1,7 +1,5 @@
 
 
-  <p><button type="submit" (click)="sendName()">Generate Resume</button></p>
-
   <h1>Preparing Angular Resume Input Form...</h1>
 <!-- Basic Info-->
 <mat-accordion>
@@ -44,7 +42,7 @@
 <div class="form-group">
     <div>
       <label for="summary"></label>
-      <textarea name="summary" rows="5" cols="60" #summary></textarea>
+      <textarea id="summary" name="summary" rows="5" cols="60" #summary></textarea>
     </div>
   </div><br />
 </mat-panel-description>
@@ -71,11 +69,11 @@
             </div>
             <div>
               <label for="educationstart">Start Date</label><br />
-              <input type="text" id="educationstart" #educationstart>
+              <input type="date" id="educationstart" #educationstart>
             </div>
             <div>
               <label for="educationend">End Date</label><br />
-              <input type="text" id="educationend" #educationend>
+              <input type="date" id="educationend" #educationend>
             </div>
             <div>
               <label for="educationcurrent">Currently Attending?</label>
@@ -109,11 +107,11 @@
     </div>
     <div>
     <label for="jobstart">Add Job Start Date</label><br />
-      <input type="text" id="jobstart" #jobstart>
+      <input type="date" id="jobstart" #jobstart>
     </div>
     <div>
         <label for="jobend">Add Job End Date</label><br />
-          <input type="text" id="jobend" #jobend>
+          <input type="date" id="jobend" #jobend>
     </div>
     <div>
         <label for="jobcurrent">Currently Working?</label>
@@ -121,7 +119,7 @@
       </div>
     <div>
         <label for="jobdescription">Add Job Description</label><br />
-          <textarea name="jobdescription" rows="5" cols="60" #jobdescription></textarea>
+          <textarea name="jobdescription" id="jobdescription" rows="5" cols="60" #jobdescription></textarea>
     </div>
   </div><br />
     </mat-panel-description>
@@ -137,7 +135,7 @@
         <div class="form-group">
           <div>
               <label for="skillsdescription">Add Skills</label><br />
-                <textarea name="skillsdescription" rows="5" cols="60" #skillsdescription></textarea>
+                <textarea name="skillsdescription" id="skillsdescription" rows="5" cols="60" #skillsdescription></textarea>
           </div>
         </div><br />
       </mat-panel-description>
@@ -157,7 +155,7 @@
       </div>
     <div>
         <label for="projectdescription">Add Project Description</label><br />
-          <textarea name="projectdescription" rows="5" cols="60" #projectdescription></textarea>
+          <textarea name="projectdescription" id="projectdescription" rows="5" cols="60" #projectdescription></textarea>
     </div>
   </div><br />
     </mat-panel-description>
@@ -181,7 +179,7 @@
       </div>
       <div>
         <label for="achievementdate">Add Date</label><br />
-        <input type="text" id="achievementdate" #achievementdate>
+        <input type="date" id="achievementdate" #achievementdate>
       </div>
   </div><br />
    </mat-panel-description>
@@ -213,3 +211,4 @@
 </mat-accordion>
 <h2>Submit Form Button here</h2>
 <button (click)="printResume()">view resume in console</button>
+

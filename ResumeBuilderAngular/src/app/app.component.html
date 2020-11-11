@@ -1,14 +1,13 @@
-<button (click)="download()">generate word doc</button>
-
-
-<app-general (outputName)="display($event)"></app-general>
+<p><button (click)="download()">generate word doc</button></p>
+<!--<app-general (outputName)="display($event)"></app-general>-->
+<app-angular-resume (outputName)="display($event)"></app-angular-resume>
 
 <p *ngIf="newOutputName">
-  Name: {{newOutputName.name}}
+  Name: {{newOutputName.general.name}}
   <br>
-  Email: {{newOutputName.email}}
+  Email: {{newOutputName.general.email}}
   <br>
-  Socials: {{newOutputName.socials}}
+  Socials: {{newOutputName.general.socials}}
   <br>
-  Phone Number: {{newOutputName.phoneNumber}}
+  Phone Number: {{newOutputName.general.phoneNumber}}
 </p>

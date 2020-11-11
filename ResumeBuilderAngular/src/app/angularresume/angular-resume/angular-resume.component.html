@@ -191,14 +191,24 @@
     <mat-expansion-panel-header>
       <mat-panel-title>Websites</mat-panel-title>
     </mat-expansion-panel-header>
+    <button (click)="incrementList('website')">add another website</button>
     <mat-panel-description>
       <div class="form-group">
-    <div>
-        <label for="website">Add Website</label><br />
-        <input type="text" id="website" #website>
+        <div *ngFor="let website of websiteFormGroup; let i = index">
+          <div [formGroup]='website'>
+            <span>
+              <label for="website">Add Website {{i+1}}</label>
+              <button (click)="decrementList('website',i)">remove</button>
+            </span><br />
+            
+            <input type="text" id="website" #website formControlName="website" class="form-control">
+          </div>
+        </div>
       </div>
-  </div><br />
+      <br />
     </mat-panel-description>
   </mat-expansion-panel>
 </mat-accordion>
-  <button type="submit" (click)="sendName()">Generate Resume</button>
+<h2>Submit Form Button here</h2>
+<button (click)="printResume()">view resume in console</button>
+

@@ -12,10 +12,7 @@ export class AppComponent {
   title = 'ResumeBuilderAngular';
   something = 'test title';
 
-
   newOutputName: {name: string, socials: string, email: string, phoneNumber: string};
-
-
 
   download(){
     const document = new Document();

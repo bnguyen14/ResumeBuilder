@@ -1,25 +1,23 @@
-/**
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {General} from '../shared/general.model';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import {General} from '../../shared/general.model';
 
 @Component({
-  selector: 'app-general',
-  templateUrl: './general.component.html',
-  styleUrls: ['./general.component.css']
+  selector: 'app-angular-resume',
+  templateUrl: './angular-resume.component.html',
+  styleUrls: ['./angular-resume.component.css']
 })
-export class GeneralComponent implements OnInit {
-
+export class AngularResumeComponent implements OnInit {
+  
   @Output() outputName = new EventEmitter<General>();
 
   @ViewChild('nameInput', {static: false}) nameInputRef: ElementRef;
   @ViewChild('socialInput', {static: false}) socialInputRef: ElementRef;
   @ViewChild('emailInput', {static: false}) emailInputRef: ElementRef;
   @ViewChild('numberInput', {static: false}) numberInputRef: ElementRef;
-
-
+  
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   sendName() {
@@ -36,5 +34,5 @@ export class GeneralComponent implements OnInit {
     console.log(general.phoneNumber);
     this.outputName.emit(general);
   }
+
 }
- */

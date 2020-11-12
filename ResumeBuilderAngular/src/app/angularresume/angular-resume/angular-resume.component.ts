@@ -10,6 +10,9 @@ import {
   Summary, Websites
 } from '../../shared/general.model';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import {Document, HeadingLevel, Packer, Paragraph} from 'docx';
+import {saveAs} from 'file-saver';
+import {Website} from '../../models/test/website';
 
 @Component({
   selector: 'app-angular-resume',
@@ -20,14 +23,19 @@ export class AngularResumeComponent implements OnInit {
 
   maximumFormList = 3;
 
-  dynamicForm : FormGroup;
+  dynamicForm: FormGroup;
+
+  resumeBuilder: {general: General, summary: Summary,
+    education: Education[], experience: Experience[],
+    skills: Skills, projects: Projects[],
+    achievements: Achievements[], websites: Websites};
 
   constructor(private formBuilder: FormBuilder){}
 
   @Output() outputName = new EventEmitter<Resume>();
   // General
   @ViewChild('nameInput', {static: false}) nameInputRef: ElementRef;
-  @ViewChild('socialInput', {static: false}) socialInputRef: ElementRef;
+  // @ViewChild('socialInput', {static: false}) socialInputRef: ElementRef;
   @ViewChild('emailInput', {static: false}) emailInputRef: ElementRef;
   @ViewChild('numberInput', {static: false}) numberInputRef: ElementRef;
 
@@ -69,22 +77,46 @@ export class AngularResumeComponent implements OnInit {
     this.dynamicForm = this.formBuilder.group({
       websites: new FormArray([])
     });
+    // the first form initialized for "website"
     this.websiteFormArray.push(this.formBuilder.group({
       website : ''
     }));
   }
-  //the overall form control of "dynamicForm"
+  // the overall form control of "dynamicForm"
   get formControl() { return this.dynamicForm.controls; }
-  //use FormArray to push another form into the array
-  get websiteFormArray() { return this.formControl.websites as FormArray }
-  //use in .html file to find how many forms are in a group
-  get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[] }
 
-  //adds another set of the form in the specific category
-  incrementList(category:string){
-    switch(category){
-      case 'website':{
-        if(this.websiteFormGroup.length<=this.maximumFormList){
+  // use FormArray to push another form into the array
+  get websiteFormArray() { return this.formControl.websites as FormArray; }
+
+  // use in .html file to find how many forms are in a group
+  get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
+
+  // use to retrieve data from form as a list
+  get websiteValue() {
+    return this.dynamicForm.value.websites as Website[]; }
+
+  // retrieves data websiteValue() and insert each element as text in a new paragraph. returns as list of paragraph
+  get websiteList() {
+
+    const tmparr = this.websiteValue;
+    const paragraphOut: Paragraph[] = [];
+
+    tmparr.forEach(test => {
+      console.log(test.website);
+      paragraphOut.push(new Paragraph({
+        text : test.website
+      }));
+    });
+
+    return paragraphOut;
+  }
+
+
+  // adds another set of the form in the specific category
+  incrementList(category: string){
+    switch (category){
+      case 'website': {
+        if (this.websiteFormGroup.length < this.maximumFormList){
           this.websiteFormArray.push(this.formBuilder.group({
             website : ''
           }));
@@ -94,28 +126,41 @@ export class AngularResumeComponent implements OnInit {
     }
   }
 
-  decrementList(category:string, i:number){
-    switch(category){
-      case 'website':{
-        if(this.websiteFormGroup.length<=this.maximumFormList){
-          this.websiteFormArray.removeAt(i);
-        }
+  // deletes a set of form that is initialized on the webpage
+  decrementList(category: string, i: number){
+    switch (category){
+      case 'website': {
+        this.websiteFormArray.removeAt(i);
         break;
       }
     }
   }
 
+
   printResume(){
-    console.log("as value: "+this.dynamicForm.value);
-    console.log("as json: "+JSON.stringify(this.dynamicForm.value, null, 4));
+    console.log('as value: ' + this.dynamicForm.value);
+    console.log('as json: ' + JSON.stringify(this.dynamicForm.value, null, 4));
   }
 
+  download(){
+    const document = new Document();
 
-  sendName() {
+    document.addSection({
+      children: [
+        ...this.websiteList
+      ]
+    });
+
+    Packer.toBlob(document).then(blob => {
+      saveAs(blob, 'example.docx');
+    });
+  }
+
+  sendResume() {
 
     // General
     const nameInput = this.nameInputRef.nativeElement.value;
-    const socialInput = this.socialInputRef.nativeElement.value;
+    // const socialInput = this.socialInputRef.nativeElement.value;
     const emailInput = this.emailInputRef.nativeElement.value;
     const numberInput = this.numberInputRef.nativeElement.value;
 
@@ -154,7 +199,7 @@ export class AngularResumeComponent implements OnInit {
     const websiteInput = this.webSiteRef.nativeElement.value;
 
 
-    const general = new General(nameInput, socialInput, emailInput, numberInput);
+    const general = new General(nameInput, emailInput, numberInput);
     const summary = new Summary(summaryInput);
     const education = [new Education(schoolInput, schoolLocation, schoolStart, schoolEnd, schoolCurrent, degree)];
     const experience = [new Experience(jobInput, jobLocation, jobStart, jobEnd, jobCurrent, jobDesc)];
@@ -169,8 +214,60 @@ export class AngularResumeComponent implements OnInit {
     // console.log(general.email);
     // console.log(general.phoneNumber);
 
-    const resume = new Resume(general, summary, education, experience, skills, projects, achievements, websites);
-    this.outputName.emit(resume);
+    this.resumeBuilder = new Resume(general, summary, education, experience, skills, projects, achievements, websites);
+    this.createNew();
+  }
+
+  createNew() {
+    const doc = new Document();
+    doc.addSection({
+      children: [
+        // general
+        new Paragraph({
+          text: this.resumeBuilder.general.name,
+          heading: HeadingLevel.HEADING_1
+        }),
+        new Paragraph({
+          text: this.resumeBuilder.general.email,
+          heading: HeadingLevel.HEADING_2
+        }),
+        new Paragraph({
+          text: this.resumeBuilder.general.phoneNumber,
+          heading: HeadingLevel.HEADING_2
+        }),
+        ...this.websiteList,
+        // summary
+        new Paragraph({
+          text: this.resumeBuilder.summary.summary,
+          heading: HeadingLevel.HEADING_1
+        }),
+        // education
+        new Paragraph({ text: 'Education', heading: HeadingLevel.HEADING_1}),
+        new Paragraph('EDUCATION ARRAY'),
+        //  experience
+        new Paragraph({ text: 'Experience', heading: HeadingLevel.HEADING_1}),
+        new Paragraph('EXPERIENCE ARRAY'),
+        //  skills
+        new Paragraph({ text: 'Skills', heading: HeadingLevel.HEADING_1}),
+        new Paragraph({
+          text: this.resumeBuilder.skills.description,
+          heading: HeadingLevel.HEADING_4
+        }),
+        // projects
+        new Paragraph({ text: 'Projects', heading: HeadingLevel.HEADING_1}),
+        new Paragraph('PROJECTS ARRAY'),
+        // achievements
+        new Paragraph({ text: 'Achievements', heading: HeadingLevel.HEADING_1}),
+        new Paragraph('Achievements ARRAY'),
+
+      ]
+    });
+
+    Packer.toBlob(doc).then((blob) => {
+      // saveAs from FileSaver will download the file
+      saveAs(blob, 'example.docx');
+    });
+
   }
 
 }

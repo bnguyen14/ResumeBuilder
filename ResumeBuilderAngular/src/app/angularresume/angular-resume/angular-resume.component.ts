@@ -10,6 +10,9 @@ import {
   Summary, Websites
 } from '../../shared/general.model';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import {Document, HeadingLevel, Packer, Paragraph} from 'docx';
+import {saveAs} from 'file-saver';
+import {Website} from '../../models/test/website';
 
 @Component({
   selector: 'app-angular-resume',
@@ -69,22 +72,46 @@ export class AngularResumeComponent implements OnInit {
     this.dynamicForm = this.formBuilder.group({
       websites: new FormArray([])
     });
+    //the first form initialized for "website"
     this.websiteFormArray.push(this.formBuilder.group({
       website : ''
     }));
   }
   //the overall form control of "dynamicForm"
   get formControl() { return this.dynamicForm.controls; }
+
   //use FormArray to push another form into the array
   get websiteFormArray() { return this.formControl.websites as FormArray }
+
   //use in .html file to find how many forms are in a group
   get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[] }
+
+  //use to retrieve data from form as a list
+  get websiteValue() { return this.dynamicForm.value.websites as Website[]}
+
+  //retrieves data websiteValue() and insert each element as text in a new paragraph. returns as list of paragraph
+  get websiteList() {
+
+    let tmparr = this.websiteValue;
+    let paragraphOut:Paragraph[] = []
+
+    for(var i=0;i<tmparr.length;i++){
+      let test = tmparr[i];
+      console.log(test.website);
+      paragraphOut.push(new Paragraph({
+        text : test.website
+      }))
+    }
+
+    return paragraphOut;
+  }
+
 
   //adds another set of the form in the specific category
   incrementList(category:string){
     switch(category){
       case 'website':{
-        if(this.websiteFormGroup.length<=this.maximumFormList){
+        if(this.websiteFormGroup.length<this.maximumFormList){
           this.websiteFormArray.push(this.formBuilder.group({
             website : ''
           }));
@@ -94,12 +121,11 @@ export class AngularResumeComponent implements OnInit {
     }
   }
 
+  //deletes a set of form that is initialized on the webpage
   decrementList(category:string, i:number){
     switch(category){
       case 'website':{
-        if(this.websiteFormGroup.length<=this.maximumFormList){
-          this.websiteFormArray.removeAt(i);
-        }
+        this.websiteFormArray.removeAt(i);
         break;
       }
     }
@@ -110,6 +136,19 @@ export class AngularResumeComponent implements OnInit {
     console.log("as json: "+JSON.stringify(this.dynamicForm.value, null, 4));
   }
 
+  download(){
+    const document = new Document();
+    
+    document.addSection({
+      children: [
+        ...this.websiteList
+      ]
+    });
+
+    Packer.toBlob(document).then(blob => {
+      saveAs(blob, 'example.docx');
+    });
+  }
 
   sendName() {
 

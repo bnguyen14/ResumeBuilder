@@ -13,11 +13,6 @@
           <label for="name">Name</label><br/>
           <input type="text" id="name"  #nameInput>
         </div>
-
-        <div>
-          <label for="socials">Social</label><br/>
-          <input type="text" id="socials" #socialInput>
-        </div>
         <div>
           <label for="email">Email</label><br/>
           <input type="email" id="email" #emailInput>
@@ -200,7 +195,7 @@
               <label for="website">Add Website {{i+1}}</label>
               <button (click)="decrementList('website',i)">remove</button>
             </span><br />
-            
+
             <input type="text" id="website" #website formControlName="website" class="form-control">
           </div>
         </div>

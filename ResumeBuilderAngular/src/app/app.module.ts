@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularResumeComponent } from './angularresume/angular-resume/angular-resume.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        MatExpansionModule
+        MatExpansionModule,
+        ReactiveFormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

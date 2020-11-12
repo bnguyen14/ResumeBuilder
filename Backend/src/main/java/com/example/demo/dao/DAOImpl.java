@@ -35,6 +35,23 @@ public class DAOImpl implements DAO {
         return user;
     }
 
+    //WIP [might delete later ;)]
+//    @Override
+//    @Transactional
+//    public User findUserLogin(String email, String password) {
+//        session = entityManager.unwrap(Session.class);
+//        //code goes here
+//        return session.get(User.class, email) ;
+//    }
+
+    @Override
+    @Transactional
+    public void addUser(User user) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(user);
+
+    }
+
     //needs to be implemented once the entity(s) foreign keys have been properly configured
     //passes through foreign key user_Id to return a list of resumes containing that user_Id
     @Override

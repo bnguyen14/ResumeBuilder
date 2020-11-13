@@ -6,6 +6,6 @@ export interface Experience {
     startDate:Date;
     endDate:Date;
     description:String;
-    Current:boolean;
+    current:boolean;
     resume_Id:number;
 }

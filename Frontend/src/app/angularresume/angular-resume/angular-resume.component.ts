@@ -97,7 +97,7 @@ export class AngularResumeComponent implements OnInit {
 
   // use in .html file to find how many forms are in a group
   get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
-  get educationFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
+  get educationFormGroup() { return this.educationFormArray.controls as FormGroup[]; }
 
   // use to retrieve data from form as a list
   get websiteValue() { return this.dynamicForm.value.websites as Website[]; }

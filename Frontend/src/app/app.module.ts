@@ -9,12 +9,17 @@ import { AngularResumeComponent } from './angularresume/angular-resume/angular-r
 import {MatExpansionModule} from '@angular/material/expansion';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
    // GeneralComponent,
-    AngularResumeComponent
+    AngularResumeComponent,
+   LoginComponent,
+   RegisterComponent
   ],
     imports: [
         BrowserModule,

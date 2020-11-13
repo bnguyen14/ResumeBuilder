@@ -10,7 +10,7 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '
 //   Summary, Websites
 // } from '../../shared/general.model';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import {AlignmentType, Document, HeadingLevel, Packer, Paragraph, TextRun} from 'docx';
+import {AlignmentType, Document, HeadingLevel, Packer, Paragraph, TabStopPosition, TabStopType, TextRun} from 'docx';
 import {saveAs} from 'file-saver';
 import {Website} from '../../models/test/website';
 import {Education} from '../../models/education';
@@ -119,7 +119,34 @@ export class AngularResumeComponent implements OnInit {
         text : test.website
       }));
     }
+    return paragraphOut;
+  }
 
+  get educationList() {
+    const tmparr = this.educationValue;
+    const paragraphOut: Paragraph[] = [];
+
+    for (const test of tmparr) {
+      console.log(test.degree);
+      paragraphOut.push(new Paragraph({
+
+          tabStops: [
+            {
+              type: TabStopType.RIGHT,
+              position: TabStopPosition.MAX,
+            },
+          ],
+          children: [
+            new TextRun({
+              text: test.school,
+              bold: true,
+            }),
+            new TextRun({
+              text: `\t${test.startDate}-${test.endDate}`,
+              bold: true,
+            }),]
+      }));
+    }
     return paragraphOut;
   }
 
@@ -257,7 +284,7 @@ export class AngularResumeComponent implements OnInit {
         }),
         // education
         new Paragraph({ text: 'Education', heading: HeadingLevel.HEADING_1}),
-        new Paragraph('EDUCATION ARRAY'),
+        ...this.educationList,
         //  experience
         new Paragraph({ text: 'Experience', heading: HeadingLevel.HEADING_1}),
         new Paragraph('EXPERIENCE ARRAY'),

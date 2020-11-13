@@ -3,7 +3,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ public class User {
     private String password;
 
     //maps user table to resumes table (w/ Hibernate?)
-    @OneToMany(mappedBy = "User")
+    @OneToMany(mappedBy = "user")
     private List<Resume> resumes;
 
 

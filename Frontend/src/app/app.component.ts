@@ -21,6 +21,8 @@ export class AppComponent {
   title = 'ResumeBuilderAngular';
   something = 'test title';
 
+  register: {}
+  login: {}
 
   newOutputName: {general: General, summary: Summary,
                    education: Education[], experience: Experience[],

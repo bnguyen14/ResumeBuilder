@@ -56,11 +56,14 @@ public class DAOImpl implements DAO {
     //passes through foreign key user_Id to return a list of resumes containing that user_Id
     @Override
     @Transactional
-    public List<Resume> showAllResumesByID(int userID) {
+    public List <Resume> showAllResumesByID(int userID) {
         session = entityManager.unwrap(Session.class);
         //code goes here
+        //List <Resume> resumeList = (List<Resume>) session.get(Session.class, userID);
+        //List <Resume> resumeList = session.createQuery("FROM Resume WHERE user_Id=:user_Id").setParameter("user_Id", userID).getResultList();
 
-        return null;
+
+        return session.createQuery("FROM Resume WHERE user_Id=:user_Id").setParameter("user_Id", userID).getResultList();
     }
 
     @Override

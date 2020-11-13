@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "4602f397-3911-49fd-93ce-b7d1e2d73d97",
+		"name": "Resume Builder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Requests",
+			"item": [
+				{
+					"name": "http://localhost:8080/getUserByEmail/test@mail.com",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getUserByEmail/test@mail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getUserByEmail",
+								"test@mail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/getResumeByID/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getResumeByID/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getResumeByID",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "POST Requests",
+			"item": [
+				{
+					"name": "http://localhost:8080/addUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@mail.com\",\r\n    \"password\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/addUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"addUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/addResume",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test Testmore\",\r\n    \"email\" : \"test@mail.com\",\r\n   \"location\" : \"DaCut, GA\",\r\n   \"summary\" : \"Just a real ass n****a from the burbs\",\r\n   \"skills\" : \"none, im a bum\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/addResume",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"addResume"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "PUT Requests",
+			"item": [],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "DELETE Requests",
+			"item": [],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"variable": [
+		{
+			"id": "ef14741d-35d5-460c-8baa-6e72701386f9",
+			"key": "email",
+			"value": ""
+		},
+		{
+			"id": "5b5e94a1-e185-4f21-95ae-52f859c4480b",
+			"key": "password",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}

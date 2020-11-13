@@ -13,11 +13,6 @@
           <label for="name">Name</label><br/>
           <input type="text" id="name"  #nameInput>
         </div>
-
-        <div>
-          <label for="socials">Social</label><br/>
-          <input type="text" id="socials" #socialInput>
-        </div>
         <div>
           <label for="email">Email</label><br/>
           <input type="email" id="email" #emailInput>
@@ -56,33 +51,38 @@
       <mat-panel-title>
         Education
       </mat-panel-title>
+      <button (click)="incrementList('education')">add another education</button>
     </mat-expansion-panel-header>
       <mat-panel-description>
         <div class="form-group">
-          <div>
-            <label for="school">Add School</label><br />
-            <input type="text" id="school" #educationschool>
+          <div *ngFor="let education of educationFormGroup; let i = index">
+            <div [formGroup]='education'>
+              <div>
+                <label for="school">Add School</label><br />
+                <input type="text" id="school" #educationschool formControlName="school" class="form-control">
+              </div>
+              <div>
+                <label for="location">Add City/State</label><br />
+                <input type="text" id="location" #educationlocation  formControlName="location" class="form-control">
+              </div>
+              <div>
+                <label for="educationstart">Start Date</label><br />
+                <input type="date" id="educationstart" #educationstart  formControlName="startdate" class="form-control">
+              </div>
+              <div>
+                <label for="educationend">End Date</label><br />
+                <input type="date" id="educationend" #educationend  formControlName="enddate" class="form-control">
+              </div>
+              <div>
+                <label for="educationcurrent">Currently Attending?</label>
+                <input type="checkbox" id="educationcurrent" #educationcurrent  formControlName="current" class="form-control">
+              </div>
+              <div>
+                <label for="educationdegree">Degree</label><br />
+                <input type="text" id="educationdegree" #educationdegree  formControlName="degree" class="form-control">
+              </div>
+            </div>
           </div>
-          <div>
-              <label for="location">Add City/State</label><br />
-              <input type="text" id="location" #educationlocation>
-            </div>
-            <div>
-              <label for="educationstart">Start Date</label><br />
-              <input type="date" id="educationstart" #educationstart>
-            </div>
-            <div>
-              <label for="educationend">End Date</label><br />
-              <input type="date" id="educationend" #educationend>
-            </div>
-            <div>
-              <label for="educationcurrent">Currently Attending?</label>
-              <input type="checkbox" id="educationcurrent" #educationcurrent>
-            </div>
-            <div>
-              <label for="educationdegree">Degree</label><br />
-              <input type="text" id="educationdegree" #educationdegree>
-            </div>
         </div><br />
       </mat-panel-description>
   </mat-expansion-panel>
@@ -200,7 +200,7 @@
               <label for="website">Add Website {{i+1}}</label>
               <button (click)="decrementList('website',i)">remove</button>
             </span><br />
-            
+
             <input type="text" id="website" #website formControlName="website" class="form-control">
           </div>
         </div>

@@ -14,6 +14,10 @@ import {Document, HeadingLevel, Packer, Paragraph} from 'docx';
 import {saveAs} from 'file-saver';
 import {Website} from '../../models/test/website';
 import {Education} from '../../models/education';
+import {Experience} from '../../models/experience';
+import {Project} from '../../models/project';
+import {Achievement} from '../../models/achievement';
+
 
 @Component({
   selector: 'app-angular-resume',
@@ -72,7 +76,10 @@ export class AngularResumeComponent implements OnInit {
   ngOnInit(): void {
     this.dynamicForm = this.formBuilder.group({
       websites: new FormArray([]),
-      educations: new FormArray([])
+      educations: new FormArray([]),
+      experiences: new FormArray([]),
+      projects: new FormArray([]),
+      achievements: new FormArray([])
     });
     // the first form initialized for "website"
     this.websiteFormArray.push(this.formBuilder.group({
@@ -86,22 +93,49 @@ export class AngularResumeComponent implements OnInit {
       degree: '',
       current: ''
     }));
+    this.experienceFormArray.push(this.formBuilder.group({
+      company: '',
+      location: '',
+      jobTitle: '',
+      startDate: '',
+      endDate: '',
+      description: '',
+      current: ''
+    }));
+    this.projectFormArray.push(this.formBuilder.group({
+      title: '',
+      description: ''
+    }));
+    this.achievementFormArray.push(this.formBuilder.group({
+      issuer: '',
+      name: '',
+      date: ''
+    }));
   }
   // the overall form control of "dynamicForm"
   get formControl() { return this.dynamicForm.controls; }
 
   // use FormArray to push another form into the array
   get websiteFormArray() { return this.formControl.websites as FormArray; }
-  // use FormArray to push another form into the array
   get educationFormArray() { return this.formControl.educations as FormArray; }
-
+  get experienceFormArray(){return this.formControl.experiences as FormArray; }
+  get projectFormArray(){return this.formControl.projects as FormArray; }
+  get achievementFormArray(){return this.formControl.achievements as FormArray; }
+  
   // use in .html file to find how many forms are in a group
   get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
   get educationFormGroup() { return this.educationFormArray.controls as FormGroup[]; }
+  get experienceFormGroup() { return this.experienceFormArray.controls as FormGroup[]; }
+  get projectFormGroup() { return this.projectFormArray.controls as FormGroup[]; }
+  get achievementFormGroup() { return this.achievementFormArray.controls as FormGroup[]; }
+
 
   // use to retrieve data from form as a list
   get websiteValue() { return this.dynamicForm.value.websites as Website[]; }
   get educationValue() { return this.dynamicForm.value.educations as Education[]; }
+  get experienceValue() { return this.dynamicForm.value.experiences as Experience[]; }
+  get projectValue() { return this.dynamicForm.value.experiences as Project[]; }
+  get achievementValue() { return this.dynamicForm.value.experiences as Achievement[]; }
 
   // retrieves data websiteValue() and insert each element as text in a new paragraph. returns as list of paragraph
   get websiteList() {
@@ -138,11 +172,43 @@ export class AngularResumeComponent implements OnInit {
             location: '',
             startDate: '',
             endDate: '',
-            Degree: '',
-            Current: ''
+            degree: '',
+            current: ''
           }));
         }
         break;
+      }
+      case 'experience': {
+        if (this.experienceFormGroup.length < this.maximumFormList){
+          this .experienceFormArray.push(this.formBuilder.group({
+            company: '',
+            location: '',
+            jobTitle: '',
+            startDate: '',
+            endDate: '',
+            description: '',
+            current: ''
+          }));
+        }
+        break;
+      }
+      case 'project': {
+        if (this.projectFormGroup.length < this.maximumFormList) {
+          this.projectFormArray.push(this.formBuilder.group({
+            title: '',
+            description: ''
+          }));
+        }
+        break;
+      }
+      case 'achievement': {
+        if (this.achievementFormGroup.length < this.maximumFormList) {
+          this.achievementFormArray.push(this.formBuilder.group({
+            issuer: '',
+            name: '',
+            date: ''
+          }));
+        }
       }
     }
   }
@@ -156,6 +222,18 @@ export class AngularResumeComponent implements OnInit {
       }
       case 'education': {
         this.educationFormArray.removeAt(i);
+        break;
+      }
+      case 'experience': {
+        this.experienceFormArray.removeAt(i);
+        break;
+      }
+      case 'project': {
+        this.projectFormArray.removeAt(i);
+        break;
+      }
+      case 'achievement': {
+        this.achievementFormArray.removeAt(i);
         break;
       }
     }

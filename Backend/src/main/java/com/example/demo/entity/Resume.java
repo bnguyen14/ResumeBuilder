@@ -27,6 +27,7 @@ public class Resume {
     @Column(name="skills")
     private String skills;
 
+    //WIP
     //Foreign Key user_Id
     //one-to-many
     @ManyToOne
@@ -42,7 +43,7 @@ public class Resume {
         this.location = location;
         this.summary = summary;
         this.skills = skills;
-        this.user = user;
+        this.user = user; //WIP
     }
 
 
@@ -74,7 +75,7 @@ public class Resume {
 
     public User getUser() {
         return user;
-    }
+    } //WIP
 
     //setters
 
@@ -103,7 +104,7 @@ public class Resume {
         this.skills = skills;
     }
 
-    public void setUser(User user) { this.user = user; }
+    public void setUser(User user) { this.user = user; } //WIP
 
     //empty constructor
     public Resume(){}
@@ -118,7 +119,7 @@ public class Resume {
                 "location: " + location +
                 "summary: " + summary +
                 "skills: " + skills +
-                "userID:" + user +
+                "userID:" + user +  //WIP
                 "} ";
     }
 }

@@ -22,7 +22,8 @@ public class DAOImpl implements DAO {
     @Transactional
     public User findUserEmail(String email) {
         session = entityManager.unwrap(Session.class);
-        User user = session.get(User.class, email);
+        //User user = session.get(User.class, email);
+        User user = session.get(User.class,email);
         return user;
     }
 

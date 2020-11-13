@@ -10,13 +10,15 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '
 //   Summary, Websites
 // } from '../../shared/general.model';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import {Document, HeadingLevel, Packer, Paragraph} from 'docx';
+import {AlignmentType, Document, HeadingLevel, Packer, Paragraph, TextRun} from 'docx';
 import {saveAs} from 'file-saver';
 import {Website} from '../../models/test/website';
 import {Education} from '../../models/education';
 import {Experience} from '../../models/experience';
 import {Project} from '../../models/project';
 import {Achievement} from '../../models/achievement';
+import {Resume} from '../../models/resume';
+import {General, Skills, Summary} from '../../shared/general.model';
 
 
 @Component({
@@ -26,52 +28,20 @@ import {Achievement} from '../../models/achievement';
 })
 export class AngularResumeComponent implements OnInit {
 
+
   maximumFormList = 3;
 
   dynamicForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder){}
 
-  // @Output() outputName = new EventEmitter<Resume>();
-  // // General
-  // @ViewChild('nameInput', {static: false}) nameInputRef: ElementRef;
-  // @ViewChild('socialInput', {static: false}) socialInputRef: ElementRef;
-  // @ViewChild('emailInput', {static: false}) emailInputRef: ElementRef;
-  // @ViewChild('numberInput', {static: false}) numberInputRef: ElementRef;
-  //
-  // // Summary
-  // @ViewChild('summary', {static: false}) summaryInputRef: ElementRef;
-  //
-  // // Education
-  // @ViewChild('educationschool', {static: false}) schoolInputRef: ElementRef;
-  // @ViewChild('educationlocation', {static: false}) schoolocRef: ElementRef;
-  // @ViewChild('educationstart', {static: false}) schoolStartRef: ElementRef;
-  // @ViewChild('educationend', {static: false}) schoolEndRef: ElementRef;
-  // @ViewChild('educationcurrent', {static: false}) schoolCurrRef: ElementRef;
-  // @ViewChild('educationdegree', {static: false}) schoolDegreeRef: ElementRef;
-  //
-  // // Experience
-  // @ViewChild('jobcompany', {static: false}) companyInputRef: ElementRef;
-  // @ViewChild('joblocation', {static: false}) jobLocRef: ElementRef;
-  // @ViewChild('jobstart', {static: false}) jobStarRef: ElementRef;
-  // @ViewChild('jobend', {static: false}) jobEndRef: ElementRef;
-  // @ViewChild('jobcurrent', {static: false}) jobCurrRef: ElementRef;
-  // @ViewChild('jobdescription', {static: false}) jobDescRef: ElementRef;
-  //
-  // // Skills
-  // @ViewChild('skillsdescription', {static: false}) skillDescRef: ElementRef;
-  //
-  // // Projects
-  // @ViewChild('projecttitle', {static: false}) projectTitleRef: ElementRef;
-  // @ViewChild('projectdescription', {static: false}) projectDescRef: ElementRef;
-  //
-  // // Achievements
-  // @ViewChild('achievementissuer', {static: false}) achievementIssRef: ElementRef;
-  // @ViewChild('achievementname', {static: false}) achievementNameRef: ElementRef;
-  // @ViewChild('achievementdate', {static: false}) achievementDateRef: ElementRef;
-  //
-  // // Website
-  // @ViewChild('website', {static: false}) webSiteRef: ElementRef;
+  name: string;
+  email: string;
+  number: string;
+  summary: string;
+  skillDesc: string;
+
+
 
   ngOnInit(): void {
     this.dynamicForm = this.formBuilder.group({
@@ -121,7 +91,7 @@ export class AngularResumeComponent implements OnInit {
   get experienceFormArray(){return this.formControl.experiences as FormArray; }
   get projectFormArray(){return this.formControl.projects as FormArray; }
   get achievementFormArray(){return this.formControl.achievements as FormArray; }
-  
+
   // use in .html file to find how many forms are in a group
   get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
   get educationFormGroup() { return this.educationFormArray.controls as FormGroup[]; }
@@ -142,7 +112,7 @@ export class AngularResumeComponent implements OnInit {
 
     const tmparr = this.websiteValue;
     const paragraphOut: Paragraph[] = [];
-    
+
     for (const test of tmparr) {
       console.log(test.website);
       paragraphOut.push(new Paragraph({
@@ -152,6 +122,8 @@ export class AngularResumeComponent implements OnInit {
 
     return paragraphOut;
   }
+
+
 
 
   // adds another set of the form in the specific category
@@ -258,66 +230,57 @@ export class AngularResumeComponent implements OnInit {
     });
   }
 
-  // sendName() {
-  //
-  //   // General
-  //   const nameInput = this.nameInputRef.nativeElement.value;
-  //   const socialInput = this.socialInputRef.nativeElement.value;
-  //   const emailInput = this.emailInputRef.nativeElement.value;
-  //   const numberInput = this.numberInputRef.nativeElement.value;
-  //
-  //   // Summary
-  //   const summaryInput = this.summaryInputRef.nativeElement.value;
-  //
-  //   // Education
-  //   const schoolInput = this.schoolInputRef.nativeElement.value;
-  //   const schoolLocation = this.schoolocRef.nativeElement.value;
-  //   const schoolStart = new Date(this.schoolStartRef.nativeElement.value);
-  //   const schoolEnd = new Date(this.schoolEndRef.nativeElement.value);
-  //   const schoolCurrent = this.schoolCurrRef.nativeElement.value;
-  //   const degree = this.schoolDegreeRef.nativeElement.value;
-  //
-  //   // Experience
-  //   const jobInput = this.companyInputRef.nativeElement.value;
-  //   const jobLocation = this.jobLocRef.nativeElement.value;
-  //   const jobStart = new Date(this.jobStarRef.nativeElement.value);
-  //   const jobEnd = new Date(this.jobEndRef.nativeElement.value);
-  //   const jobCurrent = this.jobCurrRef.nativeElement.value;
-  //   const jobDesc = this.jobDescRef.nativeElement.value;
-  //
-  //   // Skills
-  //   const skillDesc = this.skillDescRef.nativeElement.value;
-  //
-  //   // Projects
-  //   const projectTitle = this.projectTitleRef.nativeElement.value;
-  //   const projectDesc = this.projectDescRef.nativeElement.value;
-  //
-  //   // Achievements
-  //   const achievementIssuer = this.achievementIssRef.nativeElement.value;
-  //   const achievementDate = new Date(this.achievementDateRef.nativeElement.value);
-  //   const achievementName = this.achievementNameRef.nativeElement.value;
-  //
-  //   // Website
-  //   const websiteInput = this.webSiteRef.nativeElement.value;
-  //
-  //
-  //   const general = new General(nameInput, socialInput, emailInput, numberInput);
-  //   const summary = new Summary(summaryInput);
-  //   const education = [new Education(schoolInput, schoolLocation, schoolStart, schoolEnd, schoolCurrent, degree)];
-  //   const experience = [new Experience(jobInput, jobLocation, jobStart, jobEnd, jobCurrent, jobDesc)];
-  //   const skills = new Skills(skillDesc);
-  //   const projects = [new Projects(projectTitle, projectDesc)];
-  //   const achievements = [new Achievements(achievementIssuer, achievementName, achievementDate)];
-  //   const websites = new Websites(websiteInput);
-  //
-  //
-  //   // console.log(general.name);
-  //   // console.log(general.socials);
-  //   // console.log(general.email);
-  //   // console.log(general.phoneNumber);
-  //
-  //   const resume = new Resume(general, summary, education, experience, skills, projects, achievements, websites);
-  //   this.outputName.emit(resume);
-  // }
 
+
+  createNew() {
+    const doc = new Document();
+    doc.addSection({
+      children: [
+        // general
+        new Paragraph({
+          text: this.name,
+          heading: HeadingLevel.TITLE,
+          alignment: AlignmentType.CENTER
+        }),
+        new Paragraph({
+          children: [
+            new TextRun(`Phone: ${this.number} | Email: ${this.email}`).break()
+          ],
+          alignment: AlignmentType.CENTER
+        }),
+        ...this.websiteList,
+        new Paragraph({
+          text: this.summary,
+          heading: HeadingLevel.HEADING_6,
+          alignment: AlignmentType.CENTER,
+          thematicBreak: true
+        }),
+        // education
+        new Paragraph({ text: 'Education', heading: HeadingLevel.HEADING_1}),
+        new Paragraph('EDUCATION ARRAY'),
+        //  experience
+        new Paragraph({ text: 'Experience', heading: HeadingLevel.HEADING_1}),
+        new Paragraph('EXPERIENCE ARRAY'),
+        //  skills
+        new Paragraph({ text: 'Skills', heading: HeadingLevel.HEADING_1}),
+        new Paragraph({
+          text: this.skillDesc,
+          heading: HeadingLevel.HEADING_4
+        }),
+        // projects
+        new Paragraph({ text: 'Projects', heading: HeadingLevel.HEADING_1}),
+        new Paragraph('PROJECTS ARRAY'),
+        // achievements
+        new Paragraph({ text: 'Achievements', heading: HeadingLevel.HEADING_1}),
+        new Paragraph('Achievements ARRAY'),
+
+      ]
+    });
+
+    Packer.toBlob(doc).then((blob) => {
+      // saveAs from FileSaver will download the file
+      saveAs(blob, 'example.docx');
+    });
+
+  }
 }

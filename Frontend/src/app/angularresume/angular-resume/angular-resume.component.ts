@@ -121,12 +121,14 @@ export class AngularResumeComponent implements OnInit {
   get experienceFormArray(){return this.formControl.experiences as FormArray; }
   get projectFormArray(){return this.formControl.projects as FormArray; }
   get achievementFormArray(){return this.formControl.achievements as FormArray; }
+  
   // use in .html file to find how many forms are in a group
   get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
   get educationFormGroup() { return this.educationFormArray.controls as FormGroup[]; }
   get experienceFormGroup() { return this.experienceFormArray.controls as FormGroup[]; }
   get projectFormGroup() { return this.projectFormArray.controls as FormGroup[]; }
   get achievementFormGroup() { return this.achievementFormArray.controls as FormGroup[]; }
+
 
   // use to retrieve data from form as a list
   get websiteValue() { return this.dynamicForm.value.websites as Website[]; }
@@ -140,7 +142,7 @@ export class AngularResumeComponent implements OnInit {
 
     const tmparr = this.websiteValue;
     const paragraphOut: Paragraph[] = [];
-
+    
     for (const test of tmparr) {
       console.log(test.website);
       paragraphOut.push(new Paragraph({

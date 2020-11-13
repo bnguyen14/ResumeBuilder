@@ -49,9 +49,9 @@ public class DAOImpl implements DAO {
     public void addUser(User user) {
         session = entityManager.unwrap(Session.class);
         session.saveOrUpdate(user);
-
     }
 
+    //WIP
     //needs to be implemented once the entity(s) foreign keys have been properly configured
     //passes through foreign key user_Id to return a list of resumes containing that user_Id
     @Override
@@ -59,12 +59,11 @@ public class DAOImpl implements DAO {
     public List <Resume> showAllResumesByID(int userID) {
         session = entityManager.unwrap(Session.class);
         //code goes here
-        //List <Resume> resumeList = (List<Resume>) session.get(Session.class, userID);
         //List <Resume> resumeList = session.createQuery("FROM Resume WHERE user_Id=:user_Id").setParameter("user_Id", userID).getResultList();
-
 
         return session.createQuery("FROM Resume WHERE user_Id=:user_Id").setParameter("user_Id", userID).getResultList();
     }
+
 
     @Override
     @Transactional
@@ -74,4 +73,5 @@ public class DAOImpl implements DAO {
 
         return resume;
     }
+
 }

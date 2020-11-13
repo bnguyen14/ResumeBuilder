@@ -12,7 +12,7 @@ public interface DAO {
     void addUser (User user);
 
 
-    List<Resume> showAllResumesByID(int userID);
+    List<Resume> showAllResumesByID(int userID);  //WIP
     Resume findResumeID(int resumeID);
     //Resume findResumeByUserID(int userID) //find userName by foregin key user_id
 }

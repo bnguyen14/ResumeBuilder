@@ -108,7 +108,7 @@ export class AngularResumeComponent implements OnInit {
 
     const tmparr = this.websiteValue;
     const paragraphOut: Paragraph[] = [];
-
+    
     for (const test of tmparr) {
       console.log(test.website);
       paragraphOut.push(new Paragraph({

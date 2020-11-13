@@ -72,7 +72,8 @@ export class AngularResumeComponent implements OnInit {
   ngOnInit(): void {
     this.dynamicForm = this.formBuilder.group({
       websites: new FormArray([]),
-      educations: new FormArray([])
+      educations: new FormArray([]),
+      experiences: new FormArray([])
     });
     // the first form initialized for "website"
     this.websiteFormArray.push(this.formBuilder.group({
@@ -86,18 +87,26 @@ export class AngularResumeComponent implements OnInit {
       degree: '',
       current: ''
     }));
+    this.experienceFormArray.push(this.formBuilder.group({
+      company: '',
+      location: '',
+      jobTitle: '',
+      startDate: '',
+      endDate: '',
+      description: '',
+      current: ''
+    }));
   }
   // the overall form control of "dynamicForm"
   get formControl() { return this.dynamicForm.controls; }
 
   // use FormArray to push another form into the array
   get websiteFormArray() { return this.formControl.websites as FormArray; }
-  // use FormArray to push another form into the array
   get educationFormArray() { return this.formControl.educations as FormArray; }
-
+  get experienceFormArray(){return this.formControl.experiences as FormArray; }
   // use in .html file to find how many forms are in a group
   get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
-  get educationFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
+  get educationFormGroup() { return this.educationFormArray.controls as FormGroup[]; }
 
   // use to retrieve data from form as a list
   get websiteValue() { return this.dynamicForm.value.websites as Website[]; }
@@ -138,8 +147,8 @@ export class AngularResumeComponent implements OnInit {
             location: '',
             startDate: '',
             endDate: '',
-            Degree: '',
-            Current: ''
+            degree: '',
+            current: ''
           }));
         }
         break;

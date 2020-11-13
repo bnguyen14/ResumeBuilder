@@ -51,9 +51,11 @@
       <mat-panel-title>
         Education
       </mat-panel-title>
-      <button (click)="incrementList('education')">add another education</button>
+
     </mat-expansion-panel-header>
+    <button (click)="incrementList('education')">add another education</button>
       <mat-panel-description>
+
         <div class="form-group">
           <div *ngFor="let education of educationFormGroup; let i = index">
             <div [formGroup]='education'>
@@ -67,11 +69,11 @@
               </div>
               <div>
                 <label for="educationstart">Start Date</label><br />
-                <input type="date" id="educationstart" #educationstart  formControlName="startdate" class="form-control">
+                <input type="date" id="educationstart" #educationstart  formControlName="startDate" class="form-control">
               </div>
               <div>
                 <label for="educationend">End Date</label><br />
-                <input type="date" id="educationend" #educationend  formControlName="enddate" class="form-control">
+                <input type="date" id="educationend" #educationend  formControlName="endDate" class="form-control">
               </div>
               <div>
                 <label for="educationcurrent">Currently Attending?</label>
@@ -81,6 +83,7 @@
                 <label for="educationdegree">Degree</label><br />
                 <input type="text" id="educationdegree" #educationdegree  formControlName="degree" class="form-control">
               </div>
+              <br/><br/>
             </div>
           </div>
         </div><br />

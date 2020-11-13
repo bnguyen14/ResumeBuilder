@@ -66,8 +66,15 @@ public class CTRLS {
     @PostMapping("/addUser")
     public User addUser(@RequestBody User user){
         dao.addUser(user);
-        System.out.println("LOOK HERE FOR THAT USER INFO, FOO: " + user.toString().toUpperCase()); //for backend visualization
+        System.out.println("LOOK HERE FOR THAT [FRESHLY ADDED] USER INFO, FOO: " + user.toString().toUpperCase()); //for backend visualization
         return user;
+    }
+
+    //adds a new resume entity
+    public Resume addResume(@RequestBody Resume resume){
+        dao.addResume(resume);
+        System.out.println("LOOK HERE FOR THAT [FRESHLY ADDED] RESUME INFO, MY GUY: " + resume.toString().toUpperCase()); //for backend visualization;
+        return resume;
     }
 
 }

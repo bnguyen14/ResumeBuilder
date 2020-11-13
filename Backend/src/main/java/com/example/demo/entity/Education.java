@@ -33,6 +33,21 @@ public class Education {
 
     //Foreign Key resume_Id
     //one-to-one
+    @ManyToOne
+    @JoinColumn(name = "resume_Id", nullable = false)
+    private Resume resume;
+
+
+    public Education(int educationID, String school, String location, String startDate, String endDate, String description, boolean current, Resume resume){
+        this.educationID = educationID;
+        this.school = school;
+        this.location = location;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.description = description;
+        this.current = current;
+        this.resume = resume;
+    }
 
 
     //getters
@@ -95,6 +110,10 @@ public class Education {
     public void setCurrent(boolean current) {
         this.current = current;
     }
+
+
+    //override toString method here
+
 
     //empty constructor
     public Education(){}

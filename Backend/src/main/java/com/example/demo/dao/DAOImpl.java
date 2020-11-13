@@ -23,8 +23,11 @@ public class DAOImpl implements DAO {
     public User findUserEmail(String email) {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
-        User user = session.get(User.class,email);
-        return user;
+
+        List<User> users = session.createQuery("FROM User WHERE email=:email").setParameter("email", email).getResultList();
+
+
+        return users.get(0);
     }
 
     @Override
@@ -50,6 +53,13 @@ public class DAOImpl implements DAO {
     public void addUser(User user) {
         session = entityManager.unwrap(Session.class);
         session.saveOrUpdate(user);
+    }
+
+    @Override
+    @Transactional
+    public void addResume(Resume resume) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(resume);
     }
 
     //WIP

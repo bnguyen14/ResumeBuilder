@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Resume")
@@ -26,8 +27,25 @@ public class Resume {
     @Column(name="skills")
     private String skills;
 
+    //WIP
     //Foreign Key user_Id
     //one-to-many
+    @ManyToOne
+    @JoinColumn(name = "user_Id", nullable = false)
+    private User user;
+
+
+    //constructor
+    public Resume (int resumeID, String name, String email, String location, String summary, String skills, User user){
+        this.resumeID = resumeID;
+        this.name = name;
+        this.email = email;
+        this.location = location;
+        this.summary = summary;
+        this.skills = skills;
+        this.user = user; //WIP
+    }
+
 
     //getters
 
@@ -54,6 +72,10 @@ public class Resume {
     public String getSkills() {
         return skills;
     }
+
+    public User getUser() {
+        return user;
+    } //WIP
 
     //setters
 
@@ -82,6 +104,8 @@ public class Resume {
         this.skills = skills;
     }
 
+    public void setUser(User user) { this.user = user; } //WIP
+
     //empty constructor
     public Resume(){}
 
@@ -95,7 +119,7 @@ public class Resume {
                 "location: " + location +
                 "summary: " + summary +
                 "skills: " + skills +
-                "userID:" +
+                "userID:" + user +  //WIP
                 "} ";
     }
 }

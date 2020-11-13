@@ -14,6 +14,7 @@ import {Document, HeadingLevel, Packer, Paragraph} from 'docx';
 import {saveAs} from 'file-saver';
 import {Website} from '../../models/test/website';
 import {Education} from '../../models/education';
+import {Experience} from '../../models/experience';
 
 @Component({
   selector: 'app-angular-resume',
@@ -107,10 +108,12 @@ export class AngularResumeComponent implements OnInit {
   // use in .html file to find how many forms are in a group
   get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
   get educationFormGroup() { return this.educationFormArray.controls as FormGroup[]; }
+  get experienceFormGroup() { return this.experienceFormArray.controls as FormGroup[]; }
 
   // use to retrieve data from form as a list
   get websiteValue() { return this.dynamicForm.value.websites as Website[]; }
   get educationValue() { return this.dynamicForm.value.educations as Education[]; }
+  get experienceValue() { return this.dynamicForm.value.experiences as Experience[]; }
 
   // retrieves data websiteValue() and insert each element as text in a new paragraph. returns as list of paragraph
   get websiteList() {
@@ -152,6 +155,19 @@ export class AngularResumeComponent implements OnInit {
           }));
         }
         break;
+      }
+      case 'experience': {
+        if (this.experienceFormGroup.length < this.maximumFormList){
+          this .experienceFormArray.push(this.formBuilder.group({
+            company: '',
+            location: '',
+            jobTitle: '',
+            startDate: '',
+            endDate: '',
+            description: '',
+            current: ''
+          }));
+        }
       }
     }
   }

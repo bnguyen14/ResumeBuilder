@@ -2,6 +2,15 @@
 <!--<app-general (outputName)="display($event)"></app-general>-->
 <app-angular-resume (outputName)="display($event)"></app-angular-resume>
 
+
+<p *ngIf="register">
+  <a [routerLink]="'/register'">Register</a><br />
+</p>
+
+<p *ngIf="login">
+ <a [routerLink]="'/'">Login</a>
+</p>
+
 <p *ngIf="newOutputName">
   Name: {{newOutputName.general.name}}
   <br>

@@ -91,7 +91,6 @@ export class AngularResumeComponent implements OnInit {
   get experienceFormArray(){return this.formControl.experiences as FormArray; }
   get projectFormArray(){return this.formControl.projects as FormArray; }
   get achievementFormArray(){return this.formControl.achievements as FormArray; }
-
   // use in .html file to find how many forms are in a group
   get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
   get educationFormGroup() { return this.educationFormArray.controls as FormGroup[]; }
@@ -142,14 +141,83 @@ export class AngularResumeComponent implements OnInit {
               bold: true,
             }),
             new TextRun({
-              text: `\t${test.startDate}-${test.endDate}`,
+              text: `\t${test.startDate} to ${test.endDate}`,
               bold: true,
             }),]
       }));
+      paragraphOut.push(new Paragraph({
+
+        children: [
+          new TextRun({
+            text: `Location: ${test.location}`,
+          }),
+          ]
+    }));
+    paragraphOut.push(new Paragraph({
+
+      children: [
+        new TextRun({
+          text: `Degree: ${test.degree}`,
+        }),
+        ]
+  }));
+
+      // text: `Location: ${test.location}`,
     }
     return paragraphOut;
   }
 
+  get experienceList() {
+    const tmparr = this.experienceValue;
+    const paragraphOut: Paragraph[] = [];
+
+    for (const test of tmparr) {
+      paragraphOut.push(new Paragraph({
+
+          tabStops: [
+            {
+              type: TabStopType.RIGHT,
+              position: TabStopPosition.MAX,
+            },
+          ],
+          children: [
+            new TextRun({
+              text: `Company: ${test.company}`,
+              bold: true,
+            }),
+            new TextRun({
+              text: `\t${test.startDate} to ${test.endDate}`,
+              bold: true,
+            }),]
+      }));
+      paragraphOut.push(new Paragraph({
+
+        children: [
+          new TextRun({
+            text: `Location: ${test.location}`,
+          }),
+          ]
+    }));
+    paragraphOut.push(new Paragraph({
+
+      children: [
+        new TextRun({
+          text: `Job Title: ${test.jobTitle}`,
+        }),
+        ]
+  }));
+  paragraphOut.push(new Paragraph({
+
+    children: [
+      new TextRun({
+        text: `Job Description: ${test.description}`,
+      }),
+      ]
+}));
+      // text: `Location: ${test.location}`,
+    }
+    return paragraphOut;
+  }
 
 
 
@@ -277,28 +345,42 @@ export class AngularResumeComponent implements OnInit {
         }),
         ...this.websiteList,
         new Paragraph({
-          text: this.summary,
+          text: `Summary: ${this.summary}`,
           heading: HeadingLevel.HEADING_6,
-          alignment: AlignmentType.CENTER,
           thematicBreak: true
         }),
         // education
-        new Paragraph({ text: 'Education', heading: HeadingLevel.HEADING_1}),
+        new Paragraph({ text: 'Education', 
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
         ...this.educationList,
         //  experience
-        new Paragraph({ text: 'Experience', heading: HeadingLevel.HEADING_1}),
-        new Paragraph('EXPERIENCE ARRAY'),
+        new Paragraph({ text: 'Experience', 
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
+        ...this.experienceList,
         //  skills
-        new Paragraph({ text: 'Skills', heading: HeadingLevel.HEADING_1}),
+        new Paragraph({ text: 'Skills', 
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
         new Paragraph({
           text: this.skillDesc,
           heading: HeadingLevel.HEADING_4
         }),
         // projects
-        new Paragraph({ text: 'Projects', heading: HeadingLevel.HEADING_1}),
+        new Paragraph({ text: 'Projects', 
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
         new Paragraph('PROJECTS ARRAY'),
         // achievements
-        new Paragraph({ text: 'Achievements', heading: HeadingLevel.HEADING_1}),
+        new Paragraph({ text: 'Achievements', 
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
         new Paragraph('Achievements ARRAY'),
 
       ]

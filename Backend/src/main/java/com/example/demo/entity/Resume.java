@@ -42,23 +42,23 @@ public class Resume {
      * map resume table to all other entities EXCLUDING User
      **/
     //achievement
-    @OneToMany(mappedBy = "achievement")
+    @OneToMany(mappedBy = "resume")
     private List<Achievement> achievements;
 
     //education
-    @OneToMany(mappedBy = "education")
+    @OneToMany(mappedBy = "resume")
     private List<Education> educationList;
 
     //experience
-    @OneToMany(mappedBy = "experience")
+    @OneToMany(mappedBy = "resume")
     private List<Experience> experiences;
 
     //project
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "resume")
     private List<Project> projects;
 
     //website
-    @OneToMany(mappedBy = "website")
+    @OneToMany(mappedBy = "resume")
     private List<Website> websites;
 
 

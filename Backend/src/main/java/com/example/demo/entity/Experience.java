@@ -4,7 +4,7 @@ import org.hibernate.type.StringNVarcharType;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "")
+@Table(name = "experience")
 public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.entity.Achievement;
 import com.example.demo.entity.Resume;
 import com.example.demo.entity.User;
 import org.hibernate.Session;
@@ -83,6 +84,24 @@ public class DAOImpl implements DAO {
         Resume resume = session.get(Resume.class, resumeID);
 
         return resume;
+    }
+
+
+    //deletes any given object by its ID
+    @Override
+    @Transactional
+    public void deleteByID(int id) {
+        session = entityManager.unwrap(Session.class);
+        Object object = session.get(Object.class, id);
+        session.delete(object);
+    }
+
+    @Override
+    @Transactional
+    public User findID(int userID) {
+        session = entityManager.unwrap(Session.class);
+        User user =  session.get(User.class, userID);
+        return user;
     }
 
 }

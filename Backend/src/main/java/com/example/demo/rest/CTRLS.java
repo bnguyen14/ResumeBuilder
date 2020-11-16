@@ -71,10 +71,28 @@ public class CTRLS {
     }
 
     //adds a new resume entity
+    @PostMapping("/addResume")
     public Resume addResume(@RequestBody Resume resume){
         dao.addResume(resume);
         System.out.println("LOOK HERE FOR THAT [FRESHLY ADDED] RESUME INFO, MY GUY: " + resume.toString().toUpperCase()); //for backend visualization;
         return resume;
+    }
+
+
+    /*********
+     * DELETE Requests below
+     ********
+     */
+
+    //deletes User entity by id
+    @DeleteMapping("/deleteUserByID/{userID}")
+    public String deleteUserByID(@PathVariable int userID){
+        User user = dao.findID(userID);
+        if (user == null){
+            throw new RuntimeException("Couldn't find USER with ID: " + userID);
+        }
+        dao.deleteByID(userID);
+        return "Deleted user with ID:" + userID;
     }
 
 }

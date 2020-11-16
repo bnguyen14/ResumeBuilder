@@ -1,233 +1,231 @@
+<div class="container">
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Basic Info</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-panel-description>
+        <div class="form-group" [formGroup]="basicFormGroup">
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label >Name</mat-label>
+              <input matInput type="text" formControlName="name">
+            </mat-form-field>
+          </div>
+            
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email">
+            </mat-form-field>
+          </div>
+          <!-- <div>
+            <mat-label for="phoneNumber">Phone Number</mat-label>
+            <input matInput type="tel" id="phoneNumber" maxlength="10" #numberInput>
+          </div> -->
+        </div><br />
+      </mat-panel-description>
+    </mat-expansion-panel> 
 
-<!-- Basic Info-->
-<mat-accordion>
-  <mat-expansion-panel hideToggle>
+    <!-- Summary -->
+    <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>Basic Info</mat-panel-title>
+      <mat-panel-title>Summary</mat-panel-title>
     </mat-expansion-panel-header>
     <mat-panel-description>
-      <div class="form-group">
+      <div class="form-group" [formGroup]="basicFormGroup">
         <div>
-          <label for="name">Name</label><br/>
-          <input type="text" id="name"  #nameInput>
+          <label for="summary"></label>
+          <textarea id="summary" name="summary" rows="5" cols="60" formControlName="summary" #summary></textarea>
         </div>
-        <div>
-          <label for="email">Email</label><br/>
-          <input type="email" id="email" #emailInput>
-        </div>
-        <div>
-          <label for="phoneNumber">Phone Number</label><br/>
-          <input type="tel" id="phoneNumber" maxlength="10" #numberInput>
-        </div>
-      </div>
-      <br />
+      </div><br />
     </mat-panel-description>
 
-  </mat-expansion-panel>
-</mat-accordion>
-<!-- Summary -->
-<mat-accordion>
-  <mat-expansion-panel hideToggle>
-  <mat-expansion-panel-header>
-    <mat-panel-title>Summary</mat-panel-title>
-  </mat-expansion-panel-header>
-<mat-panel-description>
-<div class="form-group">
-    <div>
-      <label for="summary"></label>
-      <textarea id="summary" name="summary" rows="5" cols="60" #summary></textarea>
-    </div>
-  </div><br />
-</mat-panel-description>
+    </mat-expansion-panel>
 
-  </mat-expansion-panel>
-</mat-accordion>
-<!-- Education -->
-<mat-accordion>
-  <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Education
-      </mat-panel-title>
+    <!-- Education -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Education
+        </mat-panel-title>
 
-    </mat-expansion-panel-header>
-    <button (click)="incrementList('education')">add another education</button>
+      </mat-expansion-panel-header>
+      <button (click)="incrementList('education')">add another education</button>
+        <mat-panel-description>
+
+          <div class="form-group">
+            <div *ngFor="let education of educationFormGroup; let i = index">
+              <div [formGroup]='education'>
+                <span>
+                  <label >Add Education{{i+1}}</label>
+                  <button (click)="decrementList('education',i)">remove</button>
+                </span><br />
+                <div>
+                  <label for="school">Add School</label><br />
+                  <input type="text" id="school" #educationschool formControlName="school" class="form-control">
+                </div>
+                <div>
+                  <label for="location">Add City/State</label><br />
+                  <input type="text" id="location" #educationlocation  formControlName="location" class="form-control">
+                </div>
+                <div>
+                  <label for="educationstart">Start Date</label><br />
+                  <input type="date" id="educationstart" #educationstart  formControlName="startDate" class="form-control">
+                </div>
+                <div>
+                  <label for="educationend">End Date</label><br />
+                  <input type="date" id="educationend" #educationend  formControlName="endDate" class="form-control">
+                </div>
+                <div>
+                  <label for="educationcurrent">Currently Attending?</label>
+                  <input type="checkbox" id="educationcurrent" #educationcurrent  formControlName="current" class="form-control">
+                </div>
+                <div>
+                  <label for="educationdegree">Degree</label><br />
+                  <input type="text" id="educationdegree" #educationdegree  formControlName="degree" class="form-control">
+                </div>
+                <br/><br/>
+              </div>
+            </div>
+          </div><br />
+        </mat-panel-description>
+    </mat-expansion-panel>
+
+    <!-- Experience -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Experience
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <button (click)="incrementList('experience')">add another experience</button>
       <mat-panel-description>
-
         <div class="form-group">
-          <div *ngFor="let education of educationFormGroup; let i = index">
-            <div [formGroup]='education'>
+          <div *ngFor="let experience of experienceFormGroup; let i = index">
+            <div [formGroup]='experience'>
               <span>
-              <label >Add Education{{i+1}}</label>
-              <button (click)="decrementList('education',i)">remove</button>
-            </span><br />
+                  <label >Add Experience {{i+1}}</label>
+                  <button (click)="decrementList('experience',i)">remove</button>
+                </span><br />
               <div>
-                <label for="school">Add School</label><br />
-                <input type="text" id="school" #educationschool formControlName="school" class="form-control">
+                <label for="jobcompany">Add Company</label><br />
+                <input type="text" id="jobcompany" #jobcompany formControlName="company" class="form-control">
               </div>
               <div>
-                <label for="location">Add City/State</label><br />
-                <input type="text" id="location" #educationlocation  formControlName="location" class="form-control">
+                <label for="joblocation">Add Job Location</label><br />
+                <input type="text" id="joblocation" #joblocation formControlName="location" class="form-control">
               </div>
               <div>
-                <label for="educationstart">Start Date</label><br />
-                <input type="date" id="educationstart" #educationstart  formControlName="startDate" class="form-control">
+                <label for="jobtitle">Add Job Title</label><br />
+                <input type="text" id="jobtitle" #jobtitle formControlName="jobTitle" class="form-control">
               </div>
               <div>
-                <label for="educationend">End Date</label><br />
-                <input type="date" id="educationend" #educationend  formControlName="endDate" class="form-control">
+                <label for="jobstart">Add Job Start Date</label><br />
+                <input type="date" id="jobstart" #jobstart formControlName="startDate" class="form-control">
               </div>
               <div>
-                <label for="educationcurrent">Currently Attending?</label>
-                <input type="checkbox" id="educationcurrent" #educationcurrent  formControlName="current" class="form-control">
+                <label for="jobend">Add Job End Date</label><br />
+                <input type="date" id="jobend" #jobend formControlName="endDate" class="form-control">
               </div>
               <div>
-                <label for="educationdegree">Degree</label><br />
-                <input type="text" id="educationdegree" #educationdegree  formControlName="degree" class="form-control">
+                <label for="jobcurrent">Currently Working?</label>
+                <input type="checkbox" id="jobcurrent" #jobcurrent formControlName="current" class="form-control">
               </div>
-              <br/><br/>
+              <div>
+                <label for="jobdescription">Add Job Description</label><br />
+                <textarea name="jobdescription" id="jobdescription" rows="5" cols="60" #jobdescription formControlName="description" class="form-control"></textarea>
+              </div>
             </div>
           </div>
         </div><br />
       </mat-panel-description>
-  </mat-expansion-panel>
-</mat-accordion>
-<!-- Experience -->
-<mat-accordion>
-  <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Experience
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <button (click)="incrementList('experience')">add another experience</button>
-    <mat-panel-description>
-      <div class="form-group">
-        <div *ngFor="let experience of experienceFormGroup; let i = index">
-        <div [formGroup]='experience'>
-          <span>
-              <label >Add Experience {{i+1}}</label>
-              <button (click)="decrementList('experience',i)">remove</button>
-            </span><br />
-          <div>
-            <label for="jobcompany">Add Company</label><br />
-            <input type="text" id="jobcompany" #jobcompany formControlName="company" class="form-control">
-          </div>
-          <div>
-            <label for="joblocation">Add Job Location</label><br />
-            <input type="text" id="joblocation" #joblocation formControlName="location" class="form-control">
-          </div>
-          <div>
-            <label for="jobtitle">Add Job Title</label><br />
-            <input type="text" id="jobtitle" #jobtitle formControlName="jobTitle" class="form-control">
-          </div>
-          <div>
-            <label for="jobstart">Add Job Start Date</label><br />
-            <input type="date" id="jobstart" #jobstart formControlName="startDate" class="form-control">
-          </div>
-          <div>
-            <label for="jobend">Add Job End Date</label><br />
-            <input type="date" id="jobend" #jobend formControlName="endDate" class="form-control">
-          </div>
-          <div>
-            <label for="jobcurrent">Currently Working?</label>
-            <input type="checkbox" id="jobcurrent" #jobcurrent formControlName="current" class="form-control">
-          </div>
-          <div>
-            <label for="jobdescription">Add Job Description</label><br />
-            <textarea name="jobdescription" id="jobdescription" rows="5" cols="60" #jobdescription formControlName="description" class="form-control"></textarea>
-          </div>
-        </div>
-        </div>
+    </mat-expansion-panel>
 
-  </div><br />
-    </mat-panel-description>
-  </mat-expansion-panel>
-</mat-accordion>
-<!-- Skills -->
-<mat-accordion>
-  <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Skills</mat-panel-title>
-    </mat-expansion-panel-header>
+    <!-- Skills -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Skills</mat-panel-title>
+      </mat-expansion-panel-header>
       <mat-panel-description>
         <div class="form-group">
           <div>
-              <label for="skillsdescription">Add Skills</label><br />
-                <textarea name="skillsdescription" id="skillsdescription" rows="5" cols="60" #skillsdescription></textarea>
+            <label for="skillsdescription">Add Skills</label><br />
+            <textarea name="skillsdescription" id="skillsdescription" rows="5" cols="60" #skillsdescription></textarea>
           </div>
         </div><br />
       </mat-panel-description>
-  </mat-expansion-panel>
-</mat-accordion>
-<!-- Projects -->
-<mat-accordion>
-  <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Projects</mat-panel-title>
-    </mat-expansion-panel-header>
-    <button (click)="incrementList('project')">add another project</button>
-    <mat-panel-description>
-      <div class="form-group">
-        <div *ngFor="let project of projectFormGroup; let i = index">
-          <div [formGroup]='project'>
-            <span>
-              <label >Add Project {{i+1}}</label>
-              <button (click)="decrementList('project',i)">remove</button>
-            </span><br />
-            <div>
-              <label for="projecttitle">Add Project Title</label><br />
-              <input type="text" id="projecttitle" #projecttitle>
-            </div>
-            <div>
-              <label for="projectdescription">Add Project Description</label><br />
-              <textarea name="projectdescription" id="projectdescription" rows="5" cols="60" #projectdescription></textarea>
+    </mat-expansion-panel>
+
+    <!-- Projects -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Projects</mat-panel-title>
+      </mat-expansion-panel-header>
+      <button (click)="incrementList('project')">add another project</button>
+      <mat-panel-description>
+        <div class="form-group">
+          <div *ngFor="let project of projectFormGroup; let i = index">
+            <div [formGroup]='project'>
+              <span>
+                <label >Add Project {{i+1}}</label>
+                <button (click)="decrementList('project',i)">remove</button>
+              </span><br />
+              <div>
+                <label for="projecttitle">Add Project Title</label><br />
+                <input type="text" id="projecttitle" #projecttitle>
+              </div>
+              <div>
+                <label for="projectdescription">Add Project Description</label><br />
+                <textarea name="projectdescription" id="projectdescription" rows="5" cols="60" #projectdescription></textarea>
+              </div>
             </div>
           </div>
-        </div>
+        </div><br />
+      </mat-panel-description>
+    </mat-expansion-panel>
 
-  </div><br />
+    <!-- Achievements -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Achievements</mat-panel-title>
+      </mat-expansion-panel-header>
+      <button (click)="incrementList('achievement')">add another achievement</button>
+      <mat-panel-description>
+        <div class="form-group">
+          <div *ngFor="let achievement of achievementFormGroup; let i = index">
+            <div [formGroup]='achievement'>
+              <span>
+                <label >Add Achievement {{i+1}}</label>
+                <button (click)="decrementList('achievement',i)">remove</button>
+              </span><br />
+
+              <div>
+                <label for="achievementissuer">Add Issuer</label><br />
+                <input type="text" id="achievementissuer" #achievementissuer>
+              </div>
+              <div>
+                <label for="achievementname">Add Name</label><br />
+                <input type="text" id="achievementname" #achievementname>
+              </div>
+              <div>
+                <label for="achievementdate">Add Date</label><br />
+                <input type="date" id="achievementdate" #achievementdate>
+              </div>
+              <br/>
+            </div>
+          </div>
+        </div><br />
     </mat-panel-description>
-  </mat-expansion-panel>
-</mat-accordion>
-<!-- Achievements -->
-<mat-accordion>
-  <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Achievements</mat-panel-title>
-    </mat-expansion-panel-header>
-    <button (click)="incrementList('achievement')">add another achievement</button>
-   <mat-panel-description>
-      <div class="form-group">
-        <div *ngFor="let achievement of achievementFormGroup; let i = index">
-          <div [formGroup]='achievement'>
-            <span>
-              <label >Add Achievement {{i+1}}</label>
-              <button (click)="decrementList('achievement',i)">remove</button>
-            </span><br />
+    </mat-expansion-panel>
+  </mat-accordion>
+  <h2>Submit Form Button here</h2>
+  <button (click)="printResume()">view resume in console</button>
+</div>
+<!-- Basic Info-->
 
-            <div>
-              <label for="achievementissuer">Add Issuer</label><br />
-              <input type="text" id="achievementissuer" #achievementissuer>
-            </div>
-            <div>
-              <label for="achievementname">Add Name</label><br />
-              <input type="text" id="achievementname" #achievementname>
-            </div>
-            <div>
-              <label for="achievementdate">Add Date</label><br />
-              <input type="date" id="achievementdate" #achievementdate>
-            </div>
-            <br/>
-          </div>
-        </div>
-
-  </div><br />
-   </mat-panel-description>
-  </mat-expansion-panel>
-</mat-accordion>
 <!-- Websites -->
-<mat-accordion>
+<!-- <mat-accordion>
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>Websites</mat-panel-title>
@@ -249,7 +247,6 @@
       <br />
     </mat-panel-description>
   </mat-expansion-panel>
-</mat-accordion>
-<h2>Submit Form Button here</h2>
-<button (click)="download()">view resume in console</button>
+</mat-accordion> -->
+
 

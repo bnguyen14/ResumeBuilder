@@ -177,11 +177,11 @@
             </span><br />
             <div>
               <label for="projecttitle">Add Project Title</label><br />
-              <input type="text" id="projecttitle" >
+              <input type="text" id="projecttitle" formControlName="title">
             </div>
             <div>
               <label for="projectdescription">Add Project Description</label><br />
-              <textarea name="projectdescription" id="projectdescription" rows="5" cols="60" ></textarea>
+              <textarea name="projectdescription" id="projectdescription" rows="5" cols="60" formControlName="description"></textarea>
             </div>
           </div>
         </div>
@@ -208,15 +208,15 @@
 
             <div>
               <label for="achievementissuer">Add Issuer</label><br />
-              <input type="text" id="achievementissuer" >
+              <input type="text" id="achievementissuer" formControlName="issuer">
             </div>
             <div>
               <label for="achievementname">Add Name</label><br />
-              <input type="text" id="achievementname" >
+              <input type="text" id="achievementname" formControlName="name">
             </div>
             <div>
               <label for="achievementdate">Add Date</label><br />
-              <input type="date" id="achievementdate" >
+              <input type="date" id="achievementdate" formControlName="date">
             </div>
             <br/>
           </div>
@@ -251,5 +251,5 @@
   </mat-expansion-panel>
 </mat-accordion>
 <h2>Submit Form Button here</h2>
-<button (click)="createNew()">view resume in console</button>
+<button (click)="createNew()">Build Resume</button>
 

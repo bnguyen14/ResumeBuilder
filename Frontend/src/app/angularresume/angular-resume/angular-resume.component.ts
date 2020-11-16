@@ -9,7 +9,7 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '
 //   Skills,
 //   Summary, Websites
 // } from '../../shared/general.model';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {Document, HeadingLevel, Packer, Paragraph} from 'docx';
 import {saveAs} from 'file-saver';
 import {Website} from '../../models/test/website';
@@ -25,7 +25,7 @@ import {Achievement} from '../../models/achievement';
   styleUrls: ['./angular-resume.component.css']
 })
 export class AngularResumeComponent implements OnInit {
-
+  test : string;
   maximumFormList = 3;
 
   dynamicForm: FormGroup;
@@ -75,6 +75,13 @@ export class AngularResumeComponent implements OnInit {
 
   ngOnInit(): void {
     this.dynamicForm = this.formBuilder.group({
+      basic: new FormGroup({
+        name: new FormControl(''),
+        email: new FormControl(''),
+        location: new FormControl(''),
+        summary: new FormControl(''),
+        skills: new FormControl(''),
+      }),
       websites: new FormArray([]),
       educations: new FormArray([]),
       experiences: new FormArray([]),
@@ -118,15 +125,20 @@ export class AngularResumeComponent implements OnInit {
   // use FormArray to push another form into the array
   get websiteFormArray() { return this.formControl.websites as FormArray; }
   get educationFormArray() { return this.formControl.educations as FormArray; }
-  get experienceFormArray(){return this.formControl.experiences as FormArray; }
-  get projectFormArray(){return this.formControl.projects as FormArray; }
-  get achievementFormArray(){return this.formControl.achievements as FormArray; }
+  get experienceFormArray() { return this.formControl.experiences as FormArray; }
+  get projectFormArray() { return this.formControl.projects as FormArray; }
+  get achievementFormArray() { return this.formControl.achievements as FormArray; }
+  
   // use in .html file to find how many forms are in a group
+  get basicFormGroup() { return this.dynamicForm.controls.basic as FormGroup; }
   get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
   get educationFormGroup() { return this.educationFormArray.controls as FormGroup[]; }
   get experienceFormGroup() { return this.experienceFormArray.controls as FormGroup[]; }
   get projectFormGroup() { return this.projectFormArray.controls as FormGroup[]; }
   get achievementFormGroup() { return this.achievementFormArray.controls as FormGroup[]; }
+
+  //use to retrieve data from basic form
+  get basicFormValue() { return this.dynamicForm.controls.basic.value }
 
   // use to retrieve data from form as a list
   get websiteValue() { return this.dynamicForm.value.websites as Website[]; }
@@ -137,10 +149,10 @@ export class AngularResumeComponent implements OnInit {
 
   // retrieves data websiteValue() and insert each element as text in a new paragraph. returns as list of paragraph
   get websiteList() {
-
+    
     const tmparr = this.websiteValue;
     const paragraphOut: Paragraph[] = [];
-
+    
     for (const test of tmparr) {
       console.log(test.website);
       paragraphOut.push(new Paragraph({
@@ -155,14 +167,14 @@ export class AngularResumeComponent implements OnInit {
   // adds another set of the form in the specific category
   incrementList(category: string){
     switch (category){
-      case 'website': {
-        if (this.websiteFormGroup.length < this.maximumFormList){
-          this.websiteFormArray.push(this.formBuilder.group({
-            website : ''
-          }));
-        }
-        break;
-      }
+      // case 'website': {
+      //   if (this.websiteFormGroup.length < this.maximumFormList){
+      //     this.websiteFormArray.push(this.formBuilder.group({
+      //       website : ''
+      //     }));
+      //   }
+      //   break;
+      // }
       case 'education': {
         if (this.educationFormGroup.length < this.maximumFormList){
           this.educationFormArray.push(this.formBuilder.group({
@@ -238,8 +250,9 @@ export class AngularResumeComponent implements OnInit {
   }
 
   printResume(){
-    console.log('as value: ' + this.dynamicForm.value);
-    console.log('as json: ' + JSON.stringify(this.dynamicForm.value, null, 4));
+    console.log(this.basicFormValue.name);
+    console.log(this.basicFormValue.email);
+    console.log(this.basicFormValue.summary);
   }
 
   download(){

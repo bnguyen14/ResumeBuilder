@@ -149,7 +149,7 @@ export class AngularResumeComponent implements OnInit {
 
         children: [
           new TextRun({
-            text: `Location: ${test.location}`,
+            text: `${test.location}`,
           }),
           ]
     }));
@@ -157,7 +157,7 @@ export class AngularResumeComponent implements OnInit {
 
       children: [
         new TextRun({
-          text: `Degree: ${test.degree}`,
+          text: `${test.degree}`,
         }),
         ]
   }));
@@ -182,7 +182,7 @@ export class AngularResumeComponent implements OnInit {
           ],
           children: [
             new TextRun({
-              text: `Company: ${test.company}`,
+              text: `${test.company}`,
               bold: true,
             }),
             new TextRun({
@@ -194,7 +194,7 @@ export class AngularResumeComponent implements OnInit {
 
         children: [
           new TextRun({
-            text: `Location: ${test.location}`,
+            text: `${test.location}`,
           }),
           ]
     }));
@@ -202,7 +202,7 @@ export class AngularResumeComponent implements OnInit {
 
       children: [
         new TextRun({
-          text: `Job Title: ${test.jobTitle}`,
+          text: `${test.jobTitle}`,
         }),
         ]
   }));
@@ -210,7 +210,7 @@ export class AngularResumeComponent implements OnInit {
 
     children: [
       new TextRun({
-        text: `Job Description: ${test.description}`,
+        text: `${test.description}`,
       }),
       ]
 }));
@@ -345,7 +345,7 @@ export class AngularResumeComponent implements OnInit {
         }),
         ...this.websiteList,
         new Paragraph({
-          text: `Summary: ${this.summary}`,
+          text: `${this.summary}`,
           heading: HeadingLevel.HEADING_6,
           thematicBreak: true
         }),

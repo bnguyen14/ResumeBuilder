@@ -9,15 +9,15 @@
       <div class="form-group">
         <div>
           <label for="name">Name</label><br/>
-          <input type="text" id="name"  #nameInput>
+          <input type="text" id="name" [(ngModel)]="name" >
         </div>
         <div>
           <label for="email">Email</label><br/>
-          <input type="email" id="email" #emailInput>
+          <input type="email" id="email" [(ngModel)]="email" >
         </div>
         <div>
           <label for="phoneNumber">Phone Number</label><br/>
-          <input type="tel" id="phoneNumber" maxlength="10" #numberInput>
+          <input type="tel" id="phoneNumber" [(ngModel)]="number" maxlength="10" >
         </div>
       </div>
       <br />
@@ -35,7 +35,7 @@
 <div class="form-group">
     <div>
       <label for="summary"></label>
-      <textarea id="summary" name="summary" rows="5" cols="60" #summary></textarea>
+      <textarea id="summary" name="summary" rows="5" cols="60" [(ngModel)]="summary" ></textarea>
     </div>
   </div><br />
 </mat-panel-description>
@@ -63,27 +63,27 @@
             </span><br />
               <div>
                 <label for="school">Add School</label><br />
-                <input type="text" id="school" #educationschool formControlName="school" class="form-control">
+                <input type="text" id="school"  formControlName="school" class="form-control">
               </div>
               <div>
                 <label for="location">Add City/State</label><br />
-                <input type="text" id="location" #educationlocation  formControlName="location" class="form-control">
+                <input type="text" id="location"   formControlName="location" class="form-control">
               </div>
               <div>
                 <label for="educationstart">Start Date</label><br />
-                <input type="date" id="educationstart" #educationstart  formControlName="startDate" class="form-control">
+                <input type="date" id="educationstart"   formControlName="startDate" class="form-control">
               </div>
               <div>
                 <label for="educationend">End Date</label><br />
-                <input type="date" id="educationend" #educationend  formControlName="endDate" class="form-control">
+                <input type="date" id="educationend"   formControlName="endDate" class="form-control">
               </div>
               <div>
                 <label for="educationcurrent">Currently Attending?</label>
-                <input type="checkbox" id="educationcurrent" #educationcurrent  formControlName="current" class="form-control">
+                <input type="checkbox" id="educationcurrent"   formControlName="current" class="form-control">
               </div>
               <div>
                 <label for="educationdegree">Degree</label><br />
-                <input type="text" id="educationdegree" #educationdegree  formControlName="degree" class="form-control">
+                <input type="text" id="educationdegree"   formControlName="degree" class="form-control">
               </div>
               <br/><br/>
             </div>
@@ -111,31 +111,31 @@
             </span><br />
           <div>
             <label for="jobcompany">Add Company</label><br />
-            <input type="text" id="jobcompany" #jobcompany formControlName="company" class="form-control">
+            <input type="text" id="jobcompany"  formControlName="company" class="form-control">
           </div>
           <div>
             <label for="joblocation">Add Job Location</label><br />
-            <input type="text" id="joblocation" #joblocation formControlName="location" class="form-control">
+            <input type="text" id="joblocation"  formControlName="location" class="form-control">
           </div>
           <div>
             <label for="jobtitle">Add Job Title</label><br />
-            <input type="text" id="jobtitle" #jobtitle formControlName="jobTitle" class="form-control">
+            <input type="text" id="jobtitle"  formControlName="jobTitle" class="form-control">
           </div>
           <div>
             <label for="jobstart">Add Job Start Date</label><br />
-            <input type="date" id="jobstart" #jobstart formControlName="startDate" class="form-control">
+            <input type="date" id="jobstart"  formControlName="startDate" class="form-control">
           </div>
           <div>
             <label for="jobend">Add Job End Date</label><br />
-            <input type="date" id="jobend" #jobend formControlName="endDate" class="form-control">
+            <input type="date" id="jobend"  formControlName="endDate" class="form-control">
           </div>
           <div>
             <label for="jobcurrent">Currently Working?</label>
-            <input type="checkbox" id="jobcurrent" #jobcurrent formControlName="current" class="form-control">
+            <input type="checkbox" id="jobcurrent"  formControlName="current" class="form-control">
           </div>
           <div>
             <label for="jobdescription">Add Job Description</label><br />
-            <textarea name="jobdescription" id="jobdescription" rows="5" cols="60" #jobdescription formControlName="description" class="form-control"></textarea>
+            <textarea name="jobdescription" id="jobdescription" rows="5" cols="60"  formControlName="description" class="form-control"></textarea>
           </div>
         </div>
         </div>
@@ -154,7 +154,7 @@
         <div class="form-group">
           <div>
               <label for="skillsdescription">Add Skills</label><br />
-                <textarea name="skillsdescription" id="skillsdescription" rows="5" cols="60" #skillsdescription></textarea>
+                <textarea name="skillsdescription" id="skillsdescription" [(ngModel)]="skillDesc" rows="5" cols="60" ></textarea>
           </div>
         </div><br />
       </mat-panel-description>
@@ -177,11 +177,11 @@
             </span><br />
             <div>
               <label for="projecttitle">Add Project Title</label><br />
-              <input type="text" id="projecttitle" #projecttitle>
+              <input type="text" id="projecttitle" >
             </div>
             <div>
               <label for="projectdescription">Add Project Description</label><br />
-              <textarea name="projectdescription" id="projectdescription" rows="5" cols="60" #projectdescription></textarea>
+              <textarea name="projectdescription" id="projectdescription" rows="5" cols="60" ></textarea>
             </div>
           </div>
         </div>
@@ -208,15 +208,15 @@
 
             <div>
               <label for="achievementissuer">Add Issuer</label><br />
-              <input type="text" id="achievementissuer" #achievementissuer>
+              <input type="text" id="achievementissuer" >
             </div>
             <div>
               <label for="achievementname">Add Name</label><br />
-              <input type="text" id="achievementname" #achievementname>
+              <input type="text" id="achievementname" >
             </div>
             <div>
               <label for="achievementdate">Add Date</label><br />
-              <input type="date" id="achievementdate" #achievementdate>
+              <input type="date" id="achievementdate" >
             </div>
             <br/>
           </div>
@@ -251,5 +251,5 @@
   </mat-expansion-panel>
 </mat-accordion>
 <h2>Submit Form Button here</h2>
-<button (click)="download()">view resume in console</button>
+<button (click)="createNew()">view resume in console</button>
 

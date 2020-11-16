@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.entity.Achievement;
 import com.example.demo.entity.Resume;
 import com.example.demo.entity.User;
 
@@ -9,7 +10,7 @@ public interface DAO {
     User findUserEmail(String email);
     User findUserPassword(String password);
     //User findUserLogin(String email, String password);
-
+    List<Achievement> findAchievementID(int id);
 
     void addUser (User user);
     void addResume (Resume resume);

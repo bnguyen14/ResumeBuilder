@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.entity.Achievement;
 import com.example.demo.entity.Resume;
 import com.example.demo.entity.User;
 import org.hibernate.Session;
@@ -37,6 +38,18 @@ public class DAOImpl implements DAO {
         User user = session.get(User.class, password);
 
         return user;
+    }
+
+    @Override
+    @Transactional
+    public List<Achievement> findAchievementID(int achievementID) {
+        session = entityManager.unwrap(Session.class);
+        //User user = session.get(User.class, email);
+
+        List<Achievement> achievements = session.createQuery("FROM achievement WHERE id=:achievementID").setParameter("achievementID", achievementID).getResultList();
+
+
+        return achievements;
     }
 
     //WIP [might delete later ;)]

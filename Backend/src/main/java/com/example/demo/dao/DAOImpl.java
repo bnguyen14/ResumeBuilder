@@ -1,8 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.entity.Achievement;
-import com.example.demo.entity.Resume;
-import com.example.demo.entity.User;
+import com.example.demo.entity.*;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,6 +48,42 @@ public class DAOImpl implements DAO {
 
 
         return achievements;
+    }
+
+    @Override
+    @Transactional
+    public List<Education> findEducationID(int educationID) {
+        session = entityManager.unwrap(Session.class);
+        //User user = session.get(User.class, email);
+
+        List<Education> education = session.createQuery("FROM education WHERE id=:educationID").setParameter("educationID", educationID).getResultList();
+
+
+        return education;
+    }
+
+    @Override
+    @Transactional
+    public List<Experience> findExperienceID(int experienceID) {
+        session = entityManager.unwrap(Session.class);
+        //User user = session.get(User.class, email);
+
+        List<Experience> experience = session.createQuery("FROM experience WHERE id=:experienceID").setParameter("experienceID", experienceID).getResultList();
+
+
+        return experience;
+    }
+
+    @Override
+    @Transactional
+    public List<Project> findProjectID(int projectID) {
+        session = entityManager.unwrap(Session.class);
+        //User user = session.get(User.class, email);
+
+        List<Project> project = session.createQuery("FROM project WHERE id=:projectID").setParameter("projectID", projectID).getResultList();
+
+
+        return project;
     }
 
     //WIP [might delete later ;)]

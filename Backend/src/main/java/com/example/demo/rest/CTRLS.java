@@ -1,9 +1,7 @@
 package com.example.demo.rest;
 
 import com.example.demo.dao.DAO;
-import com.example.demo.entity.Achievement;
-import com.example.demo.entity.Resume;
-import com.example.demo.entity.User;
+import com.example.demo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,6 +57,38 @@ public class CTRLS {
         }
         return achievement;
     }
+
+    //    http://localhost:8080/getEducationByID/{educationID}
+    @GetMapping("/getEducationByID/{educationID}")
+    public List<Education> getEducationByID(@PathVariable int educationID){
+        List<Education> education = dao.findEducationID(educationID);
+        if(education == null){
+            throw new RuntimeException(("Couldn't find a education with ID " + educationID + " , mate."));
+        }
+        return education;
+    }
+
+    //    http://localhost:8080/getExperienceByID/{experienceID}
+    @GetMapping("/getExperienceByID/{experienceID}")
+    public List<Experience> getExperienceByID(@PathVariable int experienceID){
+        List<Experience> experience = dao.findExperienceID(experienceID);
+        if(experience == null){
+            throw new RuntimeException(("Couldn't find a experience with ID " + experienceID + " , mate."));
+        }
+        return experience;
+    }
+
+    //    http://localhost:8080/getProjectByID/{projectID}
+    @GetMapping("/getProjectByID/{projectID}")
+    public List<Project> getProjectByID(@PathVariable int projectID){
+        List<Project> project = dao.findProjectID(projectID);
+        if(project == null){
+            throw new RuntimeException(("Couldn't find a project with ID " + projectID + " , mate."));
+        }
+        return project;
+    }
+
+
 
 
 

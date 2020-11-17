@@ -1,4 +1,10 @@
-<p><button (click)="download()">generate word doc</button></p>
+<body>
+  <div class="container">
+    <div class="myTitle">
+    <h2>Professional Resume Builder</h2>
+  </div>
+  <!--<button (click)="download()">generate word doc</button><br />-->
+
 <!--<app-general (outputName)="display($event)"></app-general>-->
 <app-angular-resume (outputName)="display($event)"></app-angular-resume>
 
@@ -20,3 +26,6 @@
   <br>
   Phone Number: {{newOutputName.general.phoneNumber}}
 </p>
+
+</div>
+</body>

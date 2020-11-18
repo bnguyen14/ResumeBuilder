@@ -21,7 +21,6 @@
 
   .mat-expansion-panel-header mat-panel-title {
     color: brown;
-    
   }
 
   .mat-expansion-panel {
@@ -30,4 +29,61 @@
 
   .container mat-expansion-panel mat-label {
     color: blue;
+  }
+
+  .checkboxes label {
+    display: inline-block;
+    padding-right: 10px;
+    white-space: nowrap;
+    color: blue;
+  }
+  .checkboxes input {
+    vertical-align: middle;
+  }
+  
+  .checkboxes label span {
+    vertical-align: middle;
+  }
+
+  .addButton, .deleteButton{
+    display: inline-block;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  .addButton button{
+    background-color: lightgreen;
+    border: 2px solid brown;
+    color: brown;
+  }
+
+  .deleteButton button{
+    background-color: orangered;
+    color: white;
+  }
+
+  .printButton{
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    
+  }
+
+  .printButton button{
+    background-color: brown;
+    color:white;
+    font-size: 20px;
+  }
+
+  .form-group label {
+    color: blue;
+    font-size: 18px;
+    padding-right: 20px;
+  }
+
+  .stayInLine{
+    display: inline-block;
+    padding-right: 10px;
   }

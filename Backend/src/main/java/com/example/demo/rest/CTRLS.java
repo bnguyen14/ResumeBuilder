@@ -88,7 +88,25 @@ public class CTRLS {
         return project;
     }
 
+    //    http://localhost:8080/getUserByID/{userID}
+    @GetMapping("/getUserByID/{userID}")
+    public List<User> getUserByID(@PathVariable int userID){
+        List<User> user = dao.findUserID(userID);
+        if(user == null){
+            throw new RuntimeException(("Couldn't find a project with ID " + userID + " , mate."));
+        }
+        return user;
+    }
 
+    //    http://localhost:8080/getWebsiteByID/{websiteID}
+    @GetMapping("/getWebsiteByID/{websiteID}")
+    public List<Website> getWebsiteByID(@PathVariable int websiteID){
+        List<Website> website = dao.findWebsiteID(websiteID);
+        if(website == null){
+            throw new RuntimeException(("Couldn't find a project with ID " + websiteID + " , mate."));
+        }
+        return website;
+    }
 
 
 

@@ -86,6 +86,31 @@ public class DAOImpl implements DAO {
         return project;
     }
 
+    @Override
+    @Transactional
+    public List<User> findUserID(int userId) {
+        session = entityManager.unwrap(Session.class);
+        //User user = session.get(User.class, email);
+
+        List<User> user = session.createQuery("FROM project WHERE id=:userId").setParameter("userId", userId).getResultList();
+
+
+        return user;
+    }
+
+    @Override
+    @Transactional
+    public List<Website> findWebsiteID(int websiteId) {
+        session = entityManager.unwrap(Session.class);
+        //User user = session.get(User.class, email);
+
+        List<Website> website = session.createQuery("FROM project WHERE id=:userId").setParameter("userId", websiteId).getResultList();
+
+
+        return website;
+    }
+
+
     //WIP [might delete later ;)]
 //    @Override
 //    @Transactional

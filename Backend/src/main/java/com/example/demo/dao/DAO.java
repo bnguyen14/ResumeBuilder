@@ -12,6 +12,8 @@ public interface DAO {
     List<Education> findEducationID(int id);
     List<Experience> findExperienceID(int id);
     List<Project> findProjectID(int id);
+    List<User> findUserID(int id);
+    List<Website> findWebsiteID(int id);
 
     void addUser (User user);
     void addResume (Resume resume);

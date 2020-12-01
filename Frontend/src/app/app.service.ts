@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {ToastrModule} from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })

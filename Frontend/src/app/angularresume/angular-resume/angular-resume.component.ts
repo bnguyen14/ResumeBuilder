@@ -103,8 +103,8 @@ export class AngularResumeComponent implements OnInit {
   get websiteValue() { return this.dynamicForm.value.websites as Website[]; }
   get educationValue() { return this.dynamicForm.value.educations as Education[]; }
   get experienceValue() { return this.dynamicForm.value.experiences as Experience[]; }
-  get projectValue() { return this.dynamicForm.value.experiences as Project[]; }
-  get achievementValue() { return this.dynamicForm.value.experiences as Achievement[]; }
+  get projectValue() { return this.dynamicForm.value.projects as Project[]; }
+  get achievementValue() { return this.dynamicForm.value.achievements as Achievement[]; }
 
   // retrieves data websiteValue() and insert each element as text in a new paragraph. returns as list of paragraph
   get websiteList() {
@@ -126,6 +126,7 @@ export class AngularResumeComponent implements OnInit {
     const paragraphOut: Paragraph[] = [];
 
     for (const test of tmparr) {
+
       console.log(test.degree);
       paragraphOut.push(new Paragraph({
 
@@ -143,7 +144,7 @@ export class AngularResumeComponent implements OnInit {
             new TextRun({
               text: `\t${test.startDate} to ${test.endDate}`,
               bold: true,
-            }),]
+            }), ]
       }));
       paragraphOut.push(new Paragraph({
 
@@ -153,7 +154,7 @@ export class AngularResumeComponent implements OnInit {
           }),
           ]
     }));
-    paragraphOut.push(new Paragraph({
+      paragraphOut.push(new Paragraph({
 
       children: [
         new TextRun({
@@ -167,58 +168,123 @@ export class AngularResumeComponent implements OnInit {
     return paragraphOut;
   }
 
-  get experienceList() {
-    const tmparr = this.experienceValue;
+  get projectList() {
+    const tmparr = this.projectValue;
     const paragraphOut: Paragraph[] = [];
 
-    for (const test of tmparr) {
-      paragraphOut.push(new Paragraph({
 
-          tabStops: [
-            {
-              type: TabStopType.RIGHT,
-              position: TabStopPosition.MAX,
-            },
-          ],
+    for (const test of tmparr) {
+      console.log(test.title);
+      paragraphOut.push(new Paragraph({
           children: [
             new TextRun({
-              text: `${test.company}`,
+              text: `${test.title}`,
               bold: true,
             }),
-            new TextRun({
-              text: `\t${test.startDate} to ${test.endDate}`,
-              bold: true,
-            }),]
+          ]
       }));
       paragraphOut.push(new Paragraph({
 
         children: [
           new TextRun({
-            text: `${test.location}`,
-          }),
+            text: `${test.description}`,
+          })
           ]
     }));
-    paragraphOut.push(new Paragraph({
-
-      children: [
-        new TextRun({
-          text: `${test.jobTitle}`,
-        }),
-        ]
-  }));
-  paragraphOut.push(new Paragraph({
-
-    children: [
-      new TextRun({
-        text: `${test.description}`,
-      }),
-      ]
-}));
-      // text: `Location: ${test.location}`,
+      paragraphOut.push(new Paragraph({}));
     }
     return paragraphOut;
   }
 
+  get achievementList() {
+    const tmparr = this.achievementValue;
+    const paragraphOut: Paragraph[] = [];
+
+
+    for (const test of tmparr) {
+      const dateFormat: string = new Date(test.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
+      paragraphOut.push(new Paragraph({
+        tabStops: [
+          {
+            type: TabStopType.RIGHT,
+            position: TabStopPosition.MAX,
+          },
+        ],
+        children: [
+          new TextRun({
+            text: `${test.name}`,
+            bold: true,
+          }),
+        new TextRun({
+          text: `\t${dateFormat}`
+        })]
+      }));
+      paragraphOut.push(new Paragraph({
+        children: [
+          new TextRun({
+            text: `${test.issuer}`,
+            italics: true
+          })
+        ]
+      }));
+      paragraphOut.push(new Paragraph({}));
+    }
+    return paragraphOut;
+  }
+
+
+
+  get experienceList() {
+    const tmparr = this.experienceValue;
+    const paragraphOut: Paragraph[] = [];
+
+    for (const test of tmparr) {
+    paragraphOut.push(new Paragraph({
+
+        tabStops: [
+          {
+            type: TabStopType.RIGHT,
+            position: TabStopPosition.MAX,
+          },
+        ],
+        children: [
+          new TextRun({
+            text: `Company: ${test.company}`,
+            bold: true,
+          }),
+          new TextRun({
+            text: `\t${test.startDate} to ${test.endDate}`,
+            bold: true,
+          }), ]
+      }));
+    paragraphOut.push(new Paragraph({
+
+        children: [
+          new TextRun({
+            text: `Location: ${test.location}`,
+          }),
+        ]
+      }));
+    paragraphOut.push(new Paragraph({
+
+        children: [
+          new TextRun({
+            text: `Job Title: ${test.jobTitle}`,
+          }),
+        ]
+      }));
+    paragraphOut.push(new Paragraph({
+
+        children: [
+          new TextRun({
+            text: `Job Description: ${test.description}`,
+          }),
+        ]
+      }));
+      // text: `Location: ${test.location}`,
+    }
+    return paragraphOut;
+  }
 
 
   // adds another set of the form in the specific category
@@ -350,19 +416,19 @@ export class AngularResumeComponent implements OnInit {
           thematicBreak: true
         }),
         // education
-        new Paragraph({ text: 'Education', 
+        new Paragraph({ text: 'Education',
         heading: HeadingLevel.HEADING_1,
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
         ...this.educationList,
         //  experience
-        new Paragraph({ text: 'Experience', 
+        new Paragraph({ text: 'Experience',
         heading: HeadingLevel.HEADING_1,
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
         ...this.experienceList,
         //  skills
-        new Paragraph({ text: 'Skills', 
+        new Paragraph({ text: 'Skills',
         heading: HeadingLevel.HEADING_1,
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
@@ -371,17 +437,17 @@ export class AngularResumeComponent implements OnInit {
           heading: HeadingLevel.HEADING_4
         }),
         // projects
-        new Paragraph({ text: 'Projects', 
+        new Paragraph({ text: 'Projects',
         heading: HeadingLevel.HEADING_1,
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
-        new Paragraph('PROJECTS ARRAY'),
+        ...this.projectList,
         // achievements
-        new Paragraph({ text: 'Achievements', 
+        new Paragraph({ text: 'Achievements',
         heading: HeadingLevel.HEADING_1,
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
-        new Paragraph('Achievements ARRAY'),
+        ...this.achievementList,
 
       ]
     });

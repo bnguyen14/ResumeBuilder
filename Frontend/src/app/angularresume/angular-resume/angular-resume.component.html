@@ -2,19 +2,19 @@
   <mat-accordion>
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
-        <mat-panel-title>Basic Info</mat-panel-title>
+        <mat-panel-title>Basic Information</mat-panel-title>
       </mat-expansion-panel-header>
       <mat-panel-description>
         <div class="form-group" [formGroup]="basicFormGroup">
-          <div>
-            <mat-form-field appearance="outline">
+          <div class="stayInLine">
+            <mat-form-field appearance="outline" style="width: 400px;">
               <mat-label >Name</mat-label>
               <input matInput type="text" formControlName="name">
             </mat-form-field>
           </div>
             
-          <div>
-            <mat-form-field appearance="outline">
+          <div class="stayInLine">
+            <mat-form-field appearance="outline" style="width: 400px;">
               <mat-label>Email</mat-label>
               <input matInput type="email" formControlName="email">
             </mat-form-field>
@@ -35,8 +35,13 @@
     <mat-panel-description>
       <div class="form-group" [formGroup]="basicFormGroup">
         <div>
-          <label for="summary"></label>
-          <textarea id="summary" name="summary" rows="5" cols="60" formControlName="summary" #summary></textarea>
+          <!--<label for="summary"></label>
+          <textarea id="summary" name="summary" rows="5" cols="60" formControlName="summary" #summary></textarea>-->
+          <mat-form-field appearance="outline" style="width: 500px;">
+            <mat-label>Summary</mat-label>
+            <textarea matInput id="summary" name="summary" rows="5" formControlName="summary" #summary></textarea>
+          </mat-form-field>
+
         </div>
       </div><br />
     </mat-panel-description>
@@ -49,41 +54,61 @@
         <mat-panel-title>
           Education
         </mat-panel-title>
-
       </mat-expansion-panel-header>
-      <button (click)="incrementList('education')">add another education</button>
+      <div class="addButton" >
+      <p><button (click)="incrementList('education')">Add New Education</button></p></div>
         <mat-panel-description>
-
           <div class="form-group">
             <div *ngFor="let education of educationFormGroup; let i = index">
               <div [formGroup]='education'>
                 <span>
-                  <label >Add Education{{i+1}}</label>
-                  <button (click)="decrementList('education',i)">remove</button>
+                  <label >Education {{i+1}} </label>
+                  <div class="deleteButton">
+                  <button (click)="decrementList('education',i)">Delete</button></div>
                 </span><br />
-                <div>
-                  <label for="school">Add School</label><br />
-                  <input type="text" id="school" #educationschool formControlName="school" class="form-control">
+                <div class="stayInLine">
+                  <!--<label for="school">Add School</label><br />
+                  <input type="text" id="school" #educationschool formControlName="school" class="form-control">-->
+                  <mat-form-field appearance="outline" style="width: 400px;">
+                    <mat-label >Add School</mat-label>
+                    <input matInput id="school" type="text" #educationschool formControlName="school" class="form-control">
+                  </mat-form-field>
+                </div>
+                <div class="stayInLine">
+                  <!--<label for="location">Add City/State</label><br />
+                  <input type="text" id="location" #educationlocation  formControlName="location" class="form-control">-->
+                  <mat-form-field appearance="outline" style="width: 400px;">
+                    <mat-label >Add City/State</mat-label>
+                    <input matInput id="location" type="text" #educationlocation formControlName="location" class="form-control">
+                  </mat-form-field>
+                </div>
+                <div class="stayInLine">
+                  <!--<label for="educationstart">Start Date</label><br />
+                  <input type="date" id="educationstart" #educationstart  formControlName="startDate" class="form-control">-->
+                  <mat-form-field appearance="outline" style="width: 400px;">
+                    <mat-label >Start Date</mat-label>
+                    <input matInput id="educationstart" type="date" #educationstart formControlName="startDate" class="form-control">
+                  </mat-form-field>
+                </div>
+                <div class="stayInLine">
+                  <!--<label for="educationend">End Date</label><br />
+                  <input type="date" id="educationend" #educationend  formControlName="endDate" class="form-control">-->
+                  <mat-form-field appearance="outline" style="width: 400px;">
+                    <mat-label>End Date</mat-label>
+                    <input matInput id="educationend" type="date" #educationend formControlName="endDate" class="form-control">
+                  </mat-form-field>
+                </div>
+                <div class="checkboxes">
+                  <label for="educationcurrent">Currently Attending?
+                  <input type="checkbox" id="educationcurrent" #educationcurrent  formControlName="current" class="form-control"></label>
                 </div>
                 <div>
-                  <label for="location">Add City/State</label><br />
-                  <input type="text" id="location" #educationlocation  formControlName="location" class="form-control">
-                </div>
-                <div>
-                  <label for="educationstart">Start Date</label><br />
-                  <input type="date" id="educationstart" #educationstart  formControlName="startDate" class="form-control">
-                </div>
-                <div>
-                  <label for="educationend">End Date</label><br />
-                  <input type="date" id="educationend" #educationend  formControlName="endDate" class="form-control">
-                </div>
-                <div>
-                  <label for="educationcurrent">Currently Attending?</label>
-                  <input type="checkbox" id="educationcurrent" #educationcurrent  formControlName="current" class="form-control">
-                </div>
-                <div>
-                  <label for="educationdegree">Degree</label><br />
-                  <input type="text" id="educationdegree" #educationdegree  formControlName="degree" class="form-control">
+                  <!--<label for="educationdegree">Degree</label><br />
+                  <input type="text" id="educationdegree" #educationdegree  formControlName="degree" class="form-control">-->
+                  <mat-form-field appearance="outline" style="width: 400px;">
+                    <mat-label >Degree</mat-label>
+                    <input matInput id="educationdegree" type="text" #educationdegree formControlName="degree" class="form-control">
+                  </mat-form-field>
                 </div>
                 <br/><br/>
               </div>
@@ -99,42 +124,68 @@
           Experience
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <button (click)="incrementList('experience')">add another experience</button>
+      <div class="addButton">
+      <p><button (click)="incrementList('experience')">Add New Experience</button></p></div>
       <mat-panel-description>
         <div class="form-group">
           <div *ngFor="let experience of experienceFormGroup; let i = index">
             <div [formGroup]='experience'>
               <span>
-                  <label >Add Experience {{i+1}}</label>
-                  <button (click)="decrementList('experience',i)">remove</button>
+                  <label >Experience {{i+1}}</label>
+                  <div class="deleteButton">
+                  <button (click)="decrementList('experience',i)">Delete</button></div>
                 </span><br />
-              <div>
-                <label for="jobcompany">Add Company</label><br />
-                <input type="text" id="jobcompany" #jobcompany formControlName="company" class="form-control">
+              <div class="stayInLine">
+                <!--<label for="jobcompany">Add Company</label><br />
+                <input type="text" id="jobcompany" #jobcompany formControlName="company" class="form-control">-->
+                <mat-form-field appearance="outline" style="width: 400px;">
+                  <mat-label >Add Company</mat-label>
+                  <input matInput id="jobcompany" type="text" #jobcompany formControlName="company" class="form-control">
+                </mat-form-field>
+              </div>
+              <div class="stayInLine">
+                <!--<label for="joblocation">Add Job Location</label><br />
+                <input type="text" id="joblocation" #joblocation formControlName="location" class="form-control">-->
+                <mat-form-field appearance="outline" style="width: 400px;">
+                  <mat-label >Add Job Location</mat-label>
+                  <input matInput id="joblocation" type="text" #joblocation formControlName="location" class="form-control">
+                </mat-form-field>
+              </div>
+              <div class="stayInLine">
+                <!--<label for="jobtitle">Add Job Title</label><br />
+                <input type="text" id="jobtitle" #jobtitle formControlName="jobTitle" class="form-control">-->
+                <mat-form-field appearance="outline" style="width: 400px;">
+                  <mat-label >Add Job Title</mat-label>
+                  <input matInput id="jobtitle" type="text" #jobtitle formControlName="jobTitle" class="form-control">
+                </mat-form-field>
+              </div>
+              <div class="stayInLine">
+                <!--<label for="jobstart">Add Job Start Date</label><br />
+                <input type="date" id="jobstart" #jobstart formControlName="startDate" class="form-control">-->
+                <mat-form-field appearance="outline" style="width: 400px;">
+                  <mat-label >Add Job Start Date</mat-label>
+                  <input matInput id="jobstart" type="date" #jobstart formControlName="startDate" class="form-control">
+                </mat-form-field>
               </div>
               <div>
-                <label for="joblocation">Add Job Location</label><br />
-                <input type="text" id="joblocation" #joblocation formControlName="location" class="form-control">
+                <!--<label for="jobend">Add Job End Date</label><br />
+                <input type="date" id="jobend" #jobend formControlName="endDate" class="form-control">-->
+                <mat-form-field appearance="outline" style="width: 400px;">
+                  <mat-label >Add Job End Date</mat-label>
+                  <input matInput id="jobend" type="date" #jobend formControlName="endDate" class="form-control">
+                </mat-form-field>
+              </div>
+              <div class="checkboxes">
+                <label for="jobcurrent">Currently Working?
+                <input type="checkbox" id="jobcurrent" #jobcurrent formControlName="current" class="form-control"></label>
               </div>
               <div>
-                <label for="jobtitle">Add Job Title</label><br />
-                <input type="text" id="jobtitle" #jobtitle formControlName="jobTitle" class="form-control">
-              </div>
-              <div>
-                <label for="jobstart">Add Job Start Date</label><br />
-                <input type="date" id="jobstart" #jobstart formControlName="startDate" class="form-control">
-              </div>
-              <div>
-                <label for="jobend">Add Job End Date</label><br />
-                <input type="date" id="jobend" #jobend formControlName="endDate" class="form-control">
-              </div>
-              <div>
-                <label for="jobcurrent">Currently Working?</label>
-                <input type="checkbox" id="jobcurrent" #jobcurrent formControlName="current" class="form-control">
-              </div>
-              <div>
-                <label for="jobdescription">Add Job Description</label><br />
-                <textarea name="jobdescription" id="jobdescription" rows="5" cols="60" #jobdescription formControlName="description" class="form-control"></textarea>
+                <!--<label for="jobdescription">Add Job Description</label><br />
+                <textarea name="jobdescription" id="jobdescription" rows="5" cols="60" #jobdescription formControlName="description" class="form-control"></textarea>-->
+                <mat-form-field appearance="outline" style="width: 500px;">
+                  <mat-label >Add Job Description</mat-label>
+                  <textarea matInput id="jobdescription" #jobdescription rows="5" formControlName="description" class="form-control"></textarea>
+                </mat-form-field>
               </div>
             </div>
           </div>
@@ -150,8 +201,14 @@
       <mat-panel-description>
         <div class="form-group">
           <div>
-            <label for="skillsdescription">Add Skills</label><br />
-            <textarea name="skillsdescription" id="skillsdescription" rows="5" cols="60" #skillsdescription></textarea>
+            <!--<label for="skillsdescription">Add Skills</label><br />
+            <textarea name="skillsdescription" id="skillsdescription" rows="5" cols="60" #skillsdescription></textarea>-->
+
+            <mat-form-field appearance="outline" style="width: 500px;">
+              <mat-label >Add Skills</mat-label>
+              <textarea matInput id="skillsdescription" name="skillsdescription" #skillsdescription rows="5"></textarea>
+            </mat-form-field>
+
           </div>
         </div><br />
       </mat-panel-description>
@@ -162,22 +219,34 @@
       <mat-expansion-panel-header>
         <mat-panel-title>Projects</mat-panel-title>
       </mat-expansion-panel-header>
-      <button (click)="incrementList('project')">add another project</button>
+      <div class="addButton">
+      <p><button (click)="incrementList('project')">Add New Project</button></p></div>
       <mat-panel-description>
         <div class="form-group">
           <div *ngFor="let project of projectFormGroup; let i = index">
             <div [formGroup]='project'>
               <span>
-                <label >Add Project {{i+1}}</label>
-                <button (click)="decrementList('project',i)">remove</button>
+                <label >Project {{i+1}}</label>
+                <div class="deleteButton">
+                <button (click)="decrementList('project',i)">Delete</button></div>
               </span><br />
               <div>
-                <label for="projecttitle">Add Project Title</label><br />
-                <input type="text" id="projecttitle" #projecttitle>
+                <!--<label for="projecttitle">Add Project Title</label><br />
+                <input type="text" id="projecttitle" #projecttitle>-->
+                <mat-form-field appearance="outline" style="width: 400px;">
+                  <mat-label >Add Project Title</mat-label>
+                  <input matInput id="projecttitle" type="text" #projecttitle>
+                </mat-form-field>
               </div>
               <div>
-                <label for="projectdescription">Add Project Description</label><br />
-                <textarea name="projectdescription" id="projectdescription" rows="5" cols="60" #projectdescription></textarea>
+                <!--<label for="projectdescription">Add Project Description</label><br />
+                <textarea name="projectdescription" id="projectdescription" rows="5" cols="60" #projectdescription></textarea>-->
+
+                <mat-form-field appearance="outline" style="width: 500px;">
+                  <mat-label >Add Project Description</mat-label>
+                  <textarea matInput id="projectdescription" type="text" rows="5" #projectdescription></textarea>
+                </mat-form-field>
+
               </div>
             </div>
           </div>
@@ -190,27 +259,43 @@
       <mat-expansion-panel-header>
         <mat-panel-title>Achievements</mat-panel-title>
       </mat-expansion-panel-header>
-      <button (click)="incrementList('achievement')">add another achievement</button>
+      <div class="addButton">
+      <p><button (click)="incrementList('achievement')">Add New Achievement</button></p></div>
       <mat-panel-description>
         <div class="form-group">
           <div *ngFor="let achievement of achievementFormGroup; let i = index">
             <div [formGroup]='achievement'>
               <span>
-                <label >Add Achievement {{i+1}}</label>
-                <button (click)="decrementList('achievement',i)">remove</button>
+                <label >Achievement {{i+1}}</label>
+                <div class="deleteButton">
+                <button (click)="decrementList('achievement',i)">Delete</button></div>
               </span><br />
 
-              <div>
-                <label for="achievementissuer">Add Issuer</label><br />
-                <input type="text" id="achievementissuer" #achievementissuer>
+              <div class="stayInLine">
+                <!--<label for="achievementissuer">Add Issuer</label><br />
+                <input type="text" id="achievementissuer" #achievementissuer>-->
+                <mat-form-field appearance="outline" style="width: 400px;">
+                  <mat-label >Add Issuer</mat-label>
+                  <input matInput id="achievementissuer" type="text" #achievementissuer>
+                </mat-form-field>
               </div>
-              <div>
-                <label for="achievementname">Add Name</label><br />
-                <input type="text" id="achievementname" #achievementname>
+
+              <div class="stayInLine">
+                <!--<label for="achievementname">Add Name</label><br />
+                <input type="text" id="achievementname" #achievementname>-->
+                <mat-form-field appearance="outline" style="width: 400px;">
+                  <mat-label >Add Name</mat-label>
+                  <input matInput id="achievementname" type="text" #achievementname>
+                </mat-form-field>
               </div>
+
               <div>
-                <label for="achievementdate">Add Date</label><br />
-                <input type="date" id="achievementdate" #achievementdate>
+                <!--<label for="achievementdate">Add Date</label><br />
+                <input type="date" id="achievementdate" #achievementdate>-->
+                <mat-form-field appearance="outline" style="width: 400px;">
+                  <mat-label >Add Date</mat-label>
+                  <input matInput id="achievementdate" type="date" #achievementdate>
+                </mat-form-field>
               </div>
               <br/>
             </div>
@@ -218,9 +303,10 @@
         </div><br />
     </mat-panel-description>
     </mat-expansion-panel>
-  </mat-accordion>
-  <h2>Submit Form Button here</h2>
-  <button (click)="printResume()">view resume in console</button>
+  </mat-accordion><br />
+  <!--<h2>Submit Form Button here</h2>-->
+  <div class="printButton">
+  <button (click)="printResume()">Create Resume / View Resume in Console</button></div>
 </div>
 <!-- Basic Info-->
 

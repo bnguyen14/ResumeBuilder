@@ -265,7 +265,7 @@ export class AngularResumeComponent implements OnInit {
         ],
         children: [
           new TextRun({
-            text: `Company: ${test.company}`,
+            text: `${test.company}`,
             bold: true,
           }),
           new TextRun({
@@ -277,7 +277,7 @@ export class AngularResumeComponent implements OnInit {
 
         children: [
           new TextRun({
-            text: `Location: ${test.location}`,
+            text: `${test.location}`,
           }),
         ]
       }));
@@ -285,7 +285,7 @@ export class AngularResumeComponent implements OnInit {
 
         children: [
           new TextRun({
-            text: `Job Title: ${test.jobTitle}`,
+            text: `${test.jobTitle}`,
           }),
         ]
       }));
@@ -293,7 +293,7 @@ export class AngularResumeComponent implements OnInit {
 
         children: [
           new TextRun({
-            text: `Job Description: ${test.description}`,
+            text: `${test.description}`,
           }),
         ]
       }));

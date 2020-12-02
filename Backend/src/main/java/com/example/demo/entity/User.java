@@ -2,6 +2,7 @@ package com.example.demo.entity;
 import javax.persistence.*;
 import java.util.List;
 
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -16,18 +17,18 @@ public class User {
     @Column(name="password")
     private String password;
 
-    //maps user table to resumes table (w/ Hibernate?)
-    @OneToMany(mappedBy = "user")
-    private List<Resume> resumes;
+//    //maps user table to resumes table (w/ Hibernate?)
+//    @OneToMany(mappedBy = "user")
+//    private List<Resume> resumes;
 
 
     //constructor
 
-    public User(int userID, String email, String password, List <Resume> resumes){
+    public User(int userID, String email, String password /*,List <Resume> resumes*/){
         this.userID = userID;
         this.email = email;
         this.password = password;
-        this.resumes = resumes;
+        /*this.resumes = resumes;*/
     }
 
 
@@ -45,12 +46,12 @@ public class User {
         return password;
     }
 
-    public List<Resume> getResumes() {
-        return resumes;
-    }
+//    public List<Resume> getResumes() {
+//        return resumes;
+//    }
+
 
     //setters
-
 
     public void setUserID(int userID) {
         this.userID = userID;
@@ -65,9 +66,9 @@ public class User {
     }
 
 
-    public void setResumes(List<Resume> resumes) {
-        this.resumes = resumes;
-    }
+//    public void setResumes(List<Resume> resumes) {
+//        this.resumes = resumes;
+//    }
 
     //override of toString method to display object values for Postman testing
     @Override
@@ -76,7 +77,7 @@ public class User {
                 "userID: " + userID +
                 "email: " + email +
                 "password: " + password +
-                "resumes:" + resumes +
+                /*"resumes:" + resumes + */
                 "}";
     }
 

@@ -40,8 +40,8 @@ public class CTRLS {
 
     //grabs a resume by its respective id
     @GetMapping("/getResumeByID/{resumeID}")
-    public Resume getResume(@PathVariable int resumeID){
-        Resume resume = dao.findResumeID(resumeID);
+    public List <Resume> getResume(@PathVariable int resumeID){
+        List <Resume> resume = dao.findResumeID(resumeID);
         if(resume == null){
             throw new RuntimeException(("Couldn't find a resume with ID " + resumeID + " , mate."));
         }
@@ -115,6 +115,13 @@ public class CTRLS {
 
 
 
+    @GetMapping("/getResViaID/{resumeID}")
+    public Resume getRes(@PathVariable int resumeID){
+        Resume res = dao.findResViaID(resumeID);
+
+        return res;
+    }
+
     //WIP
     //lists ALL resumes belonging to a particular userID
     @GetMapping("/listAllResumesByUser/{userID}")
@@ -125,6 +132,19 @@ public class CTRLS {
         }
         return resumeList;
     }
+
+
+    //GET for Resume dependents
+
+    //achievement
+
+    //edu
+
+    //exp
+
+    //proj
+
+    //site
 
 
 
@@ -142,10 +162,28 @@ public class CTRLS {
     }
 
     //adds a new resume entity
+    @PostMapping("/addResume")
     public Resume addResume(@RequestBody Resume resume){
         dao.addResume(resume);
         System.out.println("LOOK HERE FOR THAT [FRESHLY ADDED] RESUME INFO, MY GUY: " + resume.toString().toUpperCase()); //for backend visualization;
         return resume;
+    }
+
+
+    /*********
+     * DELETE Requests below
+     ********
+     */
+
+    //deletes User entity by id
+    @DeleteMapping("/deleteUserByID/{userID}")
+    public String deleteUserByID(@PathVariable int userID){
+        User user = dao.findID(userID);
+        if (user == null){
+            throw new RuntimeException("Couldn't find USER with ID: " + userID);
+        }
+        dao.deleteUserByID(userID);
+        return "Deleted user with ID:" + userID;
     }
 
 }

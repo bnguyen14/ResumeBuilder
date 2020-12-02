@@ -4,7 +4,7 @@ import org.hibernate.type.StringNVarcharType;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "")
+@Table(name = "experience")
 public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +56,9 @@ public class Experience {
 
     //getters
 
+
+    public int getExperienceID() {return experienceID; }
+
     public String getCompany() {
         return company;
     }
@@ -84,8 +87,10 @@ public class Experience {
         return current;
     }
 
+
     //setters
 
+    public void setExperienceID(int experienceID) { this.experienceID = experienceID; }
 
     public void setCompany(String company) {
         this.company = company;

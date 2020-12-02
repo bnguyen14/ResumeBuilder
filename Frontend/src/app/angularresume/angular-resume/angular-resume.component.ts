@@ -9,11 +9,15 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '
 //   Skills,
 //   Summary, Websites
 // } from '../../shared/general.model';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {Document, HeadingLevel, Packer, Paragraph} from 'docx';
 import {saveAs} from 'file-saver';
 import {Website} from '../../models/test/website';
 import {Education} from '../../models/education';
+import {Experience} from '../../models/experience';
+import {Project} from '../../models/project';
+import {Achievement} from '../../models/achievement';
+
 
 @Component({
   selector: 'app-angular-resume',
@@ -21,7 +25,7 @@ import {Education} from '../../models/education';
   styleUrls: ['./angular-resume.component.css']
 })
 export class AngularResumeComponent implements OnInit {
-
+  test : string;
   maximumFormList = 3;
 
   dynamicForm: FormGroup;
@@ -71,8 +75,18 @@ export class AngularResumeComponent implements OnInit {
 
   ngOnInit(): void {
     this.dynamicForm = this.formBuilder.group({
+      basic: new FormGroup({
+        name: new FormControl(''),
+        email: new FormControl(''),
+        location: new FormControl(''),
+        summary: new FormControl(''),
+        skills: new FormControl(''),
+      }),
       websites: new FormArray([]),
-      educations: new FormArray([])
+      educations: new FormArray([]),
+      experiences: new FormArray([]),
+      projects: new FormArray([]),
+      achievements: new FormArray([])
     });
     // the first form initialized for "website"
     this.websiteFormArray.push(this.formBuilder.group({
@@ -86,26 +100,56 @@ export class AngularResumeComponent implements OnInit {
       degree: '',
       current: ''
     }));
+    this.experienceFormArray.push(this.formBuilder.group({
+      company: '',
+      location: '',
+      jobTitle: '',
+      startDate: '',
+      endDate: '',
+      description: '',
+      current: ''
+    }));
+    this.projectFormArray.push(this.formBuilder.group({
+      title: '',
+      description: ''
+    }));
+    this.achievementFormArray.push(this.formBuilder.group({
+      issuer: '',
+      name: '',
+      date: ''
+    }));
   }
   // the overall form control of "dynamicForm"
   get formControl() { return this.dynamicForm.controls; }
 
   // use FormArray to push another form into the array
   get websiteFormArray() { return this.formControl.websites as FormArray; }
-  // use FormArray to push another form into the array
   get educationFormArray() { return this.formControl.educations as FormArray; }
-
+  get experienceFormArray() { return this.formControl.experiences as FormArray; }
+  get projectFormArray() { return this.formControl.projects as FormArray; }
+  get achievementFormArray() { return this.formControl.achievements as FormArray; }
+  
   // use in .html file to find how many forms are in a group
+  get basicFormGroup() { return this.dynamicForm.controls.basic as FormGroup; }
   get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
   get educationFormGroup() { return this.educationFormArray.controls as FormGroup[]; }
+  get experienceFormGroup() { return this.experienceFormArray.controls as FormGroup[]; }
+  get projectFormGroup() { return this.projectFormArray.controls as FormGroup[]; }
+  get achievementFormGroup() { return this.achievementFormArray.controls as FormGroup[]; }
+
+  //use to retrieve data from basic form
+  get basicFormValue() { return this.dynamicForm.controls.basic.value }
 
   // use to retrieve data from form as a list
   get websiteValue() { return this.dynamicForm.value.websites as Website[]; }
   get educationValue() { return this.dynamicForm.value.educations as Education[]; }
+  get experienceValue() { return this.dynamicForm.value.experiences as Experience[]; }
+  get projectValue() { return this.dynamicForm.value.experiences as Project[]; }
+  get achievementValue() { return this.dynamicForm.value.experiences as Achievement[]; }
 
   // retrieves data websiteValue() and insert each element as text in a new paragraph. returns as list of paragraph
   get websiteList() {
-
+    
     const tmparr = this.websiteValue;
     const paragraphOut: Paragraph[] = [];
     
@@ -123,14 +167,14 @@ export class AngularResumeComponent implements OnInit {
   // adds another set of the form in the specific category
   incrementList(category: string){
     switch (category){
-      case 'website': {
-        if (this.websiteFormGroup.length < this.maximumFormList){
-          this.websiteFormArray.push(this.formBuilder.group({
-            website : ''
-          }));
-        }
-        break;
-      }
+      // case 'website': {
+      //   if (this.websiteFormGroup.length < this.maximumFormList){
+      //     this.websiteFormArray.push(this.formBuilder.group({
+      //       website : ''
+      //     }));
+      //   }
+      //   break;
+      // }
       case 'education': {
         if (this.educationFormGroup.length < this.maximumFormList){
           this.educationFormArray.push(this.formBuilder.group({
@@ -138,11 +182,43 @@ export class AngularResumeComponent implements OnInit {
             location: '',
             startDate: '',
             endDate: '',
-            Degree: '',
-            Current: ''
+            degree: '',
+            current: ''
           }));
         }
         break;
+      }
+      case 'experience': {
+        if (this.experienceFormGroup.length < this.maximumFormList){
+          this .experienceFormArray.push(this.formBuilder.group({
+            company: '',
+            location: '',
+            jobTitle: '',
+            startDate: '',
+            endDate: '',
+            description: '',
+            current: ''
+          }));
+        }
+        break;
+      }
+      case 'project': {
+        if (this.projectFormGroup.length < this.maximumFormList) {
+          this.projectFormArray.push(this.formBuilder.group({
+            title: '',
+            description: ''
+          }));
+        }
+        break;
+      }
+      case 'achievement': {
+        if (this.achievementFormGroup.length < this.maximumFormList) {
+          this.achievementFormArray.push(this.formBuilder.group({
+            issuer: '',
+            name: '',
+            date: ''
+          }));
+        }
       }
     }
   }
@@ -158,12 +234,25 @@ export class AngularResumeComponent implements OnInit {
         this.educationFormArray.removeAt(i);
         break;
       }
+      case 'experience': {
+        this.experienceFormArray.removeAt(i);
+        break;
+      }
+      case 'project': {
+        this.projectFormArray.removeAt(i);
+        break;
+      }
+      case 'achievement': {
+        this.achievementFormArray.removeAt(i);
+        break;
+      }
     }
   }
 
   printResume(){
-    console.log('as value: ' + this.dynamicForm.value);
-    console.log('as json: ' + JSON.stringify(this.dynamicForm.value, null, 4));
+    console.log(this.basicFormValue.name);
+    console.log(this.basicFormValue.email);
+    console.log(this.basicFormValue.summary);
   }
 
   download(){

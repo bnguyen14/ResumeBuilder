@@ -106,8 +106,8 @@ export class AngularResumeComponent implements OnInit {
   get projectFormGroup() { return this.projectFormArray.controls as FormGroup[]; }
   get achievementFormGroup() { return this.achievementFormArray.controls as FormGroup[]; }
 
-  //use to retrieve data from basic form
-  get basicFormValue() { return this.dynamicForm.controls.basic.value }
+  // use to retrieve data from basic form
+  get basicFormValue() { return this.dynamicForm.controls.basic.value; }
 
   // use to retrieve data from form as a list
   get websiteValue() { return this.dynamicForm.value.websites as Website[]; }
@@ -118,14 +118,14 @@ export class AngularResumeComponent implements OnInit {
 
   // retrieves data websiteValue() and insert each element as text in a new paragraph. returns as list of paragraph
   get websiteList() {
-    
+
     const tmparr = this.websiteValue;
     const paragraphOut: Paragraph[] = [];
 
     for (const test of tmparr) {
-      console.log(test.website);
+      console.log('website: ' + this.basicFormValue.website);
       paragraphOut.push(new Paragraph({
-        text : test.website
+        text : this.basicFormValue.website
       }));
     }
     return paragraphOut;
@@ -136,6 +136,8 @@ export class AngularResumeComponent implements OnInit {
     const paragraphOut: Paragraph[] = [];
 
     for (const test of tmparr) {
+      const startDateFormat: string = new Date(test.startDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
+      const endDateFormat: string = new Date(test.endDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
 
       console.log(test.degree);
       paragraphOut.push(new Paragraph({
@@ -152,18 +154,18 @@ export class AngularResumeComponent implements OnInit {
               bold: true,
             }),
             new TextRun({
-              text: `\t${test.startDate} to ${test.endDate}`,
+              text: `\t${startDateFormat} to ${endDateFormat}`,
               bold: true,
             }), ]
       }));
-      paragraphOut.push(new Paragraph({
-
+      paragraphOut.push(new Paragraph( {
         children: [
           new TextRun({
-            text: `${test.location}`,
+            text: test.location,
+            italics: true
           }),
-          ]
-    }));
+        ]
+      }));
       paragraphOut.push(new Paragraph({
 
       children: [
@@ -226,7 +228,8 @@ export class AngularResumeComponent implements OnInit {
             bold: true,
           }),
         new TextRun({
-          text: `\t${dateFormat}`
+          text: `\t${dateFormat}`,
+          bold: true
         })]
       }));
       paragraphOut.push(new Paragraph({
@@ -249,7 +252,10 @@ export class AngularResumeComponent implements OnInit {
     const paragraphOut: Paragraph[] = [];
 
     for (const test of tmparr) {
-    paragraphOut.push(new Paragraph({
+
+      const startDateFormat: string = new Date(test.startDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
+      const endDateFormat: string = new Date(test.endDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
+      paragraphOut.push(new Paragraph({
 
         tabStops: [
           {
@@ -259,35 +265,35 @@ export class AngularResumeComponent implements OnInit {
         ],
         children: [
           new TextRun({
-            text: `Company: ${test.company}`,
+            text: `${test.company}`,
             bold: true,
           }),
           new TextRun({
-            text: `\t${test.startDate} to ${test.endDate}`,
+            text: `\t${startDateFormat} to ${endDateFormat}`,
             bold: true,
           }), ]
       }));
-    paragraphOut.push(new Paragraph({
+      paragraphOut.push(new Paragraph({
 
         children: [
           new TextRun({
-            text: `Location: ${test.location}`,
+            text: `${test.location}`,
           }),
         ]
       }));
-    paragraphOut.push(new Paragraph({
+      paragraphOut.push(new Paragraph({
 
         children: [
           new TextRun({
-            text: `Job Title: ${test.jobTitle}`,
+            text: `${test.jobTitle}`,
           }),
         ]
       }));
-    paragraphOut.push(new Paragraph({
+      paragraphOut.push(new Paragraph({
 
         children: [
           new TextRun({
-            text: `Job Description: ${test.description}`,
+            text: `${test.description}`,
           }),
         ]
       }));
@@ -410,13 +416,13 @@ export class AngularResumeComponent implements OnInit {
       children: [
         // general
         new Paragraph({
-          text: this.name,
+          text: this.basicFormValue.name,
           heading: HeadingLevel.TITLE,
           alignment: AlignmentType.CENTER
         }),
         new Paragraph({
           children: [
-            new TextRun(`Phone: ${this.number} | Email: ${this.email}`).break()
+            new TextRun(`Email: ${this.basicFormValue.email}`).break()
           ],
           alignment: AlignmentType.CENTER
         }),
@@ -444,7 +450,7 @@ export class AngularResumeComponent implements OnInit {
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
         new Paragraph({
-          text: this.skillDesc,
+          text: this.basicFormValue.skills,
           heading: HeadingLevel.HEADING_4
         }),
         // projects
@@ -464,8 +470,17 @@ export class AngularResumeComponent implements OnInit {
     });
 
     Packer.toBlob(doc).then((blob) => {
+      let fileName: string;
+
       // saveAs from FileSaver will download the file
-      saveAs(blob, 'example.docx');
+      if (this.basicFormValue.name.includes(' '))
+      {
+        fileName = this.basicFormValue.name.replace(' ', '_');
+      }
+      else {
+        fileName = this.basicFormValue.name;
+      }
+      saveAs(blob, fileName + '.docx');
     });
 
   }

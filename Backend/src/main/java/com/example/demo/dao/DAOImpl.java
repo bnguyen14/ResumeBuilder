@@ -1,8 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.entity.Achievement;
-import com.example.demo.entity.Resume;
-import com.example.demo.entity.User;
+import com.example.demo.entity.*;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -79,21 +77,128 @@ public class DAOImpl implements DAO {
 
     @Override
     @Transactional
-    public Resume findResumeID(int resumeID) {
+    public List <Resume>  findResumeID(int resumeID) {
+        session = entityManager.unwrap(Session.class);
+        List <Resume> resumeList = session.createQuery("FROM Resume WHERE resume_Id=:resume_Id").setParameter("resume_Id", resumeID).getResultList();
+        //Resume resume = session.get(Resume.class, resumeID);
+
+
+
+        return resumeList; //session.createQuery("FROM Resume WHERE resume_Id=:resume_Id").setParameter("resume_Id", resumeID).getResultList();
+    }
+
+
+
+    /**
+     *TEST METHOD FOR DEBUGGING
+     **/
+    @Override
+    @Transactional
+    public Resume findResViaID(int resumeID) {
         session = entityManager.unwrap(Session.class);
         Resume resume = session.get(Resume.class, resumeID);
-
         return resume;
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    @Transactional
+    public void deleteResumeByID(int resumeID) {
+        session = entityManager.unwrap(Session.class);
+        Resume resume = session.get(Resume.class, resumeID);
+        session.delete(resume);
+
+    }
+
+    @Override
+    public Achievement findAchievementByID(int achievementID) {
+        session = entityManager.unwrap(Session.class);
+        Achievement achievement = session.get(Achievement.class, achievementID);
+
+        return achievement;
+    }
+
+    @Override
+    public void deleteAchievementByID(int achievementID) {
+        session = entityManager.unwrap(Session.class);
+        Achievement achievement = session.get(Achievement.class, achievementID);
+        session.delete(achievement);
+
+    }
+
+    @Override
+    public Education findEducationByID(int educationID) {
+        session = entityManager.unwrap(Session.class);
+        Education education = session.get(Education.class, educationID);
+
+        return education;
+    }
+
+    @Override
+    public void deleteEducationByID(int educationID) {
+        session = entityManager.unwrap(Session.class);
+        Education education = session.get(Education.class, educationID);
+
+        session.delete(education);
+    }
+
+    @Override
+    public Experience findExperienceByID(int experienceID) {
+        session = entityManager.unwrap(Session.class);
+        Experience experience = session.get(Experience.class, experienceID);
+        return experience;
+    }
+
+    @Override
+    public void deleteExperienceByID(int experienceID) {
+        session = entityManager.unwrap(Session.class);
+        Experience experience = session.get(Experience.class, experienceID);
+        session.delete(experience);
+    }
+
+    @Override
+    public Project findProjectByID(int projectID) {
+        session = entityManager.unwrap(Session.class);
+        Project project = session.get(Project.class, projectID);
+
+        return project;
+    }
+
+    @Override
+    public void deleteProjectByID(int projectID) {
+        session = entityManager.unwrap(Session.class);
+        Project project = session.get(Project.class, projectID);
+        session.delete(project);
+
+    }
+
+    @Override
+    public Website findWebsiteByID(int websiteID) {
+        session = entityManager.unwrap(Session.class);
+
+        Website website = session.get(Website.class, websiteID);
+        return website;
+    }
+
+    @Override
+    public void deleteWebsiteByID(int websiteID) {
+        session = entityManager.unwrap(Session.class);
+        Website website = session.get(Website.class, websiteID);
+
+        session.delete(website);
+
     }
 
 
     //deletes any given object by its ID
     @Override
     @Transactional
-    public void deleteByID(int id) {
+    public void deleteUserByID(int userID) {
         session = entityManager.unwrap(Session.class);
-        Object object = session.get(Object.class, id);
-        session.delete(object);
+        User user = session.get(User.class, userID);
+        session.delete(user);
     }
 
     @Override

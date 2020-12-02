@@ -8,8 +8,16 @@ import java.util.List;
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="resume_id")
+
+    @Column(name="resume_Id")
     private int resumeID;
+
+//    //testing
+//    @Column(name = "user_Id")
+//    private int userID;
+
+//    @Column(name="user_Id")
+//    private int userID;
 
     @Column(name="name")
     private String name;
@@ -36,6 +44,7 @@ public class Resume {
     @ManyToOne
     @JoinColumn(name = "user_Id", nullable = false)
     private User user;
+    //private int userID;
 
 
     /**
@@ -64,16 +73,22 @@ public class Resume {
 
 
     //constructor
-    public Resume (int resumeID, String name, String email, String location, String summary, String skills, User user, List<Achievement> achievements, List<Education> educationList, List<Experience> experiences, List<Project> projects, List<Website> websites){
+    public Resume (int resumeID, String name, String email, String location, String summary, String skills, List<Achievement> achievements, List<Education> educationList, List<Experience> experiences, List<Project> projects, List<Website> websites){
         this.resumeID = resumeID;
+
+
+
         this.name = name;
         this.email = email;
         this.location = location;
         this.summary = summary;
         this.skills = skills;
 
+
+
         //WIP Section
-        this.user = user;
+        //this.user = user;
+        //this.userID = userID;
 
         this. achievements = achievements;
         this.educationList = educationList;
@@ -88,6 +103,10 @@ public class Resume {
     public int getResumeID() {
         return resumeID;
     }
+
+    //testing
+    //public int getUserID(){return userID; }
+    /////////////////////////
 
     public String getName() {
         return name;
@@ -112,9 +131,9 @@ public class Resume {
 
     //WIP Section
 
-    public User getUser() {
-        return user;
-    } //WIP
+//    public User getUser() {
+//        return user;
+//    } ////////////////WIP
 
     public List<Achievement> getAchievements() {
         return achievements;
@@ -143,6 +162,14 @@ public class Resume {
         this.resumeID = resumeID;
     }
 
+
+//    //testing
+//    public void setUserID(int userID) {
+//        this.userID = userID;
+//    }
+//
+//    //////////////////
+
     public void setName(String name) {
         this.name = name;
     }
@@ -165,7 +192,7 @@ public class Resume {
 
     //WIP Section
 
-    public void setUser(User user) { this.user = user; } //WIP
+//    public void setUser(User user) { this.user = user; } //WIP
 
     public void setAchievements(List<Achievement> achievements) {
         this.achievements = achievements;
@@ -196,6 +223,7 @@ public class Resume {
     public String toString(){
         return "Resume{" +
                 "resumeID: " + resumeID +
+                /*"userID: " + userID +*/
                 "name: " + name +
                 "email: " + email +
                 "location: " + location +
@@ -203,7 +231,7 @@ public class Resume {
                 "skills: " + skills +
 
                 //WIP section
-                "userID: " + user +
+                /*"userID: " + user +*/
                 "achievement: " + achievements +
                 "education: " + educationList +
                 "experience: " + experiences +

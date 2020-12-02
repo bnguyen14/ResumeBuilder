@@ -36,12 +36,19 @@ public class CTRLS {
 
     //grabs a resume by its respective id
     @GetMapping("/getResumeByID/{resumeID}")
-    public Resume getResume(@PathVariable int resumeID){
-        Resume resume = dao.findResumeID(resumeID);
+    public List <Resume> getResume(@PathVariable int resumeID){
+        List <Resume> resume = dao.findResumeID(resumeID);
         if(resume == null){
             throw new RuntimeException(("Couldn't find a resume with ID " + resumeID + " , mate."));
         }
         return resume;
+    }
+
+    @GetMapping("/getResViaID/{resumeID}")
+    public Resume getRes(@PathVariable int resumeID){
+        Resume res = dao.findResViaID(resumeID);
+
+        return res;
     }
 
     //WIP
@@ -54,6 +61,19 @@ public class CTRLS {
         }
         return resumeList;
     }
+
+
+    //GET for Resume dependents
+
+    //achievement
+
+    //edu
+
+    //exp
+
+    //proj
+
+    //site
 
 
 
@@ -91,7 +111,7 @@ public class CTRLS {
         if (user == null){
             throw new RuntimeException("Couldn't find USER with ID: " + userID);
         }
-        dao.deleteByID(userID);
+        dao.deleteUserByID(userID);
         return "Deleted user with ID:" + userID;
     }
 

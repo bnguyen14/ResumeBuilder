@@ -2,7 +2,7 @@ package com.example.demo.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "")
+@Table(name = "website")
 public class Website {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +15,16 @@ public class Website {
 
     //Foreign Key resume_Id
     //one-to-one
+    @ManyToOne
+    @JoinColumn(name = "resume_Id", nullable = false)
+    private Resume resume;
 
+
+    public Website(int websiteID, String site, Resume resume){
+        this.websiteID = websiteID;
+        this.site = site;
+        this.resume = resume;
+    }
 
     //getters
 
@@ -37,6 +46,10 @@ public class Website {
     public void setSite(String site) {
         this.site = site;
     }
+
+
+    //override toString method here
+
 
     //empty constructor
     public Website(){}

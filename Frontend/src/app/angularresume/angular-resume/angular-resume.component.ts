@@ -470,8 +470,17 @@ export class AngularResumeComponent implements OnInit {
     });
 
     Packer.toBlob(doc).then((blob) => {
+      let fileName: string;
+
       // saveAs from FileSaver will download the file
-      saveAs(blob, this.basicFormValue.name + '.docx');
+      if (this.basicFormValue.name.includes(' '))
+      {
+        fileName = this.basicFormValue.name.replace(' ', '_');
+      }
+      else {
+        fileName = this.basicFormValue.name;
+      }
+      saveAs(blob, fileName + '.docx');
     });
 
   }

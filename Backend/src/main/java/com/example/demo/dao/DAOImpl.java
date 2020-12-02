@@ -38,6 +38,79 @@ public class DAOImpl implements DAO {
         return user;
     }
 
+    @Override
+    @Transactional
+    public List<Achievement> findAchievementID(int achievementID) {
+        session = entityManager.unwrap(Session.class);
+        //User user = session.get(User.class, email);
+
+        List<Achievement> achievements = session.createQuery("FROM achievement WHERE id=:achievementID").setParameter("achievementID", achievementID).getResultList();
+
+
+        return achievements;
+    }
+
+    @Override
+    @Transactional
+    public List<Education> findEducationID(int educationID) {
+        session = entityManager.unwrap(Session.class);
+        //User user = session.get(User.class, email);
+
+        List<Education> education = session.createQuery("FROM education WHERE id=:educationID").setParameter("educationID", educationID).getResultList();
+
+
+        return education;
+    }
+
+    @Override
+    @Transactional
+    public List<Experience> findExperienceID(int experienceID) {
+        session = entityManager.unwrap(Session.class);
+        //User user = session.get(User.class, email);
+
+        List<Experience> experience = session.createQuery("FROM experience WHERE id=:experienceID").setParameter("experienceID", experienceID).getResultList();
+
+
+        return experience;
+    }
+
+    @Override
+    @Transactional
+    public List<Project> findProjectID(int projectID) {
+        session = entityManager.unwrap(Session.class);
+        //User user = session.get(User.class, email);
+
+        List<Project> project = session.createQuery("FROM project WHERE id=:projectID").setParameter("projectID", projectID).getResultList();
+
+
+        return project;
+    }
+
+    @Override
+    @Transactional
+    public List<User> findUserID(int userId) {
+        session = entityManager.unwrap(Session.class);
+        //User user = session.get(User.class, email);
+
+        List<User> user = session.createQuery("FROM project WHERE id=:userId").setParameter("userId", userId).getResultList();
+
+
+        return user;
+    }
+
+    @Override
+    @Transactional
+    public List<Website> findWebsiteID(int websiteId) {
+        session = entityManager.unwrap(Session.class);
+        //User user = session.get(User.class, email);
+
+        List<Website> website = session.createQuery("FROM project WHERE id=:userId").setParameter("userId", websiteId).getResultList();
+
+
+        return website;
+    }
+
+
     //WIP [might delete later ;)]
 //    @Override
 //    @Transactional

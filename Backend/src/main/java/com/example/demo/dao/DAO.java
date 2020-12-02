@@ -8,7 +8,12 @@ public interface DAO {
     User findUserEmail(String email);
     User findUserPassword(String password);
     //User findUserLogin(String email, String password);
-
+    List<Achievement> findAchievementID(int id);
+    List<Education> findEducationID(int id);
+    List<Experience> findExperienceID(int id);
+    List<Project> findProjectID(int id);
+    List<User> findUserID(int id);
+    List<Website> findWebsiteID(int id);
 
 
 

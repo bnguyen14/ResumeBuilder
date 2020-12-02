@@ -1,31 +1,17 @@
-<body>
-  <div class="container">
-    <div class="myTitle">
-    <h2>Professional Resume Builder</h2>
-  </div>
-  <!--<button (click)="download()">generate word doc</button><br />-->
+<!--<p><button (click)="download()">generate word doc</button></p>-->
+<!--&lt;!&ndash;<app-general (outputName)="display($event)"></app-general>&ndash;&gt;-->
+<!-- <app-angular-resume></app-angular-resume> -->
 
-<!--<app-general (outputName)="display($event)"></app-general>-->
-<app-angular-resume (outputName)="display($event)"></app-angular-resume>
+<!--<p *ngIf="newOutputName">-->
+<!--  Name: {{newOutputName.general.name}}-->
+<!--  <br>-->
+<!--  Email: {{newOutputName.general.email}}-->
+<!--  <br>-->
+<!--  Socials: {{newOutputName.general.socials}}-->
+<!--  <br>-->
+<!--  Phone Number: {{newOutputName.general.phoneNumber}}-->
+<!--</p>-->
 
-
-<p *ngIf="register">
-  <a [routerLink]="'/register'">Register</a><br />
-</p>
-
-<p *ngIf="login">
- <a [routerLink]="'/'">Login</a>
-</p>
-
-<p *ngIf="newOutputName">
-  Name: {{newOutputName.general.name}}
-  <br>
-  Email: {{newOutputName.general.email}}
-  <br>
-  Socials: {{newOutputName.general.socials}}
-  <br>
-  Phone Number: {{newOutputName.general.phoneNumber}}
-</p>
-
-</div>
-</body>
+<!--</div>-->
+<!--</body>-->
+<router-outlet></router-outlet>

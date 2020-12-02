@@ -1,15 +1,25 @@
 <p>login works!</p>
 
 <h1>User Login</h1>
+  <div class="form-group" [formGroup]="loginForm">
+    <mat-form-field appearance="outline">
+
+      <mat-label >Email:</mat-label>
+      <label>
+        <input matInput [formControl]='useremail' >
+      </label>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label >Password:</mat-label>
+      <label>
+        <input matInput [formControl]='userpass'>
+      </label>
+
+    </mat-form-field>
+  </div>
 
 <div>
-    <label>Email: </label>
-    <input input type="email" id="useremail" #useremail>
-</div>
-<div>
-    <label>Password: </label>
-    <input input type="password" id = "userpass" #userpass>
-</div>
-<div>
-    <Button>Login</Button>
+    <Button (click)="loginCheck()">Login</Button>
+    <Button (click)="this.router.navigate(['/register'])">Register</Button>
+
 </div>

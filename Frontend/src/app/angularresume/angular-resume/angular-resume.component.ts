@@ -18,7 +18,6 @@ import {Experience} from '../../models/experience';
 import {Project} from '../../models/project';
 import {Achievement} from '../../models/achievement';
 import {Resume} from '../../models/resume';
-import {General, Skills, Summary} from '../../shared/general.model';
 
 
 @Component({
@@ -306,14 +305,14 @@ export class AngularResumeComponent implements OnInit {
   // adds another set of the form in the specific category
   incrementList(category: string){
     switch (category){
-      // case 'website': {
-      //   if (this.websiteFormGroup.length < this.maximumFormList){
-      //     this.websiteFormArray.push(this.formBuilder.group({
-      //       website : ''
-      //     }));
-      //   }
-      //   break;
-      // }
+      case 'website': {
+        if (this.websiteFormGroup.length < this.maximumFormList){
+          this.websiteFormArray.push(this.formBuilder.group({
+            website : ''
+          }));
+        }
+        break;
+      }
       case 'education': {
         if (this.educationFormGroup.length < this.maximumFormList){
           this.educationFormArray.push(this.formBuilder.group({

@@ -1,16 +1,6 @@
 import {Component} from '@angular/core';
 import {Document, HeadingLevel, Packer, Paragraph} from 'docx';
 import {saveAs} from 'file-saver';
-import {
-  Achievements,
-  Education,
-  Experience,
-  General,
-  Projects,
-  Skills,
-  Summary,
-  Websites
-} from './shared/general.model';
 
 @Component({
   selector: 'app-root',
@@ -21,12 +11,14 @@ export class AppComponent {
   title = 'ResumeBuilderAngular';
   something = 'test title';
 
-  //
+  // register: {}
+  // login: {}
+
   // newOutputName: {general: General, summary: Summary,
   //                  education: Education[], experience: Experience[],
   //                  skills: Skills, projects: Projects[],
   //                  achievements: Achievements[], websites: Websites};
-  //
+
   // download(){
   //   const document = new Document();
   //   document.addSection({
@@ -35,24 +27,24 @@ export class AppComponent {
   //         text: this.something,
   //         heading: HeadingLevel.HEADING_1
   //       }),
-  //
+
   //     ]
   //   });
-  //
+
   //   Packer.toBlob(document).then(blob => {
   //     saveAs(blob, 'example.docx');
   //   });
   // }
-  //
-  //
+
+
   // display(name) {
   //   this.newOutputName = {...name};
   //   console.log('name: ' + this.newOutputName.general.phoneNumber);
   //   this.createNew();
   // }
-  //
-  //
-  //
+
+
+
   // createNew() {
   //   const doc = new Document();
   //   doc.addSection({
@@ -62,7 +54,10 @@ export class AppComponent {
   //         text: this.newOutputName.general.name,
   //         heading: HeadingLevel.HEADING_1
   //       }),
-  //       ,
+  //       new Paragraph({
+  //         text: this.newOutputName.general.socials,
+  //         heading: HeadingLevel.HEADING_2
+  //       }),
   //       new Paragraph({
   //         text: this.newOutputName.general.email,
   //         heading: HeadingLevel.HEADING_2
@@ -100,15 +95,15 @@ export class AppComponent {
   //         text: this.newOutputName.websites.website,
   //         heading: HeadingLevel.HEADING_4
   //       }),
-  //
+
   //     ]
   //   });
-  //
+
   //   Packer.toBlob(doc).then((blob) => {
   //     // saveAs from FileSaver will download the file
   //     saveAs(blob, 'example.docx');
   //   });
-  //
+
   // }
 
 }

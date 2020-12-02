@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import {FormControl} from '@angular/forms';
-<<<<<<< Updated upstream
-=======
-//import {ToastrModule} from 'ngx-toastr';
->>>>>>> Stashed changes
+
 @Injectable({
   providedIn: 'root'
 })

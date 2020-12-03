@@ -2,7 +2,7 @@ package com.example.demo.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "")
+@Table(name = "achievement")
 public class Achievement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +21,17 @@ public class Achievement {
 
     //Foreign Key resume_Id
     //one-to-one
+    @ManyToOne
+    @JoinColumn(name = "resume_Id", nullable = false)
+    private Resume resume;
+
+    public Achievement(int achievementID, String issuer, String name, String date, Resume resume){
+        this.achievementID = achievementID;
+        this.issuer = issuer;
+        this.name = name;
+        this.date = date;
+        this.resume = resume;
+    }
 
     //getters
 
@@ -58,6 +69,9 @@ public class Achievement {
     public void setDate(String date) {
         this.date = date;
     }
+
+
+    //override toString method here
 
 
     //empty constructor

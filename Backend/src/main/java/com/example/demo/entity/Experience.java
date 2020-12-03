@@ -1,8 +1,10 @@
 package com.example.demo.entity;
+import org.hibernate.type.StringNVarcharType;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "")
+@Table(name = "experience")
 public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +36,28 @@ public class Experience {
 
     //Foreign Key resume_Id
     //one-to-one
+    @ManyToOne
+    @JoinColumn(name = "resume_Id", nullable = false)
+    private Resume resume;
+
+
+    public Experience (int experienceID, String company, String location, String jobTitle, String startDate, String endDate, String description, boolean current, Resume resume){
+        this.experienceID = experienceID;
+        this.company = company;
+        this.location = location;
+        this.jobTitle = jobTitle;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.description = description;
+        this.current = current;
+        this.resume = resume;
+    }
 
 
     //getters
+
+
+    public int getExperienceID() {return experienceID; }
 
     public String getCompany() {
         return company;
@@ -66,8 +87,10 @@ public class Experience {
         return current;
     }
 
+
     //setters
 
+    public void setExperienceID(int experienceID) { this.experienceID = experienceID; }
 
     public void setCompany(String company) {
         this.company = company;
@@ -96,6 +119,10 @@ public class Experience {
     public void setCurrent(boolean current) {
         this.current = current;
     }
+
+
+    //override toString method here
+
 
     //empty constructor
     public Experience(){}

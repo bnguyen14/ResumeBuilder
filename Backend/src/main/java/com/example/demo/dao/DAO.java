@@ -9,6 +9,17 @@ public interface DAO {
     User findUserEmail(String email);
     User findUserPassword(String password);
     List<User> findUserID(int id);
+    List<Website> findWebsiteID(int id);
+
+    // Put Update Calls
+    void saveAchievement(Achievement theAchievement);
+    void saveEducation(Education theEducation);
+    void saveExperience(Experience theExperience);
+    void saveProject(Project theProject);
+    void saveResume(Resume theResume);
+    void saveUser(User theUser);
+    void saveWebsite(Website theWebsite);
+
     void addUser (User user);
     //User findUserLogin(String email, String password);
     /**

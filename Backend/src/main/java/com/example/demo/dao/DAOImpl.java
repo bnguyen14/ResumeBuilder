@@ -52,6 +52,13 @@ public class DAOImpl implements DAO {
 
     @Override
     @Transactional
+    public void addAchievement(Achievement achievement) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(achievement);
+    }
+
+    @Override
+    @Transactional
     public List<Education> findEducationID(int educationID) {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
@@ -60,6 +67,13 @@ public class DAOImpl implements DAO {
 
 
         return education;
+    }
+
+    @Override
+    @Transactional
+    public void addEducation(Education education) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(education);
     }
 
     @Override
@@ -76,6 +90,13 @@ public class DAOImpl implements DAO {
 
     @Override
     @Transactional
+    public void addExperience(Experience experience) {
+        session = entityManager.unwrap(Session.class);
+        session.save(experience);
+    }
+
+    @Override
+    @Transactional
     public List<Project> findProjectID(int projectID) {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
@@ -84,6 +105,12 @@ public class DAOImpl implements DAO {
 
 
         return project;
+    }
+
+    @Override
+    public void addProject(Project project) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(project);
     }
 
     @Override
@@ -111,6 +138,11 @@ public class DAOImpl implements DAO {
     }
 
     // Put Save commands
+    @Override
+    public void addWebsite(Website website) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(website);
+    }
 
     @Override
     @Transactional //Defines the scope of a single database transaction.
@@ -167,6 +199,7 @@ public class DAOImpl implements DAO {
         currentSession.saveOrUpdate(theWebsite);
 
     }
+
 
 
     //WIP [might delete later ;)]
@@ -243,13 +276,13 @@ public class DAOImpl implements DAO {
 
     }
 
-    @Override
-    public Achievement findAchievementByID(int achievementID) {
-        session = entityManager.unwrap(Session.class);
-        Achievement achievement = session.get(Achievement.class, achievementID);
-
-        return achievement;
-    }
+//    @Override
+//    public Achievement findAchievementID(int achievementID) {
+//        session = entityManager.unwrap(Session.class);
+//        Achievement achievement = session.get(Achievement.class, achievementID);
+//
+//        return achievement;
+//    }
 
     @Override
     public void deleteAchievementByID(int achievementID) {

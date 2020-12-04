@@ -6,6 +6,7 @@ import com.example.demo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:3000"})
@@ -226,6 +227,46 @@ public class CTRLS {
         dao.addResume(resume);
         System.out.println("LOOK HERE FOR THAT [FRESHLY ADDED] RESUME INFO, MY GUY: " + resume.toString().toUpperCase()); //for backend visualization;
         return resume;
+    }
+
+    //adds new achievement
+    @PostMapping("addAchievement")
+    public Achievement addAchievements(@RequestBody Achievement achievement){
+        dao.addAchievement(achievement);
+        System.out.println("Added dat achievement doe" + "NO toString() OVERRIDE YET");
+        return achievement;
+    }
+
+    //adds new edu
+    @PostMapping("addEducation")
+    public Education addEducation(@RequestBody Education education){
+        dao.addEducation(education);
+        //System.out.println("" + NO toString() OVERRIDE YET");
+        return education;
+    }
+
+    //adds new exp
+    @PostMapping("addExperience")
+    public Experience addExperience(@RequestBody Experience experience){
+        dao.addExperience(experience);
+        //System.out.println("" + "NO toString() OVERRIDE YET");
+        return experience;
+    }
+
+    //adds new project
+    @PostMapping("addProjects")
+    public Project addProject(@RequestBody Project project){
+        dao.addProject(project);
+        //System.out.println("" + "NO toString() OVERRIDE YET");
+        return project;
+    }
+
+    //adds new Website
+    @PostMapping("addWebsite")
+    public Website addWebsite(@RequestBody Website website){
+        dao.addWebsite(website);
+        //System.out.println("" + "NO toString() OVERRIDE YET");
+        return website;
     }
 
 

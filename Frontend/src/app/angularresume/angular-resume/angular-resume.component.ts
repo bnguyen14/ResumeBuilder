@@ -18,6 +18,8 @@ import {Experience} from '../../models/experience';
 import {Project} from '../../models/project';
 import {Achievement} from '../../models/achievement';
 import {Resume} from '../../models/resume';
+import {Router} from '@angular/router';
+
 
 
 @Component({
@@ -32,7 +34,7 @@ export class AngularResumeComponent implements OnInit {
 
   dynamicForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder){}
+  constructor(private formBuilder: FormBuilder, public router: Router ){}
 
   name: string;
   email: string;
@@ -483,4 +485,9 @@ export class AngularResumeComponent implements OnInit {
     });
 
   }
+
+  SeeResumes(){
+      this.router.navigate(['/resumes']);
+    
+}
 }

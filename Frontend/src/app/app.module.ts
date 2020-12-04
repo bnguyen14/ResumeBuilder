@@ -9,10 +9,15 @@ import { AngularResumeComponent } from './angularresume/angular-resume/angular-r
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { SavedResumesComponent } from './saved-resumes/saved-resumes.component';
+import {MatCardModule} from '@angular/material/card';
+
+
 
 
 @NgModule({
@@ -21,7 +26,8 @@ import { RegisterComponent } from './register/register.component';
    // GeneralComponent,
     AngularResumeComponent,
    LoginComponent,
-   RegisterComponent
+   RegisterComponent,
+   SavedResumesComponent
   ],
     imports: [
         BrowserModule,
@@ -31,6 +37,9 @@ import { RegisterComponent } from './register/register.component';
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
+        MatButtonModule,
+        MatCardModule
+        
     ],
   providers: [],
   bootstrap: [AppComponent]

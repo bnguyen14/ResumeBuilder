@@ -1,6 +1,7 @@
 package com.example.demo.rest;
 
 import com.example.demo.dao.DAO;
+import com.example.demo.dao.DAOImpl;
 import com.example.demo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -112,6 +113,64 @@ public class CTRLS {
      * Put requests below
      *************
      */
+
+    //This is a PUT request to update an existing Achievement.
+    //http://localhost:8080/updateAchievement
+    @PutMapping("/updateAchievement")
+    public Achievement updateAchievement(@RequestBody Achievement theAchievement) {
+
+        dao.saveAchievement(theAchievement);
+        return theAchievement;
+    }
+
+    //http://localhost:8080/updateEducation
+    @PutMapping("/updateEducation")
+    public Education updateEducation(@RequestBody Education theEducation) {
+
+        dao.saveEducation(theEducation);
+        return theEducation;
+    }
+
+    //http://localhost:8080/updateExperience
+    @PutMapping("/updateExperience")
+    public Experience updateExperience(@RequestBody Experience theExperience) {
+
+        dao.saveExperience(theExperience);
+        return theExperience;
+    }
+
+    //http://localhost:8080/updateProject
+    @PutMapping("/updateProject")
+    public Project updateProject(@RequestBody Project theProject) {
+
+        dao.saveProject(theProject);
+        return theProject;
+    }
+
+    //http://localhost:8080/updateResume
+    @PutMapping("/updateResume")
+    public Resume updateResume(@RequestBody Resume theResume) {
+
+        dao.saveResume(theResume);
+        return theResume;
+    }
+
+    //http://localhost:8080/updateUser
+    @PutMapping("/updateUser")
+    public User updateUser(@RequestBody User theUser) {
+
+        dao.saveUser(theUser);
+        return theUser;
+    }
+
+    //http://localhost:8080/updateWebsite
+    @PutMapping("/updateWebsite")
+    public Website updateWebsite(@RequestBody Website theWebsite) {
+
+        dao.saveWebsite(theWebsite);
+        return theWebsite;
+    }
+
 
 
 

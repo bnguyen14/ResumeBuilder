@@ -15,7 +15,14 @@ public interface DAO {
     List<User> findUserID(int id);
     List<Website> findWebsiteID(int id);
 
-
+    // Put Update Calls
+    void saveAchievement(Achievement theAchievement);
+    void saveEducation(Education theEducation);
+    void saveExperience(Experience theExperience);
+    void saveProject(Project theProject);
+    void saveResume(Resume theResume);
+    void saveUser(User theUser);
+    void saveWebsite(Website theWebsite);
 
     void addUser (User user);
     void addResume (Resume resume);

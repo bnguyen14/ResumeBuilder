@@ -110,6 +110,64 @@ public class DAOImpl implements DAO {
         return website;
     }
 
+    // Put Save commands
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveAchievement(Achievement theAchievement) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theAchievement);
+
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveEducation(Education theEducation) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theEducation);
+
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveExperience(Experience theExperience) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theExperience);
+
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveProject(Project theProject) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theProject);
+
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveResume(Resume theResume) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theResume);
+
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveUser(User theUser) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theUser);
+
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveWebsite(Website theWebsite) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theWebsite);
+
+    }
+
 
     //WIP [might delete later ;)]
 //    @Override

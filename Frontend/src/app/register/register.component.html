@@ -1,15 +1,30 @@
 <p>register works!</p>
 
 <h1>User Registration</h1>
+<div class="form-group" [formGroup]="registerForm">
+  <mat-form-field appearance="outline">
+
+    <mat-label >Email:</mat-label>
+    <label>
+      <input matInput [formControl]='useremail' >
+    </label>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label >Password:</mat-label>
+    <label>
+      <input matInput [formControl]='userpass'>
+    </label>
+
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label >Repeat Password:</mat-label>
+    <label>
+      <input matInput [formControl]='passConfirm'>
+    </label>
+
+  </mat-form-field>
+</div>
 
 <div>
-    <label for="labelemail">Your Email: </label>
-    <input input type="email" id="useremail" #useremail>
-</div>
-<div>
-    <label>Create New Password: </label>
-    <input input type="password" id = "userpass" #userpass>
-</div>
-<div>
-    <Button>Register User</Button>
+    <Button (click)="registerNewUser()">Register User</Button>
 </div>

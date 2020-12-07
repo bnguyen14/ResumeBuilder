@@ -16,6 +16,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SavedResumesComponent } from './saved-resumes/saved-resumes.component';
 import {MatCardModule} from '@angular/material/card';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatToolbarModule } from "@angular/material/toolbar";
+
 
 
 
@@ -27,7 +30,8 @@ import {MatCardModule} from '@angular/material/card';
     AngularResumeComponent,
    LoginComponent,
    RegisterComponent,
-   SavedResumesComponent
+   SavedResumesComponent,
+   
   ],
     imports: [
         BrowserModule,
@@ -38,7 +42,10 @@ import {MatCardModule} from '@angular/material/card';
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatCardModule
+        MatCardModule,
+        FlexLayoutModule,
+        MatToolbarModule
+
         
     ],
   providers: [],

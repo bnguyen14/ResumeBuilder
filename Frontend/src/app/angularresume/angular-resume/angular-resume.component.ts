@@ -1,18 +1,8 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-// import {
-//   Achievements,
-//   Education,
-//   Experience,
-//   General,
-//   Projects,
-//   Resume,
-//   Skills,
-//   Summary, Websites
-// } from '../../shared/general.model';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {AlignmentType, Document, HeadingLevel, Packer, Paragraph, TabStopPosition, TabStopType, TextRun} from 'docx';
 import {saveAs} from 'file-saver';
-import {Website} from '../../models/test/website';
+import {Website} from '../../models/website';
 import {Education} from '../../models/education';
 import {Experience} from '../../models/experience';
 import {Project} from '../../models/project';
@@ -23,7 +13,8 @@ import {Resume} from '../../models/resume';
 @Component({
   selector: 'app-angular-resume',
   templateUrl: './angular-resume.component.html',
-  styleUrls: ['./angular-resume.component.css']
+  styleUrls: ['./angular-resume.component.css'],
+  // encapsulation: ViewEncapsulation.None
 })
 export class AngularResumeComponent implements OnInit {
 
@@ -65,7 +56,7 @@ export class AngularResumeComponent implements OnInit {
       school: '',
       location: '',
       startDate: '',
-      endDate: '',
+      endDate: {value:'', disabled: false},
       degree: '',
       current: ''
     }));
@@ -74,7 +65,7 @@ export class AngularResumeComponent implements OnInit {
       location: '',
       jobTitle: '',
       startDate: '',
-      endDate: '',
+      endDate: {value:'', disabled: false},
       description: '',
       current: ''
     }));
@@ -115,6 +106,208 @@ export class AngularResumeComponent implements OnInit {
   get projectValue() { return this.dynamicForm.value.projects as Project[]; }
   get achievementValue() { return this.dynamicForm.value.achievements as Achievement[]; }
 
+  // adds another set of the form in the specific category
+  incrementList(category: string){
+    switch (category){
+      case 'website': {
+        if (this.websiteFormGroup.length < this.maximumFormList){
+          this.websiteFormArray.push(this.formBuilder.group({
+            website : ''
+          }));
+        }
+        break;
+      }
+      case 'education': {
+        if (this.educationFormGroup.length < this.maximumFormList){
+          this.educationFormArray.push(this.formBuilder.group({
+            school: '',
+            location: '',
+            startDate: '',
+            endDate: {value:'', disabled: false},
+            degree: '',
+            current: ''
+          }));
+        }
+        break;
+      }
+      case 'experience': {
+        if (this.experienceFormGroup.length < this.maximumFormList){
+          this .experienceFormArray.push(this.formBuilder.group({
+            company: '',
+            location: '',
+            jobTitle: '',
+            startDate: '',
+            endDate: {value:'', disabled: false},
+            description: '',
+            current: ''
+          }));
+        }
+        break;
+      }
+      case 'project': {
+        if (this.projectFormGroup.length < this.maximumFormList) {
+          this.projectFormArray.push(this.formBuilder.group({
+            title: '',
+            description: ''
+          }));
+        }
+        break;
+      }
+      case 'achievement': {
+        if (this.achievementFormGroup.length < this.maximumFormList) {
+          this.achievementFormArray.push(this.formBuilder.group({
+            issuer: '',
+            name: '',
+            date: ''
+          }));
+        }
+      }
+    }
+  }
+
+  // deletes a set of form that is initialized on the webpage
+  decrementList(category: string, i: number){
+    switch (category){
+      case 'website': {
+        this.websiteFormArray.removeAt(i);
+        break;
+      }
+      case 'education': {
+        this.educationFormArray.removeAt(i);
+        break;
+      }
+      case 'experience': {
+        this.experienceFormArray.removeAt(i);
+        break;
+      }
+      case 'project': {
+        this.projectFormArray.removeAt(i);
+        break;
+      }
+      case 'achievement': {
+        this.achievementFormArray.removeAt(i);
+        break;
+      }
+    }
+  }
+
+  changeEndDate(category: string, i: number){
+    switch(category){
+      case 'education':{
+        if(this.educationFormGroup[i].get('endDate').disabled){
+          this.educationFormGroup[i].get('endDate').enable();
+        }else{
+          this.educationFormGroup[i].get('endDate').disable();
+        }
+        break;
+      }
+      case 'experience':{
+        if(this.experienceFormGroup[i].get('endDate').disabled){
+          this.experienceFormGroup[i].get('endDate').enable();
+        }else{
+          this.experienceFormGroup[i].get('endDate').disable();
+        }
+        break;
+      }
+    }
+  }
+
+  printResume(){
+    console.log(this.basicFormValue.name);
+    console.log(this.basicFormValue.email);
+    console.log(this.basicFormValue.summary);
+  }
+
+  download(){
+    const document = new Document();
+
+    document.addSection({
+      children: [
+        ...this.websiteList
+      ]
+    });
+
+    Packer.toBlob(document).then(blob => {
+      saveAs(blob, 'example.docx');
+    });
+  }
+
+
+
+  createNew() {
+    const doc = new Document();
+    doc.addSection({
+      children: [
+        // general
+        new Paragraph({
+          text: this.basicFormValue.name,
+          heading: HeadingLevel.TITLE,
+          alignment: AlignmentType.CENTER
+        }),
+        new Paragraph({
+          children: [
+            new TextRun(`Email: ${this.basicFormValue.email}`).break()
+          ],
+          alignment: AlignmentType.CENTER
+        }),
+        ...this.websiteList,
+        new Paragraph({
+          text: `${this.summary}`,
+          heading: HeadingLevel.HEADING_6,
+          thematicBreak: true
+        }),
+        // education
+        new Paragraph({ text: 'Education',
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
+        ...this.educationList,
+        //  experience
+        new Paragraph({ text: 'Experience',
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
+        ...this.experienceList,
+        //  skills
+        new Paragraph({ text: 'Skills',
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
+        new Paragraph({
+          text: this.basicFormValue.skills,
+          heading: HeadingLevel.HEADING_4
+        }),
+        // projects
+        new Paragraph({ text: 'Projects',
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
+        ...this.projectList,
+        // achievements
+        new Paragraph({ text: 'Achievements',
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
+        ...this.achievementList,
+
+      ]
+    });
+
+    Packer.toBlob(doc).then((blob) => {
+      let fileName: string;
+
+      // saveAs from FileSaver will download the file
+      if (this.basicFormValue.name.includes(' '))
+      {
+        fileName = this.basicFormValue.name.replace(' ', '_');
+      }
+      else {
+        fileName = this.basicFormValue.name;
+      }
+      saveAs(blob, fileName + '.docx');
+    });
+
+  }
   // retrieves data websiteValue() and insert each element as text in a new paragraph. returns as list of paragraph
   get websiteList() {
 
@@ -299,188 +492,5 @@ export class AngularResumeComponent implements OnInit {
       // text: `Location: ${test.location}`,
     }
     return paragraphOut;
-  }
-
-
-  // adds another set of the form in the specific category
-  incrementList(category: string){
-    switch (category){
-      case 'website': {
-        if (this.websiteFormGroup.length < this.maximumFormList){
-          this.websiteFormArray.push(this.formBuilder.group({
-            website : ''
-          }));
-        }
-        break;
-      }
-      case 'education': {
-        if (this.educationFormGroup.length < this.maximumFormList){
-          this.educationFormArray.push(this.formBuilder.group({
-            school: '',
-            location: '',
-            startDate: '',
-            endDate: '',
-            degree: '',
-            current: ''
-          }));
-        }
-        break;
-      }
-      case 'experience': {
-        if (this.experienceFormGroup.length < this.maximumFormList){
-          this .experienceFormArray.push(this.formBuilder.group({
-            company: '',
-            location: '',
-            jobTitle: '',
-            startDate: '',
-            endDate: '',
-            description: '',
-            current: ''
-          }));
-        }
-        break;
-      }
-      case 'project': {
-        if (this.projectFormGroup.length < this.maximumFormList) {
-          this.projectFormArray.push(this.formBuilder.group({
-            title: '',
-            description: ''
-          }));
-        }
-        break;
-      }
-      case 'achievement': {
-        if (this.achievementFormGroup.length < this.maximumFormList) {
-          this.achievementFormArray.push(this.formBuilder.group({
-            issuer: '',
-            name: '',
-            date: ''
-          }));
-        }
-      }
-    }
-  }
-
-  // deletes a set of form that is initialized on the webpage
-  decrementList(category: string, i: number){
-    switch (category){
-      case 'website': {
-        this.websiteFormArray.removeAt(i);
-        break;
-      }
-      case 'education': {
-        this.educationFormArray.removeAt(i);
-        break;
-      }
-      case 'experience': {
-        this.experienceFormArray.removeAt(i);
-        break;
-      }
-      case 'project': {
-        this.projectFormArray.removeAt(i);
-        break;
-      }
-      case 'achievement': {
-        this.achievementFormArray.removeAt(i);
-        break;
-      }
-    }
-  }
-
-  printResume(){
-    console.log(this.basicFormValue.name);
-    console.log(this.basicFormValue.email);
-    console.log(this.basicFormValue.summary);
-  }
-
-  download(){
-    const document = new Document();
-
-    document.addSection({
-      children: [
-        ...this.websiteList
-      ]
-    });
-
-    Packer.toBlob(document).then(blob => {
-      saveAs(blob, 'example.docx');
-    });
-  }
-
-
-
-  createNew() {
-    const doc = new Document();
-    doc.addSection({
-      children: [
-        // general
-        new Paragraph({
-          text: this.basicFormValue.name,
-          heading: HeadingLevel.TITLE,
-          alignment: AlignmentType.CENTER
-        }),
-        new Paragraph({
-          children: [
-            new TextRun(`Email: ${this.basicFormValue.email}`).break()
-          ],
-          alignment: AlignmentType.CENTER
-        }),
-        ...this.websiteList,
-        new Paragraph({
-          text: `${this.summary}`,
-          heading: HeadingLevel.HEADING_6,
-          thematicBreak: true
-        }),
-        // education
-        new Paragraph({ text: 'Education',
-        heading: HeadingLevel.HEADING_1,
-        alignment: AlignmentType.CENTER,
-        thematicBreak: true}),
-        ...this.educationList,
-        //  experience
-        new Paragraph({ text: 'Experience',
-        heading: HeadingLevel.HEADING_1,
-        alignment: AlignmentType.CENTER,
-        thematicBreak: true}),
-        ...this.experienceList,
-        //  skills
-        new Paragraph({ text: 'Skills',
-        heading: HeadingLevel.HEADING_1,
-        alignment: AlignmentType.CENTER,
-        thematicBreak: true}),
-        new Paragraph({
-          text: this.basicFormValue.skills,
-          heading: HeadingLevel.HEADING_4
-        }),
-        // projects
-        new Paragraph({ text: 'Projects',
-        heading: HeadingLevel.HEADING_1,
-        alignment: AlignmentType.CENTER,
-        thematicBreak: true}),
-        ...this.projectList,
-        // achievements
-        new Paragraph({ text: 'Achievements',
-        heading: HeadingLevel.HEADING_1,
-        alignment: AlignmentType.CENTER,
-        thematicBreak: true}),
-        ...this.achievementList,
-
-      ]
-    });
-
-    Packer.toBlob(doc).then((blob) => {
-      let fileName: string;
-
-      // saveAs from FileSaver will download the file
-      if (this.basicFormValue.name.includes(' '))
-      {
-        fileName = this.basicFormValue.name.replace(' ', '_');
-      }
-      else {
-        fileName = this.basicFormValue.name;
-      }
-      saveAs(blob, fileName + '.docx');
-    });
-
   }
 }

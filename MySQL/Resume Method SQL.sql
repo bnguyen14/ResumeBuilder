@@ -16,7 +16,7 @@ where achievement.resume_Id = 1;
 -- User Table SQL Command
 select user_Id, email, password
 from user
-where user.resume_Id = 1;
+where user.user_Id = 1;
 
 -- Experience Table SQL Command
 select experience_Id, resume_Id, company, location, job_title, start_date, end_date, description, current

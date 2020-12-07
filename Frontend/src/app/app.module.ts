@@ -22,6 +22,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { SavedResumesComponent } from './saved-resumes/saved-resumes.component';
+import { FlexLayoutModule } from "@angular/flex-layout";
+
+
+
 
 
 @NgModule({
@@ -30,7 +35,9 @@ import { RegisterComponent } from './register/register.component';
    // GeneralComponent,
     AngularResumeComponent,
    LoginComponent,
-   RegisterComponent
+   RegisterComponent,
+   SavedResumesComponent,
+   
   ],
     imports: [
         BrowserModule,
@@ -46,7 +53,8 @@ import { RegisterComponent } from './register/register.component';
         MatIconModule,
         MatDividerModule,
         MatCheckboxModule,
-        MatToolbarModule
+        MatToolbarModule,
+        FlexLayoutModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

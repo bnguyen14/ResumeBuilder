@@ -1,23 +1,21 @@
 .myTitle {
   color: white;
   text-align: center;
+  padding-top: 20px;
 }
 
 body {
-  background-color: rgb(75, 86, 90);
-  width: 100%;
+  background-color: rgb(33, 28, 58);
   border: 0;
 }
 
 .container {
-    width: 75%;
     clear: both;
     padding: 0px 250px;
-    background-color: rgb(75, 86, 90);
+    background-color: rgb(33, 28, 58);
   }
   
   .container input {
-    width: 100%;
     clear: both;
   }
 

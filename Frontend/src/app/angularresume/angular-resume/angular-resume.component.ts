@@ -10,13 +10,14 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '
 //   Summary, Websites
 // } from '../../shared/general.model';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import {Document, HeadingLevel, Packer, Paragraph} from 'docx';
+import {AlignmentType, Document, HeadingLevel, Packer, Paragraph, TabStopPosition, TabStopType, TextRun} from 'docx';
 import {saveAs} from 'file-saver';
 import {Website} from '../../models/test/website';
 import {Education} from '../../models/education';
 import {Experience} from '../../models/experience';
 import {Project} from '../../models/project';
 import {Achievement} from '../../models/achievement';
+import {Resume} from '../../models/resume';
 
 
 @Component({
@@ -25,53 +26,21 @@ import {Achievement} from '../../models/achievement';
   styleUrls: ['./angular-resume.component.css']
 })
 export class AngularResumeComponent implements OnInit {
-  test : string;
+
+
   maximumFormList = 3;
 
   dynamicForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder){}
 
-  // @Output() outputName = new EventEmitter<Resume>();
-  // // General
-  // @ViewChild('nameInput', {static: false}) nameInputRef: ElementRef;
-  // @ViewChild('socialInput', {static: false}) socialInputRef: ElementRef;
-  // @ViewChild('emailInput', {static: false}) emailInputRef: ElementRef;
-  // @ViewChild('numberInput', {static: false}) numberInputRef: ElementRef;
-  //
-  // // Summary
-  // @ViewChild('summary', {static: false}) summaryInputRef: ElementRef;
-  //
-  // // Education
-  // @ViewChild('educationschool', {static: false}) schoolInputRef: ElementRef;
-  // @ViewChild('educationlocation', {static: false}) schoolocRef: ElementRef;
-  // @ViewChild('educationstart', {static: false}) schoolStartRef: ElementRef;
-  // @ViewChild('educationend', {static: false}) schoolEndRef: ElementRef;
-  // @ViewChild('educationcurrent', {static: false}) schoolCurrRef: ElementRef;
-  // @ViewChild('educationdegree', {static: false}) schoolDegreeRef: ElementRef;
-  //
-  // // Experience
-  // @ViewChild('jobcompany', {static: false}) companyInputRef: ElementRef;
-  // @ViewChild('joblocation', {static: false}) jobLocRef: ElementRef;
-  // @ViewChild('jobstart', {static: false}) jobStarRef: ElementRef;
-  // @ViewChild('jobend', {static: false}) jobEndRef: ElementRef;
-  // @ViewChild('jobcurrent', {static: false}) jobCurrRef: ElementRef;
-  // @ViewChild('jobdescription', {static: false}) jobDescRef: ElementRef;
-  //
-  // // Skills
-  // @ViewChild('skillsdescription', {static: false}) skillDescRef: ElementRef;
-  //
-  // // Projects
-  // @ViewChild('projecttitle', {static: false}) projectTitleRef: ElementRef;
-  // @ViewChild('projectdescription', {static: false}) projectDescRef: ElementRef;
-  //
-  // // Achievements
-  // @ViewChild('achievementissuer', {static: false}) achievementIssRef: ElementRef;
-  // @ViewChild('achievementname', {static: false}) achievementNameRef: ElementRef;
-  // @ViewChild('achievementdate', {static: false}) achievementDateRef: ElementRef;
-  //
-  // // Website
-  // @ViewChild('website', {static: false}) webSiteRef: ElementRef;
+  name: string;
+  email: string;
+  number: string;
+  summary: string;
+  skillDesc: string;
+
+
 
   ngOnInit(): void {
     this.dynamicForm = this.formBuilder.group({
@@ -125,10 +94,9 @@ export class AngularResumeComponent implements OnInit {
   // use FormArray to push another form into the array
   get websiteFormArray() { return this.formControl.websites as FormArray; }
   get educationFormArray() { return this.formControl.educations as FormArray; }
-  get experienceFormArray() { return this.formControl.experiences as FormArray; }
-  get projectFormArray() { return this.formControl.projects as FormArray; }
-  get achievementFormArray() { return this.formControl.achievements as FormArray; }
-  
+  get experienceFormArray(){return this.formControl.experiences as FormArray; }
+  get projectFormArray(){return this.formControl.projects as FormArray; }
+  get achievementFormArray(){return this.formControl.achievements as FormArray; }
   // use in .html file to find how many forms are in a group
   get basicFormGroup() { return this.dynamicForm.controls.basic as FormGroup; }
   get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
@@ -137,29 +105,199 @@ export class AngularResumeComponent implements OnInit {
   get projectFormGroup() { return this.projectFormArray.controls as FormGroup[]; }
   get achievementFormGroup() { return this.achievementFormArray.controls as FormGroup[]; }
 
-  //use to retrieve data from basic form
-  get basicFormValue() { return this.dynamicForm.controls.basic.value }
+  // use to retrieve data from basic form
+  get basicFormValue() { return this.dynamicForm.controls.basic.value; }
 
   // use to retrieve data from form as a list
   get websiteValue() { return this.dynamicForm.value.websites as Website[]; }
   get educationValue() { return this.dynamicForm.value.educations as Education[]; }
   get experienceValue() { return this.dynamicForm.value.experiences as Experience[]; }
-  get projectValue() { return this.dynamicForm.value.experiences as Project[]; }
-  get achievementValue() { return this.dynamicForm.value.experiences as Achievement[]; }
+  get projectValue() { return this.dynamicForm.value.projects as Project[]; }
+  get achievementValue() { return this.dynamicForm.value.achievements as Achievement[]; }
 
   // retrieves data websiteValue() and insert each element as text in a new paragraph. returns as list of paragraph
   get websiteList() {
-    
+
     const tmparr = this.websiteValue;
     const paragraphOut: Paragraph[] = [];
-    
+
     for (const test of tmparr) {
-      console.log(test.website);
+      console.log('website: ' + this.basicFormValue.website);
       paragraphOut.push(new Paragraph({
-        text : test.website
+        text : this.basicFormValue.website
       }));
     }
+    return paragraphOut;
+  }
 
+  get educationList() {
+    const tmparr = this.educationValue;
+    const paragraphOut: Paragraph[] = [];
+
+    for (const test of tmparr) {
+      const startDateFormat: string = new Date(test.startDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
+      const endDateFormat: string = new Date(test.endDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
+
+      console.log(test.degree);
+      paragraphOut.push(new Paragraph({
+
+          tabStops: [
+            {
+              type: TabStopType.RIGHT,
+              position: TabStopPosition.MAX,
+            },
+          ],
+          children: [
+            new TextRun({
+              text: test.school,
+              bold: true,
+            }),
+            new TextRun({
+              text: `\t${startDateFormat} to ${endDateFormat}`,
+              bold: true,
+            }), ]
+      }));
+      paragraphOut.push(new Paragraph( {
+        children: [
+          new TextRun({
+            text: test.location,
+            italics: true
+          }),
+        ]
+      }));
+      paragraphOut.push(new Paragraph({
+
+      children: [
+        new TextRun({
+          text: `${test.degree}`,
+        }),
+        ]
+  }));
+
+      // text: `Location: ${test.location}`,
+    }
+    return paragraphOut;
+  }
+
+  get projectList() {
+    const tmparr = this.projectValue;
+    const paragraphOut: Paragraph[] = [];
+
+
+    for (const test of tmparr) {
+      console.log(test.title);
+      paragraphOut.push(new Paragraph({
+          children: [
+            new TextRun({
+              text: `${test.title}`,
+              bold: true,
+            }),
+          ]
+      }));
+      paragraphOut.push(new Paragraph({
+
+        children: [
+          new TextRun({
+            text: `${test.description}`,
+          })
+          ]
+    }));
+      paragraphOut.push(new Paragraph({}));
+    }
+    return paragraphOut;
+  }
+
+  get achievementList() {
+    const tmparr = this.achievementValue;
+    const paragraphOut: Paragraph[] = [];
+
+
+    for (const test of tmparr) {
+      const dateFormat: string = new Date(test.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
+      paragraphOut.push(new Paragraph({
+        tabStops: [
+          {
+            type: TabStopType.RIGHT,
+            position: TabStopPosition.MAX,
+          },
+        ],
+        children: [
+          new TextRun({
+            text: `${test.name}`,
+            bold: true,
+          }),
+        new TextRun({
+          text: `\t${dateFormat}`,
+          bold: true
+        })]
+      }));
+      paragraphOut.push(new Paragraph({
+        children: [
+          new TextRun({
+            text: `${test.issuer}`,
+            italics: true
+          })
+        ]
+      }));
+      paragraphOut.push(new Paragraph({}));
+    }
+    return paragraphOut;
+  }
+
+
+
+  get experienceList() {
+    const tmparr = this.experienceValue;
+    const paragraphOut: Paragraph[] = [];
+
+    for (const test of tmparr) {
+
+      const startDateFormat: string = new Date(test.startDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
+      const endDateFormat: string = new Date(test.endDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
+      paragraphOut.push(new Paragraph({
+
+        tabStops: [
+          {
+            type: TabStopType.RIGHT,
+            position: TabStopPosition.MAX,
+          },
+        ],
+        children: [
+          new TextRun({
+            text: `${test.company}`,
+            bold: true,
+          }),
+          new TextRun({
+            text: `\t${startDateFormat} to ${endDateFormat}`,
+            bold: true,
+          }), ]
+      }));
+      paragraphOut.push(new Paragraph({
+
+        children: [
+          new TextRun({
+            text: `${test.location}`,
+          }),
+        ]
+      }));
+      paragraphOut.push(new Paragraph({
+
+        children: [
+          new TextRun({
+            text: `${test.jobTitle}`,
+          }),
+        ]
+      }));
+      paragraphOut.push(new Paragraph({
+
+        children: [
+          new TextRun({
+            text: `${test.description}`,
+          }),
+        ]
+      }));
+      // text: `Location: ${test.location}`,
+    }
     return paragraphOut;
   }
 
@@ -167,14 +305,14 @@ export class AngularResumeComponent implements OnInit {
   // adds another set of the form in the specific category
   incrementList(category: string){
     switch (category){
-      // case 'website': {
-      //   if (this.websiteFormGroup.length < this.maximumFormList){
-      //     this.websiteFormArray.push(this.formBuilder.group({
-      //       website : ''
-      //     }));
-      //   }
-      //   break;
-      // }
+      case 'website': {
+        if (this.websiteFormGroup.length < this.maximumFormList){
+          this.websiteFormArray.push(this.formBuilder.group({
+            website : ''
+          }));
+        }
+        break;
+      }
       case 'education': {
         if (this.educationFormGroup.length < this.maximumFormList){
           this.educationFormArray.push(this.formBuilder.group({
@@ -269,66 +407,80 @@ export class AngularResumeComponent implements OnInit {
     });
   }
 
-  // sendName() {
-  //
-  //   // General
-  //   const nameInput = this.nameInputRef.nativeElement.value;
-  //   const socialInput = this.socialInputRef.nativeElement.value;
-  //   const emailInput = this.emailInputRef.nativeElement.value;
-  //   const numberInput = this.numberInputRef.nativeElement.value;
-  //
-  //   // Summary
-  //   const summaryInput = this.summaryInputRef.nativeElement.value;
-  //
-  //   // Education
-  //   const schoolInput = this.schoolInputRef.nativeElement.value;
-  //   const schoolLocation = this.schoolocRef.nativeElement.value;
-  //   const schoolStart = new Date(this.schoolStartRef.nativeElement.value);
-  //   const schoolEnd = new Date(this.schoolEndRef.nativeElement.value);
-  //   const schoolCurrent = this.schoolCurrRef.nativeElement.value;
-  //   const degree = this.schoolDegreeRef.nativeElement.value;
-  //
-  //   // Experience
-  //   const jobInput = this.companyInputRef.nativeElement.value;
-  //   const jobLocation = this.jobLocRef.nativeElement.value;
-  //   const jobStart = new Date(this.jobStarRef.nativeElement.value);
-  //   const jobEnd = new Date(this.jobEndRef.nativeElement.value);
-  //   const jobCurrent = this.jobCurrRef.nativeElement.value;
-  //   const jobDesc = this.jobDescRef.nativeElement.value;
-  //
-  //   // Skills
-  //   const skillDesc = this.skillDescRef.nativeElement.value;
-  //
-  //   // Projects
-  //   const projectTitle = this.projectTitleRef.nativeElement.value;
-  //   const projectDesc = this.projectDescRef.nativeElement.value;
-  //
-  //   // Achievements
-  //   const achievementIssuer = this.achievementIssRef.nativeElement.value;
-  //   const achievementDate = new Date(this.achievementDateRef.nativeElement.value);
-  //   const achievementName = this.achievementNameRef.nativeElement.value;
-  //
-  //   // Website
-  //   const websiteInput = this.webSiteRef.nativeElement.value;
-  //
-  //
-  //   const general = new General(nameInput, socialInput, emailInput, numberInput);
-  //   const summary = new Summary(summaryInput);
-  //   const education = [new Education(schoolInput, schoolLocation, schoolStart, schoolEnd, schoolCurrent, degree)];
-  //   const experience = [new Experience(jobInput, jobLocation, jobStart, jobEnd, jobCurrent, jobDesc)];
-  //   const skills = new Skills(skillDesc);
-  //   const projects = [new Projects(projectTitle, projectDesc)];
-  //   const achievements = [new Achievements(achievementIssuer, achievementName, achievementDate)];
-  //   const websites = new Websites(websiteInput);
-  //
-  //
-  //   // console.log(general.name);
-  //   // console.log(general.socials);
-  //   // console.log(general.email);
-  //   // console.log(general.phoneNumber);
-  //
-  //   const resume = new Resume(general, summary, education, experience, skills, projects, achievements, websites);
-  //   this.outputName.emit(resume);
-  // }
 
+
+  createNew() {
+    const doc = new Document();
+    doc.addSection({
+      children: [
+        // general
+        new Paragraph({
+          text: this.basicFormValue.name,
+          heading: HeadingLevel.TITLE,
+          alignment: AlignmentType.CENTER
+        }),
+        new Paragraph({
+          children: [
+            new TextRun(`Email: ${this.basicFormValue.email}`).break()
+          ],
+          alignment: AlignmentType.CENTER
+        }),
+        ...this.websiteList,
+        new Paragraph({
+          text: `${this.summary}`,
+          heading: HeadingLevel.HEADING_6,
+          thematicBreak: true
+        }),
+        // education
+        new Paragraph({ text: 'Education',
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
+        ...this.educationList,
+        //  experience
+        new Paragraph({ text: 'Experience',
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
+        ...this.experienceList,
+        //  skills
+        new Paragraph({ text: 'Skills',
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
+        new Paragraph({
+          text: this.basicFormValue.skills,
+          heading: HeadingLevel.HEADING_4
+        }),
+        // projects
+        new Paragraph({ text: 'Projects',
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
+        ...this.projectList,
+        // achievements
+        new Paragraph({ text: 'Achievements',
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
+        ...this.achievementList,
+
+      ]
+    });
+
+    Packer.toBlob(doc).then((blob) => {
+      let fileName: string;
+
+      // saveAs from FileSaver will download the file
+      if (this.basicFormValue.name.includes(' '))
+      {
+        fileName = this.basicFormValue.name.replace(' ', '_');
+      }
+      else {
+        fileName = this.basicFormValue.name;
+      }
+      saveAs(blob, fileName + '.docx');
+    });
+
+  }
 }

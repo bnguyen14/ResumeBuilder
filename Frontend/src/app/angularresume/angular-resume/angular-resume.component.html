@@ -9,10 +9,10 @@
           <div class="stayInLine">
             <mat-form-field appearance="outline" style="width: 400px;">
               <mat-label >Name</mat-label>
-              <input matInput type="text" formControlName="name">
+              <input matInput type="text" formControlName="name" >
             </mat-form-field>
           </div>
-            
+
           <div class="stayInLine">
             <mat-form-field appearance="outline" style="width: 400px;">
               <mat-label>Email</mat-label>
@@ -25,7 +25,7 @@
           </div> -->
         </div><br />
       </mat-panel-description>
-    </mat-expansion-panel> 
+    </mat-expansion-panel>
 
     <!-- Summary -->
     <mat-expansion-panel>
@@ -199,14 +199,14 @@
         <mat-panel-title>Skills</mat-panel-title>
       </mat-expansion-panel-header>
       <mat-panel-description>
-        <div class="form-group">
+        <div class="form-group" [formGroup]="basicFormGroup">
           <div>
             <!--<label for="skillsdescription">Add Skills</label><br />
             <textarea name="skillsdescription" id="skillsdescription" rows="5" cols="60" #skillsdescription></textarea>-->
 
             <mat-form-field appearance="outline" style="width: 500px;">
               <mat-label >Add Skills</mat-label>
-              <textarea matInput id="skillsdescription" name="skillsdescription" #skillsdescription rows="5"></textarea>
+              <textarea matInput id="skillsdescription" name="skillsdescription" #skillsdescription rows="5" formControlName="skills"></textarea>
             </mat-form-field>
 
           </div>
@@ -235,7 +235,7 @@
                 <input type="text" id="projecttitle" #projecttitle>-->
                 <mat-form-field appearance="outline" style="width: 400px;">
                   <mat-label >Add Project Title</mat-label>
-                  <input matInput id="projecttitle" type="text" #projecttitle>
+                  <input matInput id="projecttitle" type="text" #projecttitle formControlName="title">
                 </mat-form-field>
               </div>
               <div>
@@ -244,7 +244,7 @@
 
                 <mat-form-field appearance="outline" style="width: 500px;">
                   <mat-label >Add Project Description</mat-label>
-                  <textarea matInput id="projectdescription" type="text" rows="5" #projectdescription></textarea>
+                  <textarea matInput id="projectdescription" type="text" rows="5" #projectdescription formControlName="description"></textarea>
                 </mat-form-field>
 
               </div>
@@ -276,7 +276,7 @@
                 <input type="text" id="achievementissuer" #achievementissuer>-->
                 <mat-form-field appearance="outline" style="width: 400px;">
                   <mat-label >Add Issuer</mat-label>
-                  <input matInput id="achievementissuer" type="text" #achievementissuer>
+                  <input matInput id="achievementissuer" type="text" formControlName="issuer" #achievementissuer>
                 </mat-form-field>
               </div>
 
@@ -285,7 +285,7 @@
                 <input type="text" id="achievementname" #achievementname>-->
                 <mat-form-field appearance="outline" style="width: 400px;">
                   <mat-label >Add Name</mat-label>
-                  <input matInput id="achievementname" type="text" #achievementname>
+                  <input matInput id="achievementname" type="text" formControlName="name" #achievementname>
                 </mat-form-field>
               </div>
 
@@ -294,7 +294,7 @@
                 <input type="date" id="achievementdate" #achievementdate>-->
                 <mat-form-field appearance="outline" style="width: 400px;">
                   <mat-label >Add Date</mat-label>
-                  <input matInput id="achievementdate" type="date" #achievementdate>
+                  <input matInput id="achievementdate" type="date" formControlName="date" #achievementdate>
                 </mat-form-field>
               </div>
               <br/>
@@ -303,15 +303,10 @@
         </div><br />
     </mat-panel-description>
     </mat-expansion-panel>
-  </mat-accordion><br />
-  <!--<h2>Submit Form Button here</h2>-->
-  <div class="printButton">
-  <button (click)="printResume()">Create Resume / View Resume in Console</button></div>
-</div>
-<!-- Basic Info-->
+  </mat-accordion>
 
-<!-- Websites -->
-<!-- <mat-accordion>
+  <!-- Websites -->
+<mat-accordion>
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>Websites</mat-panel-title>
@@ -333,6 +328,15 @@
       <br />
     </mat-panel-description>
   </mat-expansion-panel>
-</mat-accordion> -->
+</mat-accordion><br />
+
+
+  <!--<h2>Submit Form Button here</h2>-->
+  <div class="printButton">
+  <button (click)="createNew()">Create Resume</button></div>
+</div>
+<!-- Basic Info-->
+
+
 
 

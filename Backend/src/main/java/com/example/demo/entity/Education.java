@@ -2,7 +2,7 @@ package com.example.demo.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "")
+@Table(name = "education")
 public class Education {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +23,6 @@ public class Education {
     @Column(name="end_date")
     private String endDate;
 
-    @Column(name="description")
-    private String description;
 
     //boolean current
     @Column(name="current")
@@ -33,6 +31,20 @@ public class Education {
 
     //Foreign Key resume_Id
     //one-to-one
+    @ManyToOne
+    @JoinColumn(name = "resume_Id", nullable = false)
+    private Resume resume;
+
+
+    public Education(int educationID, String school, String location, String startDate, String endDate, boolean current, Resume resume){
+        this.educationID = educationID;
+        this.school = school;
+        this.location = location;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.current = current;
+        this.resume = resume;
+    }
 
 
     //getters
@@ -57,9 +69,6 @@ public class Education {
         return endDate;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
     public boolean getCurrent(){
         return current;
@@ -88,13 +97,14 @@ public class Education {
         this.endDate = endDate;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public void setCurrent(boolean current) {
         this.current = current;
     }
+
+
+    //override toString method here
+
 
     //empty constructor
     public Education(){}

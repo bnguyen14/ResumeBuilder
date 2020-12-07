@@ -1,8 +1,26 @@
-<body>
+<div><mat-drawer-container class="example-container" [hasBackdrop]="true">
+  <body>
+<mat-toolbar>
+
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Professional Resume Builder</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+</mat-toolbar>
+
+  <mat-drawer #drawer >I'm a drawer</mat-drawer>
+
+
 <div class="container">
-    <div class="myTitle">
-        <h2>Professional Resume Builder</h2>
-    </div>
     <router-outlet></router-outlet>
 </div>
-
+  </body>
+</mat-drawer-container>
+</div>

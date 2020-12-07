@@ -22,9 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SavedResumesComponent } from './saved-resumes/saved-resumes.component';
-import {MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { MatToolbarModule } from "@angular/material/toolbar";
 
 
 
@@ -54,7 +52,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
         MatIconModule,
         MatDividerModule,
         MatCheckboxModule,
-        MatToolbarModule
+        MatToolbarModule,
         FlexLayoutModule,
     ],
   providers: [],

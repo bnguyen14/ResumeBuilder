@@ -54,8 +54,9 @@ import { MatToolbarModule } from "@angular/material/toolbar";
         MatIconModule,
         MatDividerModule,
         MatCheckboxModule,
-        MatToolbarModule
+        MatToolbarModule,
         FlexLayoutModule,
+
     ],
   providers: [],
   bootstrap: [AppComponent]

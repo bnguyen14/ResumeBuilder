@@ -497,6 +497,5 @@ export class AngularResumeComponent implements OnInit {
   }
   SeeResumes(){
       this.router.navigate(['/resumes']);
-    
-}
+  }
 }

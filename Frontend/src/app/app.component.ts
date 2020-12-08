@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Document, HeadingLevel, Packer, Paragraph} from 'docx';
 import {saveAs} from 'file-saver';
+import {AppService} from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import {saveAs} from 'file-saver';
 export class AppComponent {
   title = 'ResumeBuilderAngular';
   something = 'test title';
-
+  constructor( public appService: AppService) {}
   // register: {}
   // login: {}
 

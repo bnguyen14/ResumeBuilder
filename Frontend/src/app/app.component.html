@@ -1,4 +1,5 @@
-<div><mat-drawer-container class="example-container" [hasBackdrop]="true">
+<div *ngIf="appService.authentication==false">
+  <mat-drawer-container class="example-container" [hasBackdrop]="true">
   <body>
 <mat-toolbar>
 

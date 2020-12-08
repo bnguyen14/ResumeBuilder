@@ -23,7 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SavedResumesComponent } from './saved-resumes/saved-resumes.component';
-import { FlexLayoutModule } from "@angular/flex-layout";
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
@@ -37,7 +37,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
    LoginComponent,
    RegisterComponent,
    SavedResumesComponent,
-   
   ],
     imports: [
         BrowserModule,
@@ -54,8 +53,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
         MatDividerModule,
         MatCheckboxModule,
         MatToolbarModule,
-        MatSidenavModule
-        FlexLayoutModule,
+        MatSidenavModule,
+        FlexLayoutModule
     ],
   providers: [],
   bootstrap: [AppComponent]

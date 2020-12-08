@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
-import { Resume } from './models/resume'
+import { Resume } from './models/resume';
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  authentication:boolean = false;
+  authentication = false;
 
-  constructor(private httpClient : HttpClient, private router : Router) { }
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   logger(useremail: string, userpass: string){
     if (useremail === 'ed@gmail.com' && userpass === 'test') {
+      this.authentication = true;
       console.log(useremail);
       return true;
     }
@@ -24,12 +25,13 @@ export class AppService {
   {
     if (userpass === passConfirm)
     {
+      this.authentication = true;
       return true;
     }
     return false;
   }
 
-  getResume(id:number){
-    return this.httpClient.get('http://localhost:8080/getResumeByID/1')
+  getResume(id: number){
+    return this.httpClient.get('http://localhost:8080/getResumeByID/1');
   }
 }

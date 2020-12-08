@@ -9,7 +9,10 @@ public interface DAO {
     User findUserEmail(String email);
     User findUserPassword(String password);
     List<User> findUserID(int id);
-    List<Website> findWebsiteID(int id);
+    //List<Website> findWebsiteID(int id);
+
+    // Login
+    User findByLogin(String email, String password);
 
     // Put Update Calls
     void saveAchievement(Achievement theAchievement);
@@ -37,7 +40,7 @@ public interface DAO {
     /**
      * Find and delete achievement by ID
      *
-     * @return*/
+     * //@return*/
     //find achievement by ID
     //Achievement findAchievementByID(int achievementID);
 

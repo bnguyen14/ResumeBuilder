@@ -4,6 +4,8 @@ import com.example.demo.dao.DAO;
 import com.example.demo.dao.DAOImpl;
 import com.example.demo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.PreparedStatement;
@@ -22,7 +24,18 @@ public class CTRLS {
 
     //Request mappings below
 
-
+    // Login API
+    @PostMapping(path="/users/login")
+    public ResponseEntity<User> login(@RequestBody String email, String password){
+        System.out.println("user:" + email + ", " + password);
+        User userResult = dao.findByLogin(email, password);
+        if(userResult!=null){
+            return new ResponseEntity<User>(userResult, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<User>(userResult, HttpStatus.BAD_REQUEST);
+        }
+    }
 
     /**************
      * GET requests below

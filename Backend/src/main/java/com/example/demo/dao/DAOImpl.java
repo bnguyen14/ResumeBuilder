@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.entity.*;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,6 +37,18 @@ public class DAOImpl implements DAO {
         User user = session.get(User.class, password);
 
         return user;
+    }
+
+    @Override
+    @Transactional
+    public User findByLogin(String email, String password) {
+        Session session = entityManager.unwrap(Session.class);
+        Query<User> query = session.createQuery("FROM User WHERE email=:email AND password=:password");
+        query.setParameter("username", email);
+        query.setParameter("password", password);
+        List<User> temp = query.getResultList();
+
+        return temp.get(0);
     }
 
     @Override

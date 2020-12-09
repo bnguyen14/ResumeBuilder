@@ -10,6 +10,7 @@ import {Achievement} from '../../models/achievement';
 import {Resume} from '../../models/resume';
 import {Router} from '@angular/router';
 
+import {AppService} from '../../app.service';
 
 
 @Component({
@@ -32,17 +33,27 @@ export class AngularResumeComponent implements OnInit {
 
   dynamicForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, public router: Router ){}
+  constructor(private formBuilder: FormBuilder, private router: Router, private appService: AppService){}
 
   name: string;
   email: string;
   number: string;
   summary: string;
   skillDesc: string;
-
+  resume: Resume;
 
 
   ngOnInit(): void {
+    if(this.appService.authentication==false){
+      this.router.navigate(['']);
+    }
+    this.appService.getResume(1).subscribe(
+      (response) => {
+        this.resume = response;
+        console.log(this.resume);
+      }
+    );
+    
     this.dynamicForm = this.formBuilder.group({
       basic: new FormGroup({
         name: new FormControl(''),
@@ -200,7 +211,7 @@ export class AngularResumeComponent implements OnInit {
     }
   }
 
-  changeEndDate(category: string, i: number){
+  toggleEndDate(category: string, i: number){
     switch(category){
       case 'education':{
         if(this.educationFormGroup[i].get('endDate').disabled){

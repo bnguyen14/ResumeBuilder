@@ -32,4 +32,7 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['/app']);
     }
   }
+  goBack(){
+    this.router.navigate(['']);
+  }
 }

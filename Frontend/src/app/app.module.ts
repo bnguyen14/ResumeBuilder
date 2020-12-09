@@ -17,8 +17,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatMenuModule} from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
-
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -58,6 +58,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatToolbarModule,
         MatSidenavModule,
         FlexLayoutModule,
+        MatMenuModule,
         MatListModule
     ],
   providers: [],

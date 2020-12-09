@@ -6,17 +6,28 @@
     <div>
       <mat-form-field appearance="outline">
       <mat-label >Email</mat-label>
-      <input matInput type="text" [formControl]='useremail' >
+      <input matInput type="text" [formControl]='useremail' 
+        [ngClass]="{ 'is-invalid': submitted && this.loginForm.controls.useremail.errors }"
+      >
+      <mat-hint *ngIf="submitted && this.loginForm.controls.useremail.errors" class="invalid-feedback">
+        <div *ngIf="this.loginForm.controls.useremail.errors.required">Email is required</div>
+      </mat-hint>
     </mat-form-field>
     </div>
     <div>
       <mat-form-field appearance="outline">
         <mat-label >Password</mat-label>
-        <input matInput type="text" [formControl]='userpass'>
+        <input matInput type="password" [formControl]='userpass' 
+          [ngClass]="{ 'is-invalid': submitted && this.loginForm.controls.userpass.errors }"
+        >
+        <mat-hint *ngIf="submitted && this.loginForm.controls.userpass.errors" class="invalid-feedback">
+          <div *ngIf="this.loginForm.controls.userpass.errors.required">Password is required</div>
+        </mat-hint>
       </mat-form-field>
+      
     </div>
     <button  mat-raised-button color="primary" (click)="loginCheck()">Login</button>
-    <button  mat-raised-button color="primary" (click)="this.router.navigate(['/register'])">Register</button>
+    <button  mat-raised-button color="primary" (click)="this.router.navigate(['/register'])">New User</button>
   </div>
 </mat-card>
 

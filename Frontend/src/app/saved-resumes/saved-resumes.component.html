@@ -1,6 +1,6 @@
 <mat-toolbar color="primary"> Saved Resumes </mat-toolbar>
 <div class="content" fxLayout="row wrap" fxLayoutGap="16px grid" >
-<div fxFlex="25%" *ngFor="let resume of resumes" >
+<div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let resume of resumes" >
   <mat-card class="mat-elevation-z4">
     <mat-card-header>
       <mat-card-title>{{resume.resumeName}}</mat-card-title>

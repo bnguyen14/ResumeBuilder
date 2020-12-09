@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
+import { Router } from '@angular/router';
 import {Document, HeadingLevel, Packer, Paragraph} from 'docx';
 import {saveAs} from 'file-saver';
 import {AppService} from './app.service';
+
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,24 @@ import {AppService} from './app.service';
 export class AppComponent {
   title = 'ResumeBuilderAngular';
   something = 'test title';
-  constructor( public appService: AppService) {}
+  resumes: any[] = [
+    {"id": 1,"resumeName": "Resume 1",date: "1/12/2020"},
+    {"id": 2,"resumeName": "Resume 2",date: "1/12/2020"},
+    {"id": 3,"resumeName": "Resume 3",date: "1/12/2020"},
+    {"id": 4,"resumeName": "Resume 4",date: "1/12/2020"},
+    {"id": 5,"resumeName": "Resume 5",date: "1/12/2020"}
+  ];
+  
+
+  constructor( public appService: AppService, public router: Router) {
+  }
+
+  navigateToLogin(){
+      this.router.navigate(['/']);
+    }
+
+  
+  
   // register: {}
   // login: {}
 

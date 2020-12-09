@@ -17,7 +17,10 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+
 import { HttpClientModule } from '@angular/common/http';
+
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
@@ -54,7 +57,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatCheckboxModule,
         MatToolbarModule,
         MatSidenavModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        MatListModule
     ],
   providers: [],
   bootstrap: [AppComponent]

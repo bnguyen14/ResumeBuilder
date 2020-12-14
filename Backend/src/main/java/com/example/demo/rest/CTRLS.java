@@ -25,6 +25,7 @@ public class CTRLS {
     //Request mappings below
 
     // Login API
+    //http://localhost:8080/users/login
     @PostMapping(path="/users/login")
     public ResponseEntity<User> login(@RequestBody String email, String password){
         System.out.println("user:" + email + ", " + password);
@@ -54,6 +55,7 @@ public class CTRLS {
     }
 
     //grabs a resume by its respective id
+    // http://localhost:8080/getResumeByID/{resumeID}
     @GetMapping("/getResumeByID/{resumeID}")
     public List <Resume> getResume(@PathVariable int resumeID){
         List <Resume> resume = dao.findResumeID(resumeID);
@@ -227,6 +229,7 @@ public class CTRLS {
      */
 
     //adds a new user
+    //http://localhost:8080/addUser
     @PostMapping("/addUser")
     public User addUser(@RequestBody User user){
         dao.addUser(user);
@@ -235,6 +238,7 @@ public class CTRLS {
     }
 
     //adds a new resume entity
+    //http://localhost:8080/addResume
     @PostMapping("/addResume")
     public Resume addResume(@RequestBody Resume resume){
         dao.addResume(resume);
@@ -243,6 +247,7 @@ public class CTRLS {
     }
 
     //adds new achievement
+    //http://localhost:8080/addAchievement
     @PostMapping("addAchievement")
     public Achievement addAchievements(@RequestBody Achievement achievement){
         dao.addAchievement(achievement);
@@ -251,6 +256,7 @@ public class CTRLS {
     }
 
     //adds new edu
+    //http://localhost:8080/addEducation
     @PostMapping("addEducation")
     public Education addEducation(@RequestBody Education education){
         dao.addEducation(education);
@@ -259,6 +265,7 @@ public class CTRLS {
     }
 
     //adds new exp
+    //http://localhost:8080/addExperience
     @PostMapping("addExperience")
     public Experience addExperience(@RequestBody Experience experience){
         dao.addExperience(experience);
@@ -267,6 +274,7 @@ public class CTRLS {
     }
 
     //adds new project
+    //http://localhost:8080/addProjects
     @PostMapping("addProjects")
     public Project addProject(@RequestBody Project project){
         dao.addProject(project);
@@ -275,6 +283,7 @@ public class CTRLS {
     }
 
     //adds new Website
+    //http://localhost:8080/addWebsite
     @PostMapping("addWebsite")
     public Website addWebsite(@RequestBody Website website){
         dao.addWebsite(website);
@@ -289,6 +298,7 @@ public class CTRLS {
      */
 
     //deletes User entity by id
+    //http://localhost:8080/deleteUserByID/{userID}
     @DeleteMapping("/deleteUserByID/{userID}")
     public String deleteUserByID(@PathVariable int userID){
         User user = dao.findID(userID);

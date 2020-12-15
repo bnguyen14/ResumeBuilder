@@ -2,9 +2,88 @@
     width: 75%;
     margin-left: auto;
     margin-right: auto;
+    background-color: rgb(75, 86, 90);
   }
   
   .container input {
     width: 100%;
     clear: both;
+    color: black;
+  }
+
+  .mat-expansion-panel-header {
+    background: white;
+    font-size: 20px;
+    font-family: Georgia, cursive, sans-serif;
+    font-weight: bold;
+    
+  }
+
+  .mat-expansion-panel-header mat-panel-title {
+    color: black;
+  }
+
+  .mat-expansion-panel {
+    background: white;
+  }
+
+  .container mat-expansion-panel mat-label {
+    color: black;
+  }
+
+  .checkboxes label {
+    display: inline-block;
+    padding-right: 10px;
+    white-space: nowrap;
+    color: black;
+  }
+  .checkboxes input {
+    vertical-align: middle;
+  }
+  
+  .checkboxes label span {
+    vertical-align: middle;
+  }
+
+  .addButton, .deleteButton{
+    display: inline-block;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  .addButton button{
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+  }
+
+  .deleteButton button{
+    background-color: white;
+    color: black;
+  }
+
+  .printButton{
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    
+  }
+
+  .printButton button{
+    background-color: white;
+    color:black;
+    font-size: 20px;
+  }
+
+  .form-group label {
+    color: black;
+    font-size: 18px;
+    padding-right: 20px;
+  }
+
+  .stayInLine{
+    display: inline-block;
+    padding-right: 10px;
   }

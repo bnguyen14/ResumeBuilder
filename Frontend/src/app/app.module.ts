@@ -30,7 +30,7 @@ import { RegisterComponent } from './register/register.component';
         MatExpansionModule,
         ReactiveFormsModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

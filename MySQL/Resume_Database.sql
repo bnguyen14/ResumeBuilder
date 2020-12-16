@@ -22,8 +22,8 @@ DROP TABLE IF EXISTS `User`;
 
 CREATE TABLE User (
                 user_Id INT AUTO_INCREMENT NOT NULL,
-                email VARCHAR(45) NOT NULL,
-                password VARCHAR(45) NOT NULL,
+                email VARCHAR(45) unique not NULL,
+                password varchar(45) Not Null,
                 PRIMARY KEY (user_Id)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
@@ -31,11 +31,13 @@ CREATE TABLE User (
 CREATE TABLE Resume (
                 resume_Id INT AUTO_INCREMENT NOT NULL,
                 user_Id INT NOT NULL,
+                resume_name varchar(45),
                 name VARCHAR(45) NOT NULL,
                 email VARCHAR(45) NOT NULL,
                 location VARCHAR(45) NOT NULL,
                 summary VARCHAR(10000) NOT NULL,
                 skills VARCHAR(10000) NOT NULL,
+                save_date date null,
                 PRIMARY KEY (resume_Id, user_Id)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 

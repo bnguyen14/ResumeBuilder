@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.entity.*;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -40,6 +41,18 @@ public class DAOImpl implements DAO {
 
     @Override
     @Transactional
+    public User findByLogin(String email, String password) {
+        Session session = entityManager.unwrap(Session.class);
+        Query<User> query = session.createQuery("FROM User WHERE email=:email AND password=:password");
+        query.setParameter("username", email);
+        query.setParameter("password", password);
+        List<User> temp = query.getResultList();
+
+        return temp.get(0);
+    }
+
+    @Override
+    @Transactional
     public List<Achievement> findAchievementID(int achievementID) {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
@@ -48,6 +61,13 @@ public class DAOImpl implements DAO {
 
 
         return achievements;
+    }
+
+    @Override
+    @Transactional
+    public void addAchievement(Achievement achievement) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(achievement);
     }
 
     @Override
@@ -64,6 +84,13 @@ public class DAOImpl implements DAO {
 
     @Override
     @Transactional
+    public void addEducation(Education education) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(education);
+    }
+
+    @Override
+    @Transactional
     public List<Experience> findExperienceID(int experienceID) {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
@@ -76,6 +103,13 @@ public class DAOImpl implements DAO {
 
     @Override
     @Transactional
+    public void addExperience(Experience experience) {
+        session = entityManager.unwrap(Session.class);
+        session.save(experience);
+    }
+
+    @Override
+    @Transactional
     public List<Project> findProjectID(int projectID) {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
@@ -84,6 +118,12 @@ public class DAOImpl implements DAO {
 
 
         return project;
+    }
+
+    @Override
+    public void addProject(Project project) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(project);
     }
 
     @Override
@@ -109,6 +149,70 @@ public class DAOImpl implements DAO {
 
         return website;
     }
+
+    // Put Save commands
+    @Override
+    public void addWebsite(Website website) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(website);
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveAchievement(Achievement theAchievement) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theAchievement);
+
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveEducation(Education theEducation) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theEducation);
+
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveExperience(Experience theExperience) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theExperience);
+
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveProject(Project theProject) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theProject);
+
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveResume(Resume theResume) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theResume);
+
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveUser(User theUser) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theUser);
+
+    }
+
+    @Override
+    @Transactional //Defines the scope of a single database transaction.
+    public void saveWebsite(Website theWebsite) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(theWebsite);
+
+    }
+
 
 
     //WIP [might delete later ;)]

@@ -42,7 +42,7 @@ public interface DAO {
      *
      * //@return*/
     //find achievement by ID
-    //Achievement findAchievementByID(int achievementID);
+    Achievement findAchievementByID(int achievementID);
 
     //delete achievement by ID
     void deleteAchievementByID(int achievementID);
@@ -83,7 +83,7 @@ public interface DAO {
     ////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    List<Website> findWebsiteID(int id);
+    //List<Website> findWebsiteID(int id);
     void addWebsite(Website website);
     /**
      * Find and delete website by ID

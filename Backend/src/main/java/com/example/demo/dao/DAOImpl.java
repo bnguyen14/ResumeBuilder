@@ -289,13 +289,13 @@ public class DAOImpl implements DAO {
 
     }
 
-//    @Override
-//    public Achievement findAchievementID(int achievementID) {
-//        session = entityManager.unwrap(Session.class);
-//        Achievement achievement = session.get(Achievement.class, achievementID);
-//
-//        return achievement;
-//    }
+    @Override
+    public Achievement findAchievementByID(int achievementID) {
+        session = entityManager.unwrap(Session.class);
+        Achievement achievement = session.get(Achievement.class, achievementID);
+
+        return achievement;
+    }
 
     @Override
     public void deleteAchievementByID(int achievementID) {

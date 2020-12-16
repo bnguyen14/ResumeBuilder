@@ -309,4 +309,72 @@ public class CTRLS {
         return "Deleted user with ID:" + userID;
     }
 
+    //http://localhost:8080/deleteAchievementByID/{achievementID}
+    @DeleteMapping("/deleteAchievementByID/{achievementID}")
+    public String deleteAchievementByID(@PathVariable int achievementID){
+        Achievement achievement = dao.findAchievementByID(achievementID);
+        if (achievement == null){
+            throw new RuntimeException("Couldn't find achievement with ID: " + achievementID);
+        }
+        dao.deleteAchievementByID(achievementID);
+        return "Deleted achievement with ID:" + achievementID;
+    }
+
+    //http://localhost:8080/deleteEducationByID/{educationID}
+    @DeleteMapping("/deleteEducationByID/{educationID}")
+    public String deleteEducationByID(@PathVariable int educationID){
+        Education education = dao.findEducationByID(educationID);
+        if (education == null){
+            throw new RuntimeException("Couldn't find education with ID: " + educationID);
+        }
+        dao.deleteEducationByID(educationID);
+        return "Deleted education with ID:" + educationID;
+    }
+
+    //http://localhost:8080/deleteExperienceByID/{experienceID}
+    @DeleteMapping("/deleteExperienceByID/{experienceID}")
+    public String deleteExperienceByID(@PathVariable int experienceID){
+        Experience experience = dao.findExperienceByID(experienceID);
+        if (experience == null){
+            throw new RuntimeException("Couldn't find experience with ID: " + experienceID);
+        }
+        dao.deleteExperienceByID(experienceID);
+        return "Deleted experience with ID:" + experienceID;
+    }
+
+    //http://localhost:8080/deleteProjectByID/{projectID}
+    @DeleteMapping("/deleteProjectByID/{projectID}")
+    public String deleteProjectByID(@PathVariable int projectID){
+        Project project = dao.findProjectByID(projectID);
+        if (project == null){
+            throw new RuntimeException("Couldn't find project with ID: " + projectID);
+        }
+        dao.deleteProjectByID(projectID);
+        return "Deleted project with ID:" + projectID;
+    }
+
+    //http://localhost:8080/deleteResumeByID/{resumeID}
+    @DeleteMapping("/deleteResumeByID/{resumeID}")
+    public String deleteResumeByID(@PathVariable int resumeID){
+        Resume resume = dao.findResViaID(resumeID);
+        if (resume == null){
+            throw new RuntimeException("Couldn't find resume with ID: " + resumeID);
+        }
+        dao.deleteResumeByID(resumeID);
+        return "Deleted resume with ID:" + resumeID;
+    }
+
+    //http://localhost:8080/deleteWebsiteByID/{websiteID}
+    @DeleteMapping("/deleteWebsiteByID/{websiteID}")
+    public String deleteWebsiteByID(@PathVariable int websiteID){
+        Website website = dao.findWebsiteByID(websiteID);
+        if (website == null){
+            throw new RuntimeException("Couldn't find website with ID: " + websiteID);
+        }
+        dao.deleteWebsiteByID(websiteID);
+        return "Deleted website with ID:" + websiteID;
+    }
+
+
+
 }

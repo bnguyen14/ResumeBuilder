@@ -1,7 +1,9 @@
-.content { 
-    padding: 16px; 
+.card-content { 
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 16px;
   }
   
-  .content > mat-card { 
-    width: 200px; 
+  .card-content > mat-card { 
+    width: auto; 
   }

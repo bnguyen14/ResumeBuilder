@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import { Router } from '@angular/router';
 import {Document, HeadingLevel, Packer, Paragraph} from 'docx';
 import {saveAs} from 'file-saver';
-import {AppService} from './app.service';
+import { UserService } from './services/user.service';
 
 
 @Component({
@@ -20,11 +20,11 @@ export class AppComponent {
     {"id": 5,"resumeName": "Resume 5",date: "1/12/2020"},
     {"id": 4,"resumeName": "Resume 4",date: "1/12/2020"}
   ];
-  constructor( public appService: AppService, private router: Router) {}
+  constructor( public userService: UserService, private router: Router) {}
   logOut(){
-    this.appService.userId=undefined;
-    this.appService.userEmail=undefined;
-    this.appService.authentication=false;
+    this.userService.userId=undefined;
+    this.userService.userEmail=undefined;
+    this.userService.authentication=false;
     this.router.navigate(['']);
   }
   logIn(){

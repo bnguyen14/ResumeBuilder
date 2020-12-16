@@ -9,9 +9,8 @@ import {Project} from '../../models/project';
 import {Achievement} from '../../models/achievement';
 import {Resume} from '../../models/resume';
 import {Router} from '@angular/router';
-
-import {AppService} from '../../app.service';
-
+import { UserService } from 'src/app/services/user.service';
+import { ResumeService } from 'src/app/services/resume.service';
 
 @Component({
   selector: 'app-angular-resume',
@@ -23,31 +22,37 @@ export class AngularResumeComponent implements OnInit {
 
 
   maximumFormList = 3;
-  resumes: any[] = [
-    {"id": 1,"resumeName": "Resume 1",date: "1/12/2020"},
-    {"id": 2,"resumeName": "Resume 2",date: "1/12/2020"},
-    {"id": 3,"resumeName": "Resume 3",date: "1/12/2020"},
-    {"id": 4,"resumeName": "Resume 4",date: "1/12/2020"},
-    {"id": 5,"resumeName": "Resume 5",date: "1/12/2020"}
-  ];
+  // resumes: any[] = [
+  //   {"id": 1,"resumeName": "Resume 1",date: "1/12/2020"},
+  //   {"id": 2,"resumeName": "Resume 2",date: "1/12/2020"},
+  //   {"id": 3,"resumeName": "Resume 3",date: "1/12/2020"},
+  //   {"id": 4,"resumeName": "Resume 4",date: "1/12/2020"},
+  //   {"id": 5,"resumeName": "Resume 5",date: "1/12/2020"}
+  // ];
 
   dynamicForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private appService: AppService){}
+  constructor(
+    private formBuilder: FormBuilder, 
+    private router: Router, 
+    private userService: UserService,
+    private resumeService: ResumeService){}
 
-  name: string;
-  email: string;
-  number: string;
-  summary: string;
-  skillDesc: string;
+  // name: string;
+  // email: string;
+  // number: string;
+  // summary: string;
+  // skillDesc: string;
+
+  // testing purposes
   resume: Resume;
 
 
   ngOnInit(): void {
-    if(this.appService.authentication==false){
+    if(this.userService.authentication==false){
       this.router.navigate(['']);
     }
-    this.appService.getResume(1).subscribe(
+    this.resumeService.getResume(1).subscribe(
       (response) => {
         this.resume = response;
         console.log(this.resume);
@@ -238,23 +243,23 @@ export class AngularResumeComponent implements OnInit {
     console.log(this.basicFormValue.summary);
   }
 
-  download(){
-    const document = new Document();
+  // download(){
+  //   const document = new Document();
 
-    document.addSection({
-      children: [
-        ...this.websiteList
-      ]
-    });
+  //   document.addSection({
+  //     children: [
+  //       ...this.websiteList
+  //     ]
+  //   });
 
-    Packer.toBlob(document).then(blob => {
-      saveAs(blob, 'example.docx');
-    });
-  }
+  //   Packer.toBlob(document).then(blob => {
+  //     saveAs(blob, 'example.docx');
+  //   });
+  // }
+  
 
-
-
-  createNew() {
+  // used to generate the doc object
+  createNew(resume:Resume) {
     const doc = new Document();
     doc.addSection({
       children: [
@@ -270,9 +275,9 @@ export class AngularResumeComponent implements OnInit {
           ],
           alignment: AlignmentType.CENTER
         }),
-        ...this.websiteList,
+        ...this.websiteList(resume.websites),
         new Paragraph({
-          text: `${this.summary}`,
+          text: `${resume.summary}`,
           heading: HeadingLevel.HEADING_6,
           thematicBreak: true
         }),
@@ -281,20 +286,20 @@ export class AngularResumeComponent implements OnInit {
         heading: HeadingLevel.HEADING_1,
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
-        ...this.educationList,
+        ...this.educationList(resume.educationList),
         //  experience
         new Paragraph({ text: 'Experience',
         heading: HeadingLevel.HEADING_1,
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
-        ...this.experienceList,
+        ...this.experienceList(resume.exeriences),
         //  skills
         new Paragraph({ text: 'Skills',
         heading: HeadingLevel.HEADING_1,
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
         new Paragraph({
-          text: this.basicFormValue.skills,
+          text: resume.skills,
           heading: HeadingLevel.HEADING_4
         }),
         // projects
@@ -302,13 +307,13 @@ export class AngularResumeComponent implements OnInit {
         heading: HeadingLevel.HEADING_1,
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
-        ...this.projectList,
+        ...this.projectList(resume.projects),
         // achievements
         new Paragraph({ text: 'Achievements',
         heading: HeadingLevel.HEADING_1,
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
-        ...this.achievementList,
+        ...this.achievementList(resume.achievements),
 
       ]
     });
@@ -329,25 +334,25 @@ export class AngularResumeComponent implements OnInit {
 
   }
   // retrieves data websiteValue() and insert each element as text in a new paragraph. returns as list of paragraph
-  get websiteList() {
+  websiteList(websiteArr:Website[]) {
 
-    const tmparr = this.websiteValue;
+    // const tmparr = this.websiteValue;
     const paragraphOut: Paragraph[] = [];
 
-    for (const test of tmparr) {
-      console.log('website: ' + this.basicFormValue.website);
+    for (const test of websiteArr) {
+      console.log('website: ' + test);
       paragraphOut.push(new Paragraph({
-        text : this.basicFormValue.website
+        text : test.website
       }));
     }
     return paragraphOut;
   }
 
-  get educationList() {
-    const tmparr = this.educationValue;
+  educationList(educationArr:Education[]) {
+    // const tmparr = this.educationValue;
     const paragraphOut: Paragraph[] = [];
 
-    for (const test of tmparr) {
+    for (const test of educationArr) {
       const startDateFormat: string = new Date(test.startDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
       const endDateFormat: string = new Date(test.endDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
 
@@ -392,12 +397,12 @@ export class AngularResumeComponent implements OnInit {
     return paragraphOut;
   }
 
-  get projectList() {
-    const tmparr = this.projectValue;
+  projectList(projectArr:Project[]) {
+    // const tmparr = this.projectValue;
     const paragraphOut: Paragraph[] = [];
 
 
-    for (const test of tmparr) {
+    for (const test of projectArr) {
       console.log(test.title);
       paragraphOut.push(new Paragraph({
           children: [
@@ -420,12 +425,12 @@ export class AngularResumeComponent implements OnInit {
     return paragraphOut;
   }
 
-  get achievementList() {
-    const tmparr = this.achievementValue;
+  achievementList(achievementArr:Achievement[]) {
+    // const tmparr = this.achievementValue;
     const paragraphOut: Paragraph[] = [];
 
 
-    for (const test of tmparr) {
+    for (const test of achievementArr) {
       const dateFormat: string = new Date(test.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
       paragraphOut.push(new Paragraph({
         tabStops: [
@@ -459,11 +464,11 @@ export class AngularResumeComponent implements OnInit {
 
 
 
-  get experienceList() {
-    const tmparr = this.experienceValue;
+  experienceList(experienceArr:Experience[]) {
+    // const tmparr = this.experienceValue;
     const paragraphOut: Paragraph[] = [];
 
-    for (const test of tmparr) {
+    for (const test of experienceArr) {
 
       const startDateFormat: string = new Date(test.startDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});
       const endDateFormat: string = new Date(test.endDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short'});

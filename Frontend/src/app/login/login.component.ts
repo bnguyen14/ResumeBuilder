@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AppService} from '../app.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ useremail: FormControl;
 userpass: FormControl;
 
 submitted = false;
-  constructor(private appService: AppService, public router: Router) { }
+  constructor(private userService: UserService, public router: Router) { }
 
   ngOnInit(): void {
     this.useremail = new FormControl('', [Validators.required, Validators.email]);
@@ -26,7 +26,7 @@ submitted = false;
   }
   loginCheck(){
     this.submitted=true;
-    if (this.appService.logger(this.loginForm.value.useremail, this.loginForm.value.userpass) === true)
+    if (this.userService.logger(this.loginForm.value.useremail, this.loginForm.value.userpass) === true)
     {
       this.router.navigate(['/app']);
     }

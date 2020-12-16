@@ -259,19 +259,38 @@ export class AngularResumeComponent implements OnInit {
   
 
   // used to generate the doc object
+
+  createResumeObject(){
+    this.resume = new Resume(this.basicFormValue.name, this.basicFormValue.email, this.basicFormValue.location,
+      this.basicFormValue.summary, this.basicFormValue.skills, this.achievementValue, this.educationValue,
+      this.experienceValue,this.projectValue,this.websiteValue);
+
+      console.log(this.resume);
+
+      this.createNew(this.resume);
+
+  }
+
+
   createNew(resume:Resume) {
     const doc = new Document();
     doc.addSection({
       children: [
         // general
         new Paragraph({
-          text: this.basicFormValue.name,
+          text: resume.name,
           heading: HeadingLevel.TITLE,
           alignment: AlignmentType.CENTER
         }),
         new Paragraph({
           children: [
-            new TextRun(`Email: ${this.basicFormValue.email}`).break()
+            new TextRun(`Email: ${resume.email}`).break()
+          ],
+          alignment: AlignmentType.CENTER
+        }),
+        new Paragraph({
+          children: [
+            new TextRun(`Location: ${resume.location}`).break()
           ],
           alignment: AlignmentType.CENTER
         }),
@@ -342,7 +361,8 @@ export class AngularResumeComponent implements OnInit {
     for (const test of websiteArr) {
       console.log('website: ' + test);
       paragraphOut.push(new Paragraph({
-        text : test.website
+        text : test.website,
+        alignment: AlignmentType.CENTER
       }));
     }
     return paragraphOut;

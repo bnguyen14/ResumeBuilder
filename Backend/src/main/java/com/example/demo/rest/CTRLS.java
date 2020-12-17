@@ -28,7 +28,7 @@ public class CTRLS {
     //http://localhost:8080/users/login
     @PostMapping(path="/users/login")
     public ResponseEntity<User> login(@RequestBody User user){
-        System.out.println("user:" + user.getEmail() + ", " + user.getPassword());
+        System.out.println("user:" + user.toString());
         User userResult = dao.findByLogin(user.getEmail(), user.getPassword());
         if(userResult!=null){
             return new ResponseEntity<User>(userResult, HttpStatus.OK);
@@ -241,6 +241,7 @@ public class CTRLS {
     //http://localhost:8080/addResume
     @PostMapping("/addResume")
     public Resume addResume(@RequestBody Resume resume){
+    	System.out.println("the resume "+resume.toString());
         dao.addResume(resume);
         System.out.println("LOOK HERE FOR THAT [FRESHLY ADDED] RESUME INFO, MY GUY: " + resume.toString().toUpperCase()); //for backend visualization;
         return resume;

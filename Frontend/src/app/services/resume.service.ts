@@ -10,11 +10,14 @@ export class ResumeService {
   constructor(private httpClient: HttpClient) { }
 
   saveResume(resume:Resume){
+    console.log(resume);
     return this.httpClient.post<Resume>('http://localhost:8080/api/addResume',resume);
   }
+
   editResume(id:number){
 
   }
+  
   getResume(id:number){
     return this.httpClient.get<Resume>('http://localhost:8080/api/getResumeByID/1');
   }

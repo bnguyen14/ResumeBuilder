@@ -29,12 +29,11 @@ submitted = false;
     this.submitted=true;
     var user:User;
     user = {
-      user_Id: undefined,
+      userID: undefined,
       email:this.loginForm.value.useremail, 
       password:this.loginForm.value.userpass
     };
-    console.log(this.loginForm.value.useremail);
-    console.log(this.loginForm.value.userpass);
+    // console.log(user);
     this.userService.logger(user).subscribe(
       (response) =>{
         if(response.status==200){

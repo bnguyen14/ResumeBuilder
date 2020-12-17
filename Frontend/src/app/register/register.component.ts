@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
   registerNewUser(){
     if(this.registerForm.value.userpass===this.registerForm.value.passConfirm){
       let user:User = {
-        user_Id: undefined,
+        userID: undefined,
         email: this.registerForm.value.useremail,
         password: this.registerForm.value.userpass
       }

@@ -49,20 +49,20 @@ export class AngularResumeComponent implements OnInit {
   // skillDesc: string;
 
   // testing purposes
-  resume: Resume;
+  // resume: Resume;
 
 
   ngOnInit(): void {
     if(this.userService.authentication==false){
       this.router.navigate(['']);
     }
-    this.resumeService.getResume(1).subscribe(
-      (response) => {
-        this.resume = response;
-        console.log(this.resume);
-      }
-    );
-    
+    // this.resumeService.getResume(1).subscribe(
+    //   (response) => {
+    //     this.resume = response;
+    //     console.log(this.resume);
+    //   }
+    // );
+    // console.log(this.userService.user);
     this.dynamicForm = this.formBuilder.group({
       basic: new FormGroup({
         name: new FormControl('', [Validators.required, Validators.email]),
@@ -265,13 +265,14 @@ export class AngularResumeComponent implements OnInit {
     this.createNew(this.createResumeObject());
   }
 
-  //restreives 
+  //restreives resume from form
   createResumeObject():Resume{
     let resume = new Resume(this.basicFormValue.name, this.basicFormValue.email, this.basicFormValue.location,
       this.basicFormValue.summary, this.basicFormValue.skills, this.achievementValue, this.educationValue,
-      this.experienceValue,this.projectValue,this.websiteValue,undefined);
-
-    console.log(this.resume);
+      this.experienceValue,this.projectValue,this.websiteValue,undefined,this.userService.user);
+    // console.log(this.userService.user);
+    // console.log(this.userService.user.userID);
+    // console.log(resume);
     return resume;
   }
 

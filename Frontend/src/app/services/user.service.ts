@@ -13,6 +13,7 @@ export class UserService {
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   validateUser(user:User){
+    // console.log(user);
     this.authentication=true;
     this.user=user;
     this.router.navigate(['/app']);

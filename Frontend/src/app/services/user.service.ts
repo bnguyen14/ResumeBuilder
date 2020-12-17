@@ -2,34 +2,33 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Resume } from '../models/resume';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   authentication = false;
-  userId:number;
-  userEmail:string;
+  user:User;
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-  logger(useremail: string, userpass: string){
-    if (useremail === 'ed@gmail.com' && userpass === 'test') {
-      this.authentication = true;
-      this.userEmail = 'ed@gmail.com';
-      console.log(useremail);
-      return true;
-    }
-    console.log(userpass);
-    return false;
+  validateUser(user:User){
+    this.authentication=true;
+    this.user=user;
+    this.router.navigate(['/app']);
+  }
+  invalidateUser(){
+    this.authentication=false;
+    this.user=null;
+    this.router.navigate(['']);
   }
 
-  registerUser(useremail: string, userpass: string, passConfirm: string)
-  {
-    if (userpass === passConfirm)
-    {
-      this.authentication = true;
-      return true;
-    }
-    return false;
+  logger(user:User){
+    return this.httpClient.post<User>('http://localhost:8080/api/users/login',user,{observe: 'response'});
+    
+  }
+
+  registerUser(user:User){
+    return this.httpClient.post<User>('http://localhost:8080/api/addUser',user,{observe: 'response'})
   }
 }

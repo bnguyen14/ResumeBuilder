@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // import {GeneralComponent} from './general/general.component';
-import { AngularResumeComponent } from './angularresume/angular-resume/angular-resume.component';
+
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -20,9 +20,11 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { AngularResumeComponent } from './angularresume/angular-resume/angular-resume.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SavedResumesComponent } from './saved-resumes/saved-resumes.component';
@@ -36,7 +38,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   declarations: [
     AppComponent,
    // GeneralComponent,
-    AngularResumeComponent,
+   AngularResumeComponent,
    LoginComponent,
    RegisterComponent,
    SavedResumesComponent,
@@ -59,7 +61,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatSidenavModule,
         FlexLayoutModule,
         MatMenuModule,
-        MatListModule
+        MatListModule,
+        MatSnackBarModule
     ],
   providers: [],
   bootstrap: [AppComponent]

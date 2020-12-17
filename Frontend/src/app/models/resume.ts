@@ -16,6 +16,7 @@ export class Resume {
     public educationList:Education[],
     public exeriences:Experience[],
     public projects:Project[],
-    public websites:Website[]){}
+    public websites:Website[],
+    public save_date:Date){}
     //user_Id:number;
 }

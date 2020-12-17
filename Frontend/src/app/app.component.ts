@@ -22,10 +22,7 @@ export class AppComponent {
   ];
   constructor( public userService: UserService, private router: Router) {}
   logOut(){
-    this.userService.userId=undefined;
-    this.userService.userEmail=undefined;
-    this.userService.authentication=false;
-    this.router.navigate(['']);
+    this.userService.invalidateUser();
   }
   logIn(){
     this.router.navigate(['']);

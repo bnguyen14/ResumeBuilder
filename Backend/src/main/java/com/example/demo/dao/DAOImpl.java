@@ -43,11 +43,18 @@ public class DAOImpl implements DAO {
     @Transactional
     public User findByLogin(String email, String password) {
         Session session = entityManager.unwrap(Session.class);
-        Query<User> query = session.createQuery("FROM User WHERE email=:email AND password=:password");
-        query.setParameter("username", email);
-        query.setParameter("password", password);
-        List<User> temp = query.getResultList();
-
+        
+        
+//        Query<User> query = session.createQuery("FROM User WHERE email=:email AND password=:password");
+//        query.setParameter("email", email);
+//        query.setParameter("password", password);
+        
+        
+        List<User> temp = session.createQuery("FROM User WHERE email=:email AND password=:password")
+        	.setParameter("email", email)
+        	.setParameter("password", password)
+        	.getResultList();
+        
         return temp.get(0);
     }
 

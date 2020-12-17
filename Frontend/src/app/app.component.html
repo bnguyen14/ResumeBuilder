@@ -9,7 +9,7 @@
       <span class="example-spacer"></span>
       <span *ngIf="this.userService.authentication; else elseBlock" style="text-align: end;">
         <a class="mat-button-wrapper" [matMenuTriggerFor]="beforeMenu" style="cursor: pointer;">
-          {{userService.userEmail}}
+          {{userService.user.email}}
           <mat-icon class="mat-icon">arrow_drop_down</mat-icon>
           <span class="mat-button-focus-overlay"></span>
         </a>

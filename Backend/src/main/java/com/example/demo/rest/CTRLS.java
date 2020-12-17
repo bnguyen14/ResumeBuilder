@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api")
 public class CTRLS {
 
     private final DAO dao;
@@ -27,9 +27,9 @@ public class CTRLS {
     // Login API
     //http://localhost:8080/users/login
     @PostMapping(path="/users/login")
-    public ResponseEntity<User> login(@RequestBody String email, String password){
-        System.out.println("user:" + email + ", " + password);
-        User userResult = dao.findByLogin(email, password);
+    public ResponseEntity<User> login(@RequestBody User user){
+        System.out.println("user:" + user.getEmail() + ", " + user.getPassword());
+        User userResult = dao.findByLogin(user.getEmail(), user.getPassword());
         if(userResult!=null){
             return new ResponseEntity<User>(userResult, HttpStatus.OK);
         }

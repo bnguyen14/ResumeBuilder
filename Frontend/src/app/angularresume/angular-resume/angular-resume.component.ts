@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {AlignmentType, Document, HeadingLevel, Packer, Paragraph, TabStopPosition, TabStopType, TextRun} from 'docx';
 import {saveAs} from 'file-saver';
 import {Website} from '../../models/website';
@@ -11,12 +11,15 @@ import {Resume} from '../../models/resume';
 import {Router} from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { ResumeService } from 'src/app/services/resume.service';
+import { DatePipe } from '@angular/common';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-angular-resume',
   templateUrl: './angular-resume.component.html',
   styleUrls: ['./angular-resume.component.css'],
   // encapsulation: ViewEncapsulation.None
+  providers: [DatePipe]
 })
 export class AngularResumeComponent implements OnInit {
 
@@ -36,7 +39,8 @@ export class AngularResumeComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private router: Router, 
     private userService: UserService,
-    private resumeService: ResumeService){}
+    private resumeService: ResumeService,
+    private _snackBar: MatSnackBar){}
 
   // name: string;
   // email: string;
@@ -61,9 +65,9 @@ export class AngularResumeComponent implements OnInit {
     
     this.dynamicForm = this.formBuilder.group({
       basic: new FormGroup({
-        name: new FormControl(''),
-        email: new FormControl(''),
-        location: new FormControl(''),
+        name: new FormControl('', [Validators.required, Validators.email]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        location: new FormControl('', [Validators.required, Validators.email]),
         summary: new FormControl(''),
         skills: new FormControl(''),
       }),
@@ -130,6 +134,13 @@ export class AngularResumeComponent implements OnInit {
   get experienceValue() { return this.dynamicForm.value.experiences as Experience[]; }
   get projectValue() { return this.dynamicForm.value.projects as Project[]; }
   get achievementValue() { return this.dynamicForm.value.achievements as Achievement[]; }
+
+  //generates snakbar
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 
   // adds another set of the form in the specific category
   incrementList(category: string){
@@ -216,6 +227,7 @@ export class AngularResumeComponent implements OnInit {
     }
   }
 
+  //disables end date when current checkbox is checked
   toggleEndDate(category: string, i: number){
     switch(category){
       case 'education':{
@@ -237,41 +249,33 @@ export class AngularResumeComponent implements OnInit {
     }
   }
 
-  printResume(){
-    console.log(this.basicFormValue.name);
-    console.log(this.basicFormValue.email);
-    console.log(this.basicFormValue.summary);
+  //performs post request for resume
+  saveResume(){
+    this.resumeService.saveResume(this.createResumeObject()).subscribe(
+      (resume) =>{
+        if(resume){
+          this.openSnackBar('saved resume','dismiss');
+        }
+      }
+    )
   }
 
-  // download(){
-  //   const document = new Document();
+  //self explanitory
+  downloadResume(){
+    this.createNew(this.createResumeObject());
+  }
 
-  //   document.addSection({
-  //     children: [
-  //       ...this.websiteList
-  //     ]
-  //   });
-
-  //   Packer.toBlob(document).then(blob => {
-  //     saveAs(blob, 'example.docx');
-  //   });
-  // }
-  
-
-  // used to generate the doc object
-
-  createResumeObject(){
-    this.resume = new Resume(this.basicFormValue.name, this.basicFormValue.email, this.basicFormValue.location,
+  //restreives 
+  createResumeObject():Resume{
+    let resume = new Resume(this.basicFormValue.name, this.basicFormValue.email, this.basicFormValue.location,
       this.basicFormValue.summary, this.basicFormValue.skills, this.achievementValue, this.educationValue,
-      this.experienceValue,this.projectValue,this.websiteValue);
+      this.experienceValue,this.projectValue,this.websiteValue,undefined);
 
-      console.log(this.resume);
-
-      this.createNew(this.resume);
-
+    console.log(this.resume);
+    return resume;
   }
 
-
+  //takes a resume and creates Documents based on resume object passed
   createNew(resume:Resume) {
     const doc = new Document();
     doc.addSection({
@@ -333,7 +337,6 @@ export class AngularResumeComponent implements OnInit {
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
         ...this.achievementList(resume.achievements),
-
       ]
     });
 
@@ -350,8 +353,8 @@ export class AngularResumeComponent implements OnInit {
       }
       saveAs(blob, fileName + '.docx');
     });
-
   }
+
   // retrieves data websiteValue() and insert each element as text in a new paragraph. returns as list of paragraph
   websiteList(websiteArr:Website[]) {
 
@@ -537,8 +540,5 @@ export class AngularResumeComponent implements OnInit {
       // text: `Location: ${test.location}`,
     }
     return paragraphOut;
-  }
-  SeeResumes(){
-      this.router.navigate(['/resumes']);
   }
 }

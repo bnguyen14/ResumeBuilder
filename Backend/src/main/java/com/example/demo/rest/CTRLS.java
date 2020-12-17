@@ -54,6 +54,16 @@ public class CTRLS {
         return user;
     }
 
+    // http://localhost:8080/getResumeByUserID/{userID}
+    @GetMapping("/getResumeByUserID/{userID}")
+    public List <Resume> getResumeByUserID(@PathVariable int userID){
+        List <Resume> resume = dao.findResumesByUserID(userID);
+        if(resume == null){
+            throw new RuntimeException(("Couldn't find a resume with userID " + userID + " , mate."));
+        }
+        return resume;
+    }
+
     //grabs a resume by its respective id
     // http://localhost:8080/getResumeByID/{resumeID}
     @GetMapping("/getResumeByID/{resumeID}")

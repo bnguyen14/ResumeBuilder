@@ -10,6 +10,7 @@ public interface DAO {
     User findUserPassword(String password);
     List<User> findUserID(int id);
     List<Website> findWebsiteID(int id);
+    List<Resume> findResumesByUserID(int id);
 
     // Login
     User findByLogin(String email, String password);

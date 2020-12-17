@@ -3,6 +3,7 @@ INSERT INTO resume VALUES("1", "1", "Supply-Chain Resume", "Pierce Trotman", "pt
 INSERT INTO education VALUES("1", "1", "Georgia State University", "Atlanta, Georgia", "2014-10-01", "2018-10-01", 'Information Technology', "1");
 INSERT INTO project VALUES("1", "1", "Ticket Project", "A ticket-generating program that creates a boarding pass through a customer’s input. The program can add, delete, and update information in a comprehensive database demonstrating Java, Hibernate, MySQL, and SQL design principles.");
 INSERT INTO achievement VALUES("1", "1", "Landmark Education ", "Team Leader", "2010-10-01");
+INSERT INTO achievement VALUES("2", "1", "Mock Trial ", "Mock Lawyer", "2010-11-02");
 INSERT INTO experience VALUES("1", "1", "Pyramid Academy Inc", "Alparetta, Georgia", "Java Full Stack Developer", "2020-10-03", '2020-11-12', "•	Created complex dynamic programs utilizing Java, SQL, and Hibernate.", '1');
 INSERT INTO website VALUES("1", "1", "https://github.com/ptrotman22");
 

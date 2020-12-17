@@ -44,7 +44,7 @@ public class DAOImpl implements DAO {
     public User findByLogin(String email, String password) {
         Session session = entityManager.unwrap(Session.class);
         Query<User> query = session.createQuery("FROM User WHERE email=:email AND password=:password");
-        query.setParameter("username", email);
+        query.setParameter("email", email);
         query.setParameter("password", password);
         List<User> temp = query.getResultList();
 
@@ -53,12 +53,25 @@ public class DAOImpl implements DAO {
 
     @Override
     @Transactional
+    public List <Resume> findResumesByUserID(int userID) {
+        session = entityManager.unwrap(Session.class);
+        List <Resume> resumeList = session.createQuery("FROM Resume WHERE user_Id=:user_Id").setParameter("user_Id", userID).getResultList();
+        //Resume resume = session.get(Resume.class, resumeID);
+
+
+
+        return resumeList; //session.createQuery("FROM Resume WHERE resume_Id=:resume_Id").setParameter("resume_Id", resumeID).getResultList();
+    }
+
+    @Override
+    @Transactional
     public List<Achievement> findAchievementID(int achievementID) {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
 
-        List<Achievement> achievements = session.createQuery("FROM achievement WHERE id=:achievementID").setParameter("achievementID", achievementID).getResultList();
-
+        //List <Resume> resumeList = session.createQuery("FROM Resume WHERE resume_Id=:resume_Id").setParameter("resume_Id", resumeID).getResultList();
+        List<Achievement> achievements = session.createQuery("FROM achievement WHERE achievement_Id=:achievementID")
+                .setParameter("achievementID", achievementID).getResultList();
 
         return achievements;
     }
@@ -76,7 +89,7 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
 
-        List<Education> education = session.createQuery("FROM education WHERE id=:educationID").setParameter("educationID", educationID).getResultList();
+        List<Education> education = session.createQuery("FROM education WHERE education_Id=:educationID").setParameter("educationID", educationID).getResultList();
 
 
         return education;
@@ -95,7 +108,7 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
 
-        List<Experience> experience = session.createQuery("FROM experience WHERE id=:experienceID").setParameter("experienceID", experienceID).getResultList();
+        List<Experience> experience = session.createQuery("FROM experience WHERE experience_id=:experienceID").setParameter("experienceID", experienceID).getResultList();
 
 
         return experience;
@@ -114,7 +127,7 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
 
-        List<Project> project = session.createQuery("FROM project WHERE id=:projectID").setParameter("projectID", projectID).getResultList();
+        List<Project> project = session.createQuery("FROM project WHERE project_Id=:projectID").setParameter("projectID", projectID).getResultList();
 
 
         return project;
@@ -132,7 +145,7 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
 
-        List<User> user = session.createQuery("FROM project WHERE id=:userId").setParameter("userId", userId).getResultList();
+        List<User> user = session.createQuery("FROM user WHERE user_Id=:userId").setParameter("userId", userId).getResultList();
 
 
         return user;
@@ -144,7 +157,7 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
 
-        List<Website> website = session.createQuery("FROM project WHERE id=:userId").setParameter("userId", websiteId).getResultList();
+        List<Website> website = session.createQuery("FROM website WHERE website_id=:websiteId").setParameter("websiteId", websiteId).getResultList();
 
 
         return website;

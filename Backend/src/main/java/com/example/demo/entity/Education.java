@@ -104,7 +104,18 @@ public class Education {
 
 
     //override toString method here
-
+    @Override
+    public String toString() {
+        return "Education{" +
+                "educationID=" + educationID +
+                ", school='" + school + '\'' +
+                ", location='" + location + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", current=" + current +
+                ", resume=" + resume +
+                '}';
+    }
 
     //empty constructor
     public Education(){}

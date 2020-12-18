@@ -24,6 +24,18 @@ public class CTRLS {
 
     //Request mappings below
 
+    // Test API
+    //    http://localhost:8080/Test/{name}
+    @GetMapping("/Test/{name}")
+    public List<Resume> Test(@PathVariable String name){
+        List<Resume> achievement = dao.TestFindAPI(name);
+        if(achievement == null){
+            throw new RuntimeException("Couldn't find use with name: " + name);
+        }
+
+        return achievement;
+    }
+
     // Login API
     //http://localhost:8080/users/login
     @PostMapping(path="/users/login")

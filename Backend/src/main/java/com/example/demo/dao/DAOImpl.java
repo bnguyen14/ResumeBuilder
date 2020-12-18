@@ -18,6 +18,19 @@ public class DAOImpl implements DAO {
     @Autowired
     public DAOImpl(EntityManager entityManager){this.entityManager = entityManager;}
 
+    // Test API
+    @Override
+    @Transactional
+    public List<Resume> TestFindAPI(String name) {
+        session = entityManager.unwrap(Session.class);
+
+        List<Resume> achievements = session.createQuery("FROM user WHERE password=:name")
+                .setParameter("name", name).getResultList();
+
+        return achievements;
+    }
+
+
     @Override
     @Transactional
     public User findUserEmail(String email) {

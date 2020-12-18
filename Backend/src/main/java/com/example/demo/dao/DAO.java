@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface DAO {
 
+    List<Resume> TestFindAPI(String random);
+
     User findUserEmail(String email);
     User findUserPassword(String password);
     List<User> findUserID(int id);

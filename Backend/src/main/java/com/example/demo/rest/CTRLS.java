@@ -200,8 +200,8 @@ public class CTRLS {
     //WIP
     //lists ALL resumes belonging to a particular userID
     @GetMapping("/listAllResumesByUser/{userID}")
-    public List <Resume> listResumes(@PathVariable int userID){
-        List<Resume> resumeList = dao.showAllResumesByID(userID);
+    public @ResponseBody List<ResumeSave> listResumes(@PathVariable int userID){
+        List<ResumeSave> resumeList = dao.showAllResumesByID(userID);
         if(resumeList == null){
             throw new RuntimeException("User with ID " + userID + " has no existing resumes..");
         }

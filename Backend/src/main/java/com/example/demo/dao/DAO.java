@@ -98,7 +98,7 @@ public interface DAO {
 
 
     void addResume (Resume resume);
-    List<Resume> showAllResumesByID(int userID);  //WIP
+    List<ResumeSave> showAllResumesByID(int userID);  //WIP
     //Resume findResumeID(int resumeID);
     //Resume findResumeByUserID(int userID) //find userName by foreign key user_id
     /**

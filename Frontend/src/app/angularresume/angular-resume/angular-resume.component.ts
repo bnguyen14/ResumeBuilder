@@ -56,13 +56,51 @@ export class AngularResumeComponent implements OnInit {
     if(this.userService.authentication==false){
       this.router.navigate(['']);
     }
-    // this.resumeService.getResume(1).subscribe(
-    //   (response) => {
-    //     this.resume = response;
-    //     console.log(this.resume);
-    //   }
-    // );
-    // console.log(this.userService.user);
+    this.resumeService.resume.subscribe(
+      (resume) => {
+        console.log('resume change triggered');
+        console.log(resume);
+      }
+    )
+    this.initializeForm();
+  }
+  // the overall form control of "dynamicForm"
+  get formControl() { return this.dynamicForm.controls; }
+
+  // use FormArray to push another form into the array
+  get websiteFormArray() { return this.formControl.websites as FormArray; }
+  get educationFormArray() { return this.formControl.educations as FormArray; }
+  get experienceFormArray(){return this.formControl.experiences as FormArray; }
+  get projectFormArray(){return this.formControl.projects as FormArray; }
+  get achievementFormArray(){return this.formControl.achievements as FormArray; }
+  // use in .html file to find how many forms are in a group
+  get basicFormGroup() { return this.dynamicForm.controls.basic as FormGroup; }
+  get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
+  get educationFormGroup() { return this.educationFormArray.controls as FormGroup[]; }
+  get experienceFormGroup() { return this.experienceFormArray.controls as FormGroup[]; }
+  get projectFormGroup() { return this.projectFormArray.controls as FormGroup[]; }
+  get achievementFormGroup() { return this.achievementFormArray.controls as FormGroup[]; }
+
+  // use to retrieve data from basic form
+  get basicFormValue() { return this.dynamicForm.controls.basic.value; }
+
+  // use to retrieve data from form as a list
+  get websiteValue() { return this.dynamicForm.value.websites as Website[]; }
+  get educationValue() { return this.dynamicForm.value.educations as Education[]; }
+  get experienceValue() { return this.dynamicForm.value.experiences as Experience[]; }
+  get projectValue() { return this.dynamicForm.value.projects as Project[]; }
+  get achievementValue() { return this.dynamicForm.value.achievements as Achievement[]; }
+
+  //generates snakbar
+  openSnackBar() {
+    this._snackBar.open("Resume Saved", "Dismiss", {
+      duration: 2000,
+    });
+
+  }
+
+  //initializes form controls and arrays and pushes the first set of forms onto each
+  initializeForm(){
     this.dynamicForm = this.formBuilder.group({
       basic: new FormGroup({
         name: new FormControl('', [Validators.required, Validators.email]),
@@ -107,39 +145,6 @@ export class AngularResumeComponent implements OnInit {
       name: '',
       date: ''
     }));
-  }
-  // the overall form control of "dynamicForm"
-  get formControl() { return this.dynamicForm.controls; }
-
-  // use FormArray to push another form into the array
-  get websiteFormArray() { return this.formControl.websites as FormArray; }
-  get educationFormArray() { return this.formControl.educations as FormArray; }
-  get experienceFormArray(){return this.formControl.experiences as FormArray; }
-  get projectFormArray(){return this.formControl.projects as FormArray; }
-  get achievementFormArray(){return this.formControl.achievements as FormArray; }
-  // use in .html file to find how many forms are in a group
-  get basicFormGroup() { return this.dynamicForm.controls.basic as FormGroup; }
-  get websiteFormGroup() { return this.websiteFormArray.controls as FormGroup[]; }
-  get educationFormGroup() { return this.educationFormArray.controls as FormGroup[]; }
-  get experienceFormGroup() { return this.experienceFormArray.controls as FormGroup[]; }
-  get projectFormGroup() { return this.projectFormArray.controls as FormGroup[]; }
-  get achievementFormGroup() { return this.achievementFormArray.controls as FormGroup[]; }
-
-  // use to retrieve data from basic form
-  get basicFormValue() { return this.dynamicForm.controls.basic.value; }
-
-  // use to retrieve data from form as a list
-  get websiteValue() { return this.dynamicForm.value.websites as Website[]; }
-  get educationValue() { return this.dynamicForm.value.educations as Education[]; }
-  get experienceValue() { return this.dynamicForm.value.experiences as Experience[]; }
-  get projectValue() { return this.dynamicForm.value.projects as Project[]; }
-  get achievementValue() { return this.dynamicForm.value.achievements as Achievement[]; }
-
-  //generates snakbar
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-    });
   }
 
   // adds another set of the form in the specific category
@@ -254,7 +259,7 @@ export class AngularResumeComponent implements OnInit {
     this.resumeService.saveResume(this.createResumeObject()).subscribe(
       (resume) =>{
         if(resume){
-          this.openSnackBar('saved resume','dismiss');
+          this.openSnackBar();
         }
       }
     )

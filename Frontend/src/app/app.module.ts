@@ -21,6 +21,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -62,7 +63,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         FlexLayoutModule,
         MatMenuModule,
         MatListModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatDialogModule
     ],
   providers: [],
   bootstrap: [AppComponent]

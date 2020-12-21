@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Resume } from '../models/resume';
 import { User } from '../models/user';
+import { ResumeService } from './resume.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,18 @@ import { User } from '../models/user';
 export class UserService {
   authentication = false;
   user:User;
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(private httpClient: HttpClient, private router: Router, private resumeService:ResumeService) { }
 
   validateUser(user:User){
     // console.log(user);
     this.authentication=true;
     this.user=user;
+    this.resumeService.getResumeSaves(this.user.userID).subscribe(
+      (saves) => {
+        console.log(saves)
+        this.resumeService.resumeSaves.push(...saves);
+      }
+    )
     this.router.navigate(['/app']);
   }
   invalidateUser(){

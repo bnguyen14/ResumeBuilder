@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
-import {AppService} from '../app.service';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user';
+
 
 @Component({
   selector: 'app-register',
@@ -13,7 +15,7 @@ export class RegisterComponent implements OnInit {
    userpass: FormControl;
    passConfirm: FormControl;
   registerForm: FormGroup;
-  constructor(private appService: AppService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.useremail = new FormControl('');
@@ -26,10 +28,22 @@ export class RegisterComponent implements OnInit {
     });
   }
   registerNewUser(){
-    if (this.appService.registerUser(this.registerForm.value.useremail, this.registerForm.value.userpass,
-      this.registerForm.value.passConfirm))
-    {
-      this.router.navigate(['/app']);
+    if(this.registerForm.value.userpass===this.registerForm.value.passConfirm){
+      let user:User = {
+        userID: undefined,
+        email: this.registerForm.value.useremail,
+        password: this.registerForm.value.userpass
+      }
+      this.userService.registerUser(user).subscribe(
+        (response) => {
+          if(response.status==200){
+            this.userService.validateUser(response.body);
+          }
+        }
+      )
     }
+  }//this.router.navigate(['/app']);
+  goBack(){
+    this.router.navigate(['']);
   }
 }

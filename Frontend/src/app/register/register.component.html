@@ -1,30 +1,27 @@
-<p>register works!</p>
+<mat-card class="container">
+  <div class="form-group" [formGroup]="registerForm">
+    <mat-form-field appearance="outline">
 
-<h1>User Registration</h1>
-<div class="form-group" [formGroup]="registerForm">
-  <mat-form-field appearance="outline">
+      <mat-label >Email:</mat-label>
+      <label>
+        <input matInput [formControl]='useremail' >
+      </label>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label >Password:</mat-label>
+      <label>
+        <input matInput type='password' [formControl]='userpass'>
+      </label>
 
-    <mat-label >Email:</mat-label>
-    <label>
-      <input matInput [formControl]='useremail' >
-    </label>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label >Password:</mat-label>
-    <label>
-      <input matInput [formControl]='userpass'>
-    </label>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label >Repeat Password:</mat-label>
+      <label>
+        <input matInput type='password' [formControl]='passConfirm'>
+      </label>
 
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label >Repeat Password:</mat-label>
-    <label>
-      <input matInput [formControl]='passConfirm'>
-    </label>
-
-  </mat-form-field>
-</div>
-
-<div>
-    <Button (click)="registerNewUser()">Register User</Button>
-</div>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+    <button mat-raised-button color="primary" (click)="registerNewUser()">Sign-up</button>
+  </div>
+</mat-card>

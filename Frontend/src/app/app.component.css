@@ -1,25 +1,47 @@
+.view{
+  /* height: 100vh; */
+  width: 100%; 
+  height: 100%; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: stretch;
+}
+
 .myTitle {
   color: white;
   text-align: center;
+  padding-top: 20px;
 }
 
-body {
-  background-color: rgb(75, 86, 90);
+mat-drawer-container, mat-drawer-content {
   width: 100%;
+  height: 100%;
+  display: block;
+  flex: 1 1 0;
+  background-color: rgb(33, 28, 58);
+  /* border: 1px solid #555; */
+}
+
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+body {
+  background-color: rgb(33, 28, 58);
   border: 0;
 }
 
 .container {
-    width: 75%;
-    clear: both;
-    padding: 0px 250px;
-    background-color: rgb(75, 86, 90);
-  }
-  
-  .container input {
-    width: 100%;
-    clear: both;
-  }
+  height: 100%;
+  overflow-y: auto;
+  clear: both;
+  padding: 0px 250px;
+  background-color: rgb(33, 28, 58);
+}
+
+.container input {
+  clear: both;
+}
 
   .container button {
     background-color:white;
@@ -30,4 +52,33 @@ body {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+  }
+
+  /* .sidenav-container {
+    height: 100%;
+  }
+  
+  .sidenav {
+    width: 200px;
+  }
+  
+  .sidenav .mat-toolbar {
+    background: inherit;
+  } */
+  
+  .mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .card-content { 
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px; 
+    padding-bottom: 8px;
+  }
+  
+  .card-content > mat-card { 
+    width: auto; 
   }

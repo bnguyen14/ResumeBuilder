@@ -1,22 +1,29 @@
 <div class="container">
   <mat-accordion>
+
+    <!-- Basic Information -->
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>Basic Information</mat-panel-title>
       </mat-expansion-panel-header>
       <mat-panel-description>
         <div class="form-group" [formGroup]="basicFormGroup">
-          <div class="stayInLine">
-            <mat-form-field appearance="outline" style="width: 400px;">
+          <div>
+            <mat-form-field appearance="outline" style="width: 400px;" >
               <mat-label >Name</mat-label>
               <input matInput type="text" formControlName="name" >
             </mat-form-field>
           </div>
-
-          <div class="stayInLine">
+          <div>
             <mat-form-field appearance="outline" style="width: 400px;">
               <mat-label>Email</mat-label>
               <input matInput type="email" formControlName="email">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline" style="width: 400px;">
+              <mat-label>Location</mat-label>
+              <input matInput type="text" formControlName="location">
             </mat-form-field>
           </div>
           <!-- <div>
@@ -39,7 +46,7 @@
           <textarea id="summary" name="summary" rows="5" cols="60" formControlName="summary" #summary></textarea>-->
           <mat-form-field appearance="outline" style="width: 500px;">
             <mat-label>Summary</mat-label>
-            <textarea matInput id="summary" name="summary" rows="5" formControlName="summary" #summary></textarea>
+            <textarea matInput rows="5" formControlName="summary"></textarea>
           </mat-form-field>
 
         </div>
@@ -55,31 +62,31 @@
           Education
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="addButton" >
-      <p><button (click)="incrementList('education')">Add New Education</button></p></div>
         <mat-panel-description>
           <div class="form-group">
             <div *ngFor="let education of educationFormGroup; let i = index">
               <div [formGroup]='education'>
                 <span>
                   <label >Education {{i+1}} </label>
-                  <div class="deleteButton">
-                  <button (click)="decrementList('education',i)">Delete</button></div>
+                  <button *ngIf="i>0" class="deleteButton" mat-mini-fab color="primary" (click)="decrementList('education',i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  <!-- <button mat-raised-button color="primary" (click)="decrementList('education',i)">Delete</button> -->
                 </span><br />
                 <div class="stayInLine">
                   <!--<label for="school">Add School</label><br />
                   <input type="text" id="school" #educationschool formControlName="school" class="form-control">-->
                   <mat-form-field appearance="outline" style="width: 400px;">
-                    <mat-label >Add School</mat-label>
-                    <input matInput id="school" type="text" #educationschool formControlName="school" class="form-control">
+                    <mat-label >School</mat-label>
+                    <input matInput type="text" formControlName="school" class="form-control">
                   </mat-form-field>
                 </div>
                 <div class="stayInLine">
                   <!--<label for="location">Add City/State</label><br />
                   <input type="text" id="location" #educationlocation  formControlName="location" class="form-control">-->
                   <mat-form-field appearance="outline" style="width: 400px;">
-                    <mat-label >Add City/State</mat-label>
-                    <input matInput id="location" type="text" #educationlocation formControlName="location" class="form-control">
+                    <mat-label >City/State</mat-label>
+                    <input matInput type="text" formControlName="location" class="form-control">
                   </mat-form-field>
                 </div>
                 <div class="stayInLine">
@@ -87,31 +94,36 @@
                   <input type="date" id="educationstart" #educationstart  formControlName="startDate" class="form-control">-->
                   <mat-form-field appearance="outline" style="width: 400px;">
                     <mat-label >Start Date</mat-label>
-                    <input matInput id="educationstart" type="date" #educationstart formControlName="startDate" class="form-control">
+                    <input matInput type="date" formControlName="startDate" class="form-control">
                   </mat-form-field>
                 </div>
                 <div class="stayInLine">
                   <!--<label for="educationend">End Date</label><br />
                   <input type="date" id="educationend" #educationend  formControlName="endDate" class="form-control">-->
+                  <div class="checkboxes">
+                    Current
+                    <mat-checkbox (ngModelChange)="toggleEndDate('education', i)" formControlName="current" class="form-control"></mat-checkbox>
+                  </div>
                   <mat-form-field appearance="outline" style="width: 400px;">
                     <mat-label>End Date</mat-label>
-                    <input matInput id="educationend" type="date" #educationend formControlName="endDate" class="form-control">
+                    <input matInput type="date" formControlName="endDate" class="form-control">
                   </mat-form-field>
                 </div>
-                <div class="checkboxes">
-                  <label for="educationcurrent">Currently Attending?
-                  <input type="checkbox" id="educationcurrent" #educationcurrent  formControlName="current" class="form-control"></label>
-                </div>
+                
                 <div>
                   <!--<label for="educationdegree">Degree</label><br />
                   <input type="text" id="educationdegree" #educationdegree  formControlName="degree" class="form-control">-->
                   <mat-form-field appearance="outline" style="width: 400px;">
                     <mat-label >Degree</mat-label>
-                    <input matInput id="educationdegree" type="text" #educationdegree formControlName="degree" class="form-control">
+                    <input matInput type="text" formControlName="degree" class="form-control">
                   </mat-form-field>
                 </div>
-                <br/><br/>
+                <mat-divider></mat-divider>
+                <br/>
               </div>
+            </div>
+            <div class="addButton" >
+              <button mat-raised-button color="primary" (click)="incrementList('education')">Add New Education</button>
             </div>
           </div><br />
         </mat-panel-description>
@@ -124,39 +136,39 @@
           Experience
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="addButton">
-      <p><button (click)="incrementList('experience')">Add New Experience</button></p></div>
       <mat-panel-description>
         <div class="form-group">
           <div *ngFor="let experience of experienceFormGroup; let i = index">
             <div [formGroup]='experience'>
               <span>
                   <label >Experience {{i+1}}</label>
-                  <div class="deleteButton">
-                  <button (click)="decrementList('experience',i)">Delete</button></div>
+                  <button *ngIf="i>0" class="deleteButton" mat-mini-fab color="primary" (click)="decrementList('experience',i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  <!-- <button mat-raised-button color="primary" (click)="decrementList('experience',i)">Delete</button></div> -->
                 </span><br />
               <div class="stayInLine">
                 <!--<label for="jobcompany">Add Company</label><br />
                 <input type="text" id="jobcompany" #jobcompany formControlName="company" class="form-control">-->
                 <mat-form-field appearance="outline" style="width: 400px;">
-                  <mat-label >Add Company</mat-label>
-                  <input matInput id="jobcompany" type="text" #jobcompany formControlName="company" class="form-control">
+                  <mat-label >Company Name</mat-label>
+                  <input matInput type="text" formControlName="company" class="form-control">
                 </mat-form-field>
               </div>
               <div class="stayInLine">
                 <!--<label for="joblocation">Add Job Location</label><br />
                 <input type="text" id="joblocation" #joblocation formControlName="location" class="form-control">-->
                 <mat-form-field appearance="outline" style="width: 400px;">
-                  <mat-label >Add Job Location</mat-label>
-                  <input matInput id="joblocation" type="text" #joblocation formControlName="location" class="form-control">
+                  <mat-label >City/State</mat-label>
+                  <input matInput type="text" formControlName="location" class="form-control">
                 </mat-form-field>
               </div>
-              <div class="stayInLine">
+              <div>
                 <!--<label for="jobtitle">Add Job Title</label><br />
                 <input type="text" id="jobtitle" #jobtitle formControlName="jobTitle" class="form-control">-->
                 <mat-form-field appearance="outline" style="width: 400px;">
-                  <mat-label >Add Job Title</mat-label>
-                  <input matInput id="jobtitle" type="text" #jobtitle formControlName="jobTitle" class="form-control">
+                  <mat-label >Job Title</mat-label>
+                  <input matInput type="text" formControlName="jobTitle" class="form-control">
                 </mat-form-field>
               </div>
               <div class="stayInLine">
@@ -164,30 +176,35 @@
                 <input type="date" id="jobstart" #jobstart formControlName="startDate" class="form-control">-->
                 <mat-form-field appearance="outline" style="width: 400px;">
                   <mat-label >Add Job Start Date</mat-label>
-                  <input matInput id="jobstart" type="date" #jobstart formControlName="startDate" class="form-control">
+                  <input matInput type="date" formControlName="startDate" class="form-control">
                 </mat-form-field>
-              </div>
-              <div>
+              </div >
+              <div class="stayInLine">
                 <!--<label for="jobend">Add Job End Date</label><br />
                 <input type="date" id="jobend" #jobend formControlName="endDate" class="form-control">-->
+                <div class="checkboxes">
+                  Current
+                  <mat-checkbox (ngModelChange)="toggleEndDate ('experience', i)" formControlName="current" class="form-control"></mat-checkbox>
+                </div>
                 <mat-form-field appearance="outline" style="width: 400px;">
                   <mat-label >Add Job End Date</mat-label>
-                  <input matInput id="jobend" type="date" #jobend formControlName="endDate" class="form-control">
+                  <input matInput type="date" formControlName="endDate" class="form-control">
                 </mat-form-field>
-              </div>
-              <div class="checkboxes">
-                <label for="jobcurrent">Currently Working?
-                <input type="checkbox" id="jobcurrent" #jobcurrent formControlName="current" class="form-control"></label>
               </div>
               <div>
                 <!--<label for="jobdescription">Add Job Description</label><br />
                 <textarea name="jobdescription" id="jobdescription" rows="5" cols="60" #jobdescription formControlName="description" class="form-control"></textarea>-->
                 <mat-form-field appearance="outline" style="width: 500px;">
-                  <mat-label >Add Job Description</mat-label>
-                  <textarea matInput id="jobdescription" #jobdescription rows="5" formControlName="description" class="form-control"></textarea>
+                  <mat-label >Job Description</mat-label>
+                  <textarea matInput rows="5" formControlName="description" class="form-control"></textarea>
                 </mat-form-field>
               </div>
+              <mat-divider></mat-divider>
+              <br />
             </div>
+          </div>
+          <div class="addButton">
+            <button mat-raised-button color="primary" (click)="incrementList('experience')">Add New Experience</button>
           </div>
         </div><br />
       </mat-panel-description>
@@ -206,7 +223,7 @@
 
             <mat-form-field appearance="outline" style="width: 500px;">
               <mat-label >Add Skills</mat-label>
-              <textarea matInput id="skillsdescription" name="skillsdescription" #skillsdescription rows="5" formControlName="skills"></textarea>
+              <textarea matInput name="skillsdescription" rows="5" formControlName="skills"></textarea>
             </mat-form-field>
 
           </div>
@@ -219,36 +236,40 @@
       <mat-expansion-panel-header>
         <mat-panel-title>Projects</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="addButton">
-      <p><button (click)="incrementList('project')">Add New Project</button></p></div>
       <mat-panel-description>
         <div class="form-group">
           <div *ngFor="let project of projectFormGroup; let i = index">
             <div [formGroup]='project'>
               <span>
-                <label >Project {{i+1}}</label>
-                <div class="deleteButton">
-                <button (click)="decrementList('project',i)">Delete</button></div>
+                <label>Project {{i+1}}</label>
+                <span class="spacer"></span>
+                <button *ngIf="i>0" class="deleteButton" mat-mini-fab color="primary" (click)="decrementList('project',i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <!-- <button mat-raised-button color="primary" (click)="decrementList('project',i)">Delete</button></div> -->
               </span><br />
-              <div>
+              <div class="stayInLine">
                 <!--<label for="projecttitle">Add Project Title</label><br />
                 <input type="text" id="projecttitle" #projecttitle>-->
                 <mat-form-field appearance="outline" style="width: 400px;">
-                  <mat-label >Add Project Title</mat-label>
-                  <input matInput id="projecttitle" type="text" #projecttitle formControlName="title">
+                  <mat-label >Project Title</mat-label>
+                  <input matInput type="text" formControlName="title">
                 </mat-form-field>
               </div>
               <div>
                 <!--<label for="projectdescription">Add Project Description</label><br />
                 <textarea name="projectdescription" id="projectdescription" rows="5" cols="60" #projectdescription></textarea>-->
-
                 <mat-form-field appearance="outline" style="width: 500px;">
-                  <mat-label >Add Project Description</mat-label>
-                  <textarea matInput id="projectdescription" type="text" rows="5" #projectdescription formControlName="description"></textarea>
+                  <mat-label >Project Description</mat-label>
+                  <textarea matInput type="text" rows="5" formControlName="description"></textarea>
                 </mat-form-field>
-
               </div>
             </div>
+            <mat-divider></mat-divider>
+            <br />
+          </div>
+          <div class="addButton">
+            <button mat-raised-button color="primary" (click)="incrementList('project')">Add New Project</button>
           </div>
         </div><br />
       </mat-panel-description>
@@ -259,16 +280,16 @@
       <mat-expansion-panel-header>
         <mat-panel-title>Achievements</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="addButton">
-      <p><button (click)="incrementList('achievement')">Add New Achievement</button></p></div>
       <mat-panel-description>
         <div class="form-group">
           <div *ngFor="let achievement of achievementFormGroup; let i = index">
             <div [formGroup]='achievement'>
               <span>
                 <label >Achievement {{i+1}}</label>
-                <div class="deleteButton">
-                <button (click)="decrementList('achievement',i)">Delete</button></div>
+                <button *ngIf="i>0" mat-mini-fab color="primary" (click)="decrementList('achievement',i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <!-- <button mat-raised-button color="primary" (click)="decrementList('achievement',i)">Delete</button></div> -->
               </span><br />
 
               <div class="stayInLine">
@@ -276,7 +297,7 @@
                 <input type="text" id="achievementissuer" #achievementissuer>-->
                 <mat-form-field appearance="outline" style="width: 400px;">
                   <mat-label >Add Issuer</mat-label>
-                  <input matInput id="achievementissuer" type="text" formControlName="issuer" #achievementissuer>
+                  <input matInput type="text" formControlName="issuer">
                 </mat-form-field>
               </div>
 
@@ -285,7 +306,7 @@
                 <input type="text" id="achievementname" #achievementname>-->
                 <mat-form-field appearance="outline" style="width: 400px;">
                   <mat-label >Add Name</mat-label>
-                  <input matInput id="achievementname" type="text" formControlName="name" #achievementname>
+                  <input matInput type="text" formControlName="name">
                 </mat-form-field>
               </div>
 
@@ -294,46 +315,53 @@
                 <input type="date" id="achievementdate" #achievementdate>-->
                 <mat-form-field appearance="outline" style="width: 400px;">
                   <mat-label >Add Date</mat-label>
-                  <input matInput id="achievementdate" type="date" formControlName="date" #achievementdate>
+                  <input matInput type="date" formControlName="date">
                 </mat-form-field>
               </div>
+              <mat-divider></mat-divider>
               <br/>
             </div>
           </div>
+          <div class="addButton">
+            <button mat-raised-button color="primary" (click)="incrementList('achievement')">Add New Achievement</button>
+          </div>
         </div><br />
-    </mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel>
+
+    <!-- Websites -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Websites</mat-panel-title>
+      </mat-expansion-panel-header>
+      <button mat-raised-button color="primary" (click)="incrementList('website')">add another website</button>
+      <mat-panel-description>
+        <div class="form-group">
+          <div *ngFor="let website of websiteFormGroup; let i = index">
+            <div [formGroup]='website'>
+              
+              <mat-form-field appearance="outline" style="width: 400px;">
+                <mat-label>Website Link</mat-label>
+                <input matInput type="text" formControlName="website">
+              </mat-form-field>
+              <span class="spacer"></span>
+              <button *ngIf="i>0" class="deleteButton" mat-mini-fab color="primary" (click)="decrementList('website',i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <br />
+      </mat-panel-description>
     </mat-expansion-panel>
   </mat-accordion>
 
-  <!-- Websites -->
-<mat-accordion>
-  <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Websites</mat-panel-title>
-    </mat-expansion-panel-header>
-    <button (click)="incrementList('website')">add another website</button>
-    <mat-panel-description>
-      <div class="form-group">
-        <div *ngFor="let website of websiteFormGroup; let i = index">
-          <div [formGroup]='website'>
-            <span>
-              <label for="website">Add Website {{i+1}}</label>
-              <button (click)="decrementList('website',i)">remove</button>
-            </span><br />
-
-            <input type="text" id="website" #website formControlName="website" class="form-control">
-          </div>
-        </div>
-      </div>
-      <br />
-    </mat-panel-description>
-  </mat-expansion-panel>
-</mat-accordion><br />
-
-
   <!--<h2>Submit Form Button here</h2>-->
-  <div class="printButton">
-  <button (click)="createNew()">Create Resume</button></div>
+  <div class="menu">
+    <button mat-raised-button (click)="createResumeObject()">Create Resume</button>
+    <button mat-raised-button></button>
+    <button mat-raised-button (click)="openSnackBar()">Save Resumes</button>
+  </div>
 </div>
 <!-- Basic Info-->
 

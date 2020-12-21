@@ -1,0 +1,26 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
+import { Resume } from '../models/resume';
+import { Resumesave } from '../models/resumesave';
+import { ResumeService } from '../services/resume.service';
+
+@Component({
+  selector: 'app-saved-resumes',
+  templateUrl: './saved-resumes.component.html',
+  styleUrls: ['./saved-resumes.component.css']
+})
+export class SavedResumesComponent implements OnInit {
+  @Input() 
+  resume:Resumesave;
+  @Input()
+  drawer:MatDrawer;
+  constructor(private resumeService:ResumeService) { }
+
+  ngOnInit(): void {
+  }
+
+  loadResume(){
+    this.resumeService.resume.next(this.resume.resumeID);
+    this.drawer.toggle();
+  }
+}

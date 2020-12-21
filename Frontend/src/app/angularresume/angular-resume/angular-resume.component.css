@@ -1,8 +1,8 @@
-.container {
+  .container {
     width: 75%;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgb(75, 86, 90);
+    background-color: rgb(33, 28, 58);
   }
   
   .container input {
@@ -16,7 +16,6 @@
     font-size: 20px;
     font-family: Georgia, cursive, sans-serif;
     font-weight: bold;
-    
   }
 
   .mat-expansion-panel-header mat-panel-title {
@@ -31,50 +30,22 @@
     color: black;
   }
 
-  .checkboxes label {
-    display: inline-block;
+  .checkboxes {
+    /* display: inline-block; */
     padding-right: 10px;
     white-space: nowrap;
     color: black;
-  }
-  .checkboxes input {
-    vertical-align: middle;
-  }
-  
-  .checkboxes label span {
-    vertical-align: middle;
+    text-align: right;
   }
 
-  .addButton, .deleteButton{
-    display: inline-block;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
+  .deleteButton mat-icon {
+    font-size: 24px !important;
+    width: 24px !important;
+    height: 24px !important;
   }
 
-  .addButton button{
-    background-color: white;
-    border: 2px solid black;
-    color: black;
-  }
-
-  .deleteButton button{
-    background-color: white;
-    color: black;
-  }
-
-  .printButton{
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    
-  }
-
-  .printButton button{
-    background-color: white;
-    color:black;
-    font-size: 20px;
+  .spacer{
+    flex: 1 1 auto;
   }
 
   .form-group label {
@@ -86,4 +57,16 @@
   .stayInLine{
     display: inline-block;
     padding-right: 10px;
+  }
+
+  .menu{
+    margin-top: 10px;
+  }
+
+  .mat-form-field-disabled input{
+    color: rgb(150, 150, 150) !important;
+  }
+
+  .mat-form-field-disabled mat-label{
+    color: rgb(150, 150, 150) !important;
   }

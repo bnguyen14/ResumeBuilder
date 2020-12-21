@@ -184,7 +184,10 @@ public class Resume {
 //    }
 //
 //    //////////////////
-
+    public void setUser(User user) {
+    	this.user=user;
+    }
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -246,7 +249,7 @@ public class Resume {
     public String toString(){
         return "Resume{" +
                 "resumeID: " + resumeID +
-                /*"userID: " + userID +*/
+                "userID: " + user +
                 "name: " + name +
                 "resumeName: " + resumeName +
                 "email: " + email +

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AppService} from '../app.service';
 import {Router} from '@angular/router';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-login',
@@ -12,20 +13,32 @@ export class LoginComponent implements OnInit {
 loginForm: FormGroup;
 useremail: FormControl;
 userpass: FormControl;
-  constructor(private appService: AppService, public router: Router) { }
+
+submitted = false;
+  constructor(private userService: UserService, public router: Router) { }
 
   ngOnInit(): void {
-    this.useremail = new FormControl('');
-    this.userpass = new FormControl('');
+    this.useremail = new FormControl('', [Validators.required, Validators.email]);
+    this.userpass = new FormControl('', Validators.required);
     this.loginForm = new FormGroup({
       useremail : this.useremail,
       userpass : this.userpass
     });
   }
   loginCheck(){
-    if (this.appService.logger(this.loginForm.value.useremail, this.loginForm.value.userpass) === true)
-    {
-      this.router.navigate(['/app']);
-    }
+    this.submitted=true;
+    var user:User;
+    user = {
+      userID: undefined,
+      email:this.loginForm.value.useremail, 
+      password:this.loginForm.value.userpass
+    };
+    // console.log(user);
+    this.userService.logger(user).subscribe(
+      (response) =>{
+        if(response.status==200){
+          this.userService.validateUser(response.body);
+        }
+    })
   }
 }

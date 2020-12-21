@@ -1,25 +1,51 @@
-<p>login works!</p>
+<!-- <p>login works!</p>
 
-<h1>User Login</h1>
+<h1>User Login</h1> -->
+<mat-card class="container">
   <div class="form-group" [formGroup]="loginForm">
-    <mat-form-field appearance="outline">
-
-      <mat-label >Email:</mat-label>
-      <label>
-        <input matInput [formControl]='useremail' >
-      </label>
+    <div>
+      <mat-form-field appearance="outline">
+      <mat-label >Email</mat-label>
+      <input matInput type="text" [formControl]='useremail' 
+        [ngClass]="{ 'is-invalid': submitted && this.loginForm.controls.useremail.errors }"
+      >
+      <mat-hint *ngIf="submitted && this.loginForm.controls.useremail.errors" class="invalid-feedback">
+        <div *ngIf="this.loginForm.controls.useremail.errors.required">Email is required</div>
+      </mat-hint>
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label >Password:</mat-label>
-      <label>
-        <input matInput [formControl]='userpass'>
-      </label>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label >Password</mat-label>
+        <input matInput type="password" [formControl]='userpass' 
+          [ngClass]="{ 'is-invalid': submitted && this.loginForm.controls.userpass.errors }"
+        >
+        <mat-hint *ngIf="submitted && this.loginForm.controls.userpass.errors" class="invalid-feedback">
+          <div *ngIf="this.loginForm.controls.userpass.errors.required">Password is required</div>
+        </mat-hint>
+      </mat-form-field>
+      
+    </div>
+    <button  mat-raised-button color="primary" (click)="loginCheck()">Login</button>
+    <button  mat-raised-button color="primary" (click)="this.router.navigate(['/register'])">New User</button>
+  </div>
+</mat-card>
 
+
+<!-- <div class="form-group" [formGroup]="basicFormGroup">
+  <div class="stayInLine">
+    <mat-form-field appearance="outline" style="width: 400px;">
+      <mat-label >Name</mat-label>
+      <input matInput type="text" formControlName="name" >
     </mat-form-field>
   </div>
 
-<div>
-    <Button (click)="loginCheck()">Login</Button>
-    <Button (click)="this.router.navigate(['/register'])">Register</Button>
+  <div class="stayInLine">
+    <mat-form-field appearance="outline" style="width: 400px;">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email">
+    </mat-form-field>
+  </div>
+</div><br /> -->
 
-</div>
+

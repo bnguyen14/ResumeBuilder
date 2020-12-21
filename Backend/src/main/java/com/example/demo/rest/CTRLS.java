@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.PreparedStatement;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api")
 public class CTRLS {
 
     private final DAO dao;
@@ -39,9 +39,9 @@ public class CTRLS {
     // Login API
     //http://localhost:8080/users/login
     @PostMapping(path="/users/login")
-    public ResponseEntity<User> login(@RequestBody String email, String password){
-        System.out.println("user:" + email + ", " + password);
-        User userResult = dao.findByLogin(email, password);
+    public ResponseEntity<User> login(@RequestBody User user){
+        System.out.println("user:" + user.toString());
+        User userResult = dao.findByLogin(user.getEmail(), user.getPassword());
         if(userResult!=null){
             return new ResponseEntity<User>(userResult, HttpStatus.OK);
         }
@@ -222,8 +222,8 @@ public class CTRLS {
     //WIP
     //lists ALL resumes belonging to a particular userID
     @GetMapping("/listAllResumesByUser/{userID}")
-    public List <Resume> listResumes(@PathVariable int userID){
-        List<Resume> resumeList = dao.showAllResumesByID(userID);
+    public @ResponseBody List<ResumeSave> listResumes(@PathVariable int userID){
+        List<ResumeSave> resumeList = dao.showAllResumesByID(userID);
         if(resumeList == null){
             throw new RuntimeException("User with ID " + userID + " has no existing resumes..");
         }
@@ -263,6 +263,7 @@ public class CTRLS {
     //http://localhost:8080/addResume
     @PostMapping("/addResume")
     public Resume addResume(@RequestBody Resume resume){
+    	System.out.println("the resume "+resume.toString());
         dao.addResume(resume);
         System.out.println("LOOK HERE FOR THAT [FRESHLY ADDED] RESUME INFO, MY GUY: " + resume.toString().toUpperCase()); //for backend visualization;
         return resume;

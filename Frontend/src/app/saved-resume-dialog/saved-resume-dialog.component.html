@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Please enter a resume name.</h2>
+
+<mat-dialog-content>
+    <mat-form-field>
+        <input matInput
+             placeholder="Resume Name"[(ngModel)]="data.resumeName" >
+            </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button" (click)="onCloseClick()">Close</button>
+    <button class="mat-raised-button" [mat-dialog-close]="data.resumeName">Save</button>
+</mat-dialog-actions>

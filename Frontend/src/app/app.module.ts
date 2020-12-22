@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +31,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SavedResumesComponent } from './saved-resumes/saved-resumes.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SavedResumeDialogComponent } from './saved-resume-dialog/saved-resume-dialog.component';
 
 
 
@@ -43,6 +45,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
    LoginComponent,
    RegisterComponent,
    SavedResumesComponent,
+   SavedResumeDialogComponent,
   ],
     imports: [
         BrowserModule,
@@ -64,7 +67,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatMenuModule,
         MatListModule,
         MatSnackBarModule,
-        MatDialogModule
+        MatDialogModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

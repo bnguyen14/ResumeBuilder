@@ -13,6 +13,9 @@ import { UserService } from 'src/app/services/user.service';
 import { ResumeService } from 'src/app/services/resume.service';
 import { DatePipe } from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatDialog , MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ThisReceiver } from '@angular/compiler';
+import { SavedResumeDialogComponent } from 'src/app/saved-resume-dialog/saved-resume-dialog.component';
 
 @Component({
   selector: 'app-angular-resume',
@@ -40,8 +43,11 @@ export class AngularResumeComponent implements OnInit {
     private router: Router, 
     private userService: UserService,
     private resumeService: ResumeService,
-    private _snackBar: MatSnackBar){}
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog){}
 
+
+    savedResumeName: string;
   // name: string;
   // email: string;
   // number: string;
@@ -51,6 +57,21 @@ export class AngularResumeComponent implements OnInit {
   // testing purposes
   // resume: Resume;
 
+  openDialog(){
+    let dialogRef = this.dialog.open(SavedResumeDialogComponent, {
+      data: { resumeName: this.savedResumeName }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.savedResumeName = result;
+      console.log("Resume name: " + this.savedResumeName);
+      this.saveResume();
+      this.openSnackBar;
+
+    }
+      
+      )
+  }
 
   ngOnInit(): void {
     if(this.userService.authentication==false){
@@ -272,7 +293,7 @@ export class AngularResumeComponent implements OnInit {
 
   //restreives resume from form
   createResumeObject():Resume{
-    let resume = new Resume(this.basicFormValue.name, this.basicFormValue.email, this.basicFormValue.location,
+    let resume = new Resume(this.savedResumeName,this.basicFormValue.name, this.basicFormValue.email, this.basicFormValue.location,
       this.basicFormValue.summary, this.basicFormValue.skills, this.achievementValue, this.educationValue,
       this.experienceValue,this.projectValue,this.websiteValue,undefined,this.userService.user);
     // console.log(this.userService.user);

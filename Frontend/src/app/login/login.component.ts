@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { UserService } from '../services/user.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-login',
@@ -26,9 +27,18 @@ submitted = false;
   }
   loginCheck(){
     this.submitted=true;
-    if (this.userService.logger(this.loginForm.value.useremail, this.loginForm.value.userpass) === true)
-    {
-      this.router.navigate(['/app']);
-    }
+    var user:User;
+    user = {
+      userID: undefined,
+      email:this.loginForm.value.useremail, 
+      password:this.loginForm.value.userpass
+    };
+    // console.log(user);
+    this.userService.logger(user).subscribe(
+      (response) =>{
+        if(response.status==200){
+          this.userService.validateUser(response.body);
+        }
+    })
   }
 }

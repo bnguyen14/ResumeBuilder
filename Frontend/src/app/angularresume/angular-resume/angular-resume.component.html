@@ -1,8 +1,4 @@
 <div class="container">
-  <div class="example-button-row">
-  <button (click)="SeeResumes()"  mat-raised-button>Saved resumes</button>
-</div>
-<br>
   <mat-accordion>
 
     <!-- Basic Information -->
@@ -257,7 +253,7 @@
                 <input type="text" id="projecttitle" #projecttitle>-->
                 <mat-form-field appearance="outline" style="width: 400px;">
                   <mat-label >Project Title</mat-label>
-                  <input matInput type="text" #projecttitle formControlName="title">
+                  <input matInput type="text" formControlName="title">
                 </mat-form-field>
               </div>
               <div>
@@ -343,11 +339,15 @@
         <div class="form-group">
           <div *ngFor="let website of websiteFormGroup; let i = index">
             <div [formGroup]='website'>
-              <span>
-                <label for="website">Add Website {{i+1}}</label>
-                <button mat-raised-button color="primary" (click)="decrementList('website',i)">remove</button>
-              </span><br />
-              <input type="text" id="website" #website formControlName="website" class="form-control">
+              
+              <mat-form-field appearance="outline" style="width: 400px;">
+                <mat-label>Website Link</mat-label>
+                <input matInput type="text" formControlName="website">
+              </mat-form-field>
+              <span class="spacer"></span>
+              <button *ngIf="i>0" class="deleteButton" mat-mini-fab color="primary" (click)="decrementList('website',i)">
+                <mat-icon>delete</mat-icon>
+              </button>
             </div>
           </div>
         </div>
@@ -360,7 +360,7 @@
   <div class="menu">
     <button mat-raised-button (click)="createResumeObject()">Create Resume</button>
     <button mat-raised-button></button>
-    <button mat-raised-button>Saved Resumes</button>
+    <button mat-raised-button (click)="openSnackBar()">Save Resumes</button>
   </div>
 </div>
 <!-- Basic Info-->

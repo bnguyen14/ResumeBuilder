@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -19,6 +20,9 @@ public class Resume {
 //    @Column(name="user_Id")
 //    private int userID;
 
+    @Column(name = "resume_name")
+    private String resumeName;
+
     @Column(name="name")
     private String name;
 
@@ -34,6 +38,9 @@ public class Resume {
 
     @Column(name="skills")
     private String skills;
+
+    @Column(name = "save_date")
+    private java.time.LocalDate saveDate;
 
     /**
      * Reference this, dumba$$
@@ -73,9 +80,9 @@ public class Resume {
 
 
     //constructor
-    public Resume (int resumeID, String name, String email, String location, String summary, String skills, List<Achievement> achievements, List<Education> educationList, List<Experience> experiences, List<Project> projects, List<Website> websites){
+    public Resume(int resumeID, String resumeName, String name, String email, String location, String summary, String skills, LocalDate saveDate, List<Achievement> achievements, List<Education> educationList, List<Experience> experiences, List<Project> projects, List<Website> websites){
         this.resumeID = resumeID;
-
+        this.resumeName = resumeName;
 
 
         this.name = name;
@@ -83,7 +90,7 @@ public class Resume {
         this.location = location;
         this.summary = summary;
         this.skills = skills;
-
+        this.saveDate = saveDate;
 
 
         //WIP Section
@@ -102,6 +109,10 @@ public class Resume {
 
     public int getResumeID() {
         return resumeID;
+    }
+
+    public String getResumeName() {
+        return resumeName;
     }
 
     //testing
@@ -126,6 +137,10 @@ public class Resume {
 
     public String getSkills() {
         return skills;
+    }
+
+    public LocalDate getSaveDate() {
+        return saveDate;
     }
 
 
@@ -169,9 +184,16 @@ public class Resume {
 //    }
 //
 //    //////////////////
-
+    public void setUser(User user) {
+    	this.user=user;
+    }
+    
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setResumeName(String resumeName) {
+        this.resumeName = resumeName;
     }
 
     public void setEmail(String email) {
@@ -214,6 +236,10 @@ public class Resume {
         this.websites = websites;
     }
 
+    public void setSaveDate(LocalDate saveDate) {
+        this.saveDate = saveDate;
+    }
+
 
     //empty constructor
     public Resume(){}
@@ -223,8 +249,9 @@ public class Resume {
     public String toString(){
         return "Resume{" +
                 "resumeID: " + resumeID +
-                /*"userID: " + userID +*/
+                "userID: " + user +
                 "name: " + name +
+                "resumeName: " + resumeName +
                 "email: " + email +
                 "location: " + location +
                 "summary: " + summary +
@@ -237,6 +264,9 @@ public class Resume {
                 "experience: " + experiences +
                 "project: " + projects +
                 "website: " + websites +
+                "saveDate: " + saveDate +
                 "} ";
     }
+
+
 }

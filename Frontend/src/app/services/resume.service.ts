@@ -8,7 +8,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ResumeService {
-  resume:Subject<number> = new Subject();
+  resume:Subject<Resume> = new Subject();
   resumeSaves:Resumesave[]=[];
 
   constructor(private httpClient: HttpClient) {}
@@ -32,7 +32,5 @@ export class ResumeService {
   deleteResume(id:number){
     return this.httpClient.delete<Resume>('http://localhost:8080/deleteResumeByID/'+id);
   }
-  getResumeObs():Observable<number>{
-    return this.resume.asObservable();
-  }
+ 
 }

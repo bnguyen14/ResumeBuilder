@@ -20,7 +20,13 @@ export class SavedResumesComponent implements OnInit {
   }
 
   loadResume(){
-    this.resumeService.resume.next(this.resume.resumeID);
-    this.drawer.toggle();
+    this.resumeService.getResume(this.resume.resumeID).subscribe(
+      (resume) =>{
+        this.resumeService.resume.next(resume);
+        this.drawer.toggle();
+      }
+    )
+    
+    
   }
 }

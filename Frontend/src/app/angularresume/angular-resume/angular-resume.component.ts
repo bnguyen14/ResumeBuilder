@@ -79,8 +79,23 @@ export class AngularResumeComponent implements OnInit {
     }
     this.resumeService.resume.subscribe(
       (resume) => {
-        console.log('resume change triggered');
-        console.log(resume);
+        // console.log(resume);
+        // console.log(resume[0].name);
+        this.basicFormGroup.setValue({
+          name: resume[0].name,
+          email: resume[0].email,
+          location:resume[0].location,
+          summary: resume[0].summary,
+          skills: resume[0].skills
+        });
+
+        this.websiteFormGroup[0].setValue({
+          site: resume[0].websites[0],
+          
+        });
+
+       
+
       }
     )
     this.initializeForm();
@@ -138,7 +153,7 @@ export class AngularResumeComponent implements OnInit {
     });
     // the first form initialized for "website"
     this.websiteFormArray.push(this.formBuilder.group({
-      website : ''
+      site : ''
     }));
     this.educationFormArray.push(this.formBuilder.group({
       school: '',
@@ -174,7 +189,7 @@ export class AngularResumeComponent implements OnInit {
       case 'website': {
         if (this.websiteFormGroup.length < this.maximumFormList){
           this.websiteFormArray.push(this.formBuilder.group({
-            website : ''
+            site : ''
           }));
         }
         break;
@@ -298,7 +313,7 @@ export class AngularResumeComponent implements OnInit {
       this.experienceValue,this.projectValue,this.websiteValue,undefined,this.userService.user);
     // console.log(this.userService.user);
     // console.log(this.userService.user.userID);
-    // console.log(resume);
+    console.log(resume);
     return resume;
   }
 
@@ -391,7 +406,7 @@ export class AngularResumeComponent implements OnInit {
     for (const test of websiteArr) {
       console.log('website: ' + test);
       paragraphOut.push(new Paragraph({
-        text : test.website,
+        text : test.site,
         alignment: AlignmentType.CENTER
       }));
     }

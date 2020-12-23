@@ -1,3 +1,3 @@
 export interface Website {
-    website:string;
+    site:string;
 }

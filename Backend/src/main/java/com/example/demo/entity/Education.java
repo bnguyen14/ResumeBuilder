@@ -23,6 +23,9 @@ public class Education {
     @Column(name="end_date")
     private String endDate;
 
+    // Degree
+    @Column(name="degree")
+    private String degree;
 
     //boolean current
     @Column(name="current")
@@ -36,12 +39,13 @@ public class Education {
     private Resume resume;
 
 
-    public Education(int educationID, String school, String location, String startDate, String endDate, boolean current, Resume resume){
+    public Education(int educationID, String school, String location, String startDate, String endDate, String degree, boolean current, Resume resume){
         this.educationID = educationID;
         this.school = school;
         this.location = location;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.degree = degree;
         this.current = current;
         this.resume = resume;
     }
@@ -69,6 +73,9 @@ public class Education {
         return endDate;
     }
 
+    public String getDegree() {
+        return degree;
+    }
 
     public boolean getCurrent(){
         return current;
@@ -97,6 +104,9 @@ public class Education {
         this.endDate = endDate;
     }
 
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
 
     public void setCurrent(boolean current) {
         this.current = current;
@@ -104,7 +114,19 @@ public class Education {
 
 
     //override toString method here
-
+    @Override
+    public String toString() {
+        return "Education{" +
+                "educationID=" + educationID +
+                ", school='" + school + '\'' +
+                ", location='" + location + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", degree='" + degree + '\'' +
+                ", current=" + current +
+                ", resume=" + resume +
+                '}';
+    }
 
     //empty constructor
     public Education(){}

@@ -258,7 +258,7 @@ public class Resume {
                 "skills: " + skills +
 
                 //WIP section
-                /*"userID: " + user +*/
+                "userID: " + user +
                 "achievement: " + achievements +
                 "education: " + educationList +
                 "experience: " + experiences +

@@ -62,7 +62,15 @@ public class Project {
 
 
     //override toString method here
-
+    @Override
+    public String toString() {
+        return "Project{" +
+                "projectID=" + projectID +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", resume=" + resume +
+                '}';
+    }
 
     //empty constructor
     public Project(){}

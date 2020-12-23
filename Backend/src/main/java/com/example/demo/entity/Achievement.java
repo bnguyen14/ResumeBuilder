@@ -72,7 +72,16 @@ public class Achievement {
 
 
     //override toString method here
-
+    @Override
+    public String toString() {
+        return "Achievement{" +
+                "achievementID=" + achievementID +
+                ", issuer='" + issuer + '\'' +
+                ", name='" + name + '\'' +
+                ", date='" + date + '\'' +
+                ", resume=" + resume +
+                '}';
+    }
 
     //empty constructor
     public Achievement(){}

@@ -83,6 +83,10 @@ public class Education {
 
     //setters
 
+    // Resume Setter
+    public void setResume(Resume resume) {
+        this.resume = resume;
+    }
 
     public void setEducationID(int educationID) {
         this.educationID = educationID;
@@ -124,7 +128,7 @@ public class Education {
                 ", endDate='" + endDate + '\'' +
                 ", degree='" + degree + '\'' +
                 ", current=" + current +
-                ", resume=" + resume +
+                //", resume=" + resume +
                 '}';
     }
 

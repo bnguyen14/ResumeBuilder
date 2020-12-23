@@ -90,6 +90,11 @@ public class Experience {
 
     //setters
 
+    // Resume Setter for Resume Object
+    public void setResume(Resume resume) {
+        this.resume = resume;
+    }
+
     public void setExperienceID(int experienceID) { this.experienceID = experienceID; }
 
     public void setCompany(String company) {
@@ -133,7 +138,7 @@ public class Experience {
                 ", endDate='" + endDate + '\'' +
                 ", description='" + description + '\'' +
                 ", current=" + current +
-                ", resume=" + resume +
+                //", resume=" + resume +
                 '}';
     }
 

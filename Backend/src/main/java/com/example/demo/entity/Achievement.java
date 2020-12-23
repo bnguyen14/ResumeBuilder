@@ -53,6 +53,10 @@ public class Achievement {
 
     //setters
 
+    // Resume Setter for Resume Object
+    public void setResume(Resume resume) {
+        this.resume = resume;
+    }
 
     public void setAchievementID(int achievementID) {
         this.achievementID = achievementID;
@@ -79,7 +83,7 @@ public class Achievement {
                 ", issuer='" + issuer + '\'' +
                 ", name='" + name + '\'' +
                 ", date='" + date + '\'' +
-                ", resume=" + resume +
+                //", resume=" + resume +
                 '}';
     }
 

@@ -357,7 +357,7 @@ export class AngularResumeComponent implements OnInit {
         heading: HeadingLevel.HEADING_1,
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
-        ...this.experienceList(resume.exeriences),
+        ...this.experienceList(resume.experiences),
         //  skills
         new Paragraph({ text: 'Skills',
         heading: HeadingLevel.HEADING_1,

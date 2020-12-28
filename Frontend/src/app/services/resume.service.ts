@@ -15,7 +15,7 @@ export class ResumeService {
 
   saveResume(resume:Resume){
     console.log(resume);
-    return this.httpClient.post<Resume>('http://localhost:8080/api/addResume',resume);
+    return this.httpClient.post<Resume>('http://localhost:8080/api/addEntireResume',resume);
   }
   
   editResume(id:number){

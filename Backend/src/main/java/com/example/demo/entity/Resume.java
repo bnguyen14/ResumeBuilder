@@ -247,24 +247,24 @@ public class Resume {
     //override of toString method to display object values for Postman testing
     @Override
     public String toString(){
-        return "Resume{" +
+        return "Resume{\n" +
                 "resumeID: " + resumeID +
-                "userID: " + user +
-                "name: " + name +
-                "resumeName: " + resumeName +
-                "email: " + email +
-                "location: " + location +
-                "summary: " + summary +
-                "skills: " + skills +
+                "\nuserID: " + user +
+                "\nname: " + name +
+                "\nresumeName: " + resumeName +
+                "\nemail: " + email +
+                "\nlocation: " + location +
+                "\nsummary: " + summary +
+                "\nskills: " + skills +
 
                 //WIP section
-                /*"userID: " + user +*/
-                "achievement: " + achievements +
-                "education: " + educationList +
-                "experience: " + experiences +
-                "project: " + projects +
-                "website: " + websites +
-                "saveDate: " + saveDate +
+                "\nuserID: " + user +
+                "\nachievement: " + achievements +
+                "\neducation: " + educationList +
+                "\nexperience: " + experiences +
+                "\nproject: " + projects +
+                "\nwebsite: " + websites +
+                "\nsaveDate: " + saveDate +
                 "} ";
     }
 

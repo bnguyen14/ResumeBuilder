@@ -18,12 +18,53 @@ public class DAOImpl implements DAO {
     @Autowired
     public DAOImpl(EntityManager entityManager){this.entityManager = entityManager;}
 
+    // Test API
+    @Override
+    @Transactional
+    public List<Resume> TestFindAPI(int name) {
+        session = entityManager.unwrap(Session.class);
+        // REMEMBER CAPITAL LETTERS for Queries!!!!!!
+        List<Resume> achievements = session.createQuery("select * from Resume, Website WHERE Resume.resume_Id=:name & Resume.resume_Id = Website.resume_Id;")
+                .setParameter("name", name).getResultList();
+
+        return achievements;
+    }
+
+    @Override
+    @Transactional
+    public void saveEntireResume(Resume resume) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(resume);
+        for(Website w:resume.getWebsites()){
+            w.setResume(resume);
+            saveWebsite(w);
+        }
+        for(Achievement a:resume.getAchievements()){
+            a.setResume(resume);
+            saveAchievement(a);
+        }
+        for(Education ed:resume.getEducationList()){
+            ed.setResume(resume);
+            saveEducation(ed);
+        }
+        for(Experience ex:resume.getExperiences()){
+            ex.setResume(resume);
+            saveExperience(ex);
+        }
+        for(Project p:resume.getProjects()){
+            p.setResume(resume);
+            saveProject(p);
+        }
+
+    }
+
+
     @Override
     @Transactional
     public User findUserEmail(String email) {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
-
+        // REMEMBER CAPITAL LETTERS for Queries!!!!!!
         List<User> users = session.createQuery("FROM User WHERE email=:email").setParameter("email", email).getResultList();
 
 
@@ -43,19 +84,24 @@ public class DAOImpl implements DAO {
     @Transactional
     public User findByLogin(String email, String password) {
         Session session = entityManager.unwrap(Session.class);
-        
-        
-//        Query<User> query = session.createQuery("FROM User WHERE email=:email AND password=:password");
-//        query.setParameter("email", email);
-//        query.setParameter("password", password);
-        
-        
-        List<User> temp = session.createQuery("FROM User WHERE email=:email AND password=:password")
-        	.setParameter("email", email)
-        	.setParameter("password", password)
-        	.getResultList();
-        
+        Query<User> query = session.createQuery("FROM User WHERE email=:email AND password=:password");
+        query.setParameter("email", email);
+        query.setParameter("password", password);
+        List<User> temp = query.getResultList();
+
         return temp.get(0);
+    }
+
+    @Override
+    @Transactional
+    public List <Resume> findResumesByUserID(int userID) {
+        session = entityManager.unwrap(Session.class);
+        List <Resume> resumeList = session.createQuery("FROM Resume WHERE user_Id=:user_Id").setParameter("user_Id", userID).getResultList();
+        //Resume resume = session.get(Resume.class, resumeID);
+
+
+
+        return resumeList; //session.createQuery("FROM Resume WHERE resume_Id=:resume_Id").setParameter("resume_Id", resumeID).getResultList();
     }
 
     @Override
@@ -64,8 +110,9 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
 
-        List<Achievement> achievements = session.createQuery("FROM achievement WHERE id=:achievementID").setParameter("achievementID", achievementID).getResultList();
-
+        //List <Resume> resumeList = session.createQuery("FROM Resume WHERE resume_Id=:resume_Id").setParameter("resume_Id", resumeID).getResultList();
+        List<Achievement> achievements = session.createQuery("FROM Achievement WHERE achievement_Id=:achievementID")
+                .setParameter("achievementID", achievementID).getResultList();
 
         return achievements;
     }
@@ -83,7 +130,7 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
 
-        List<Education> education = session.createQuery("FROM education WHERE id=:educationID").setParameter("educationID", educationID).getResultList();
+        List<Education> education = session.createQuery("FROM Education WHERE education_Id=:educationID").setParameter("educationID", educationID).getResultList();
 
 
         return education;
@@ -102,7 +149,7 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
 
-        List<Experience> experience = session.createQuery("FROM experience WHERE id=:experienceID").setParameter("experienceID", experienceID).getResultList();
+        List<Experience> experience = session.createQuery("FROM Experience WHERE experience_id=:experienceID").setParameter("experienceID", experienceID).getResultList();
 
 
         return experience;
@@ -121,7 +168,7 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
 
-        List<Project> project = session.createQuery("FROM project WHERE id=:projectID").setParameter("projectID", projectID).getResultList();
+        List<Project> project = session.createQuery("FROM Project WHERE project_Id=:projectID").setParameter("projectID", projectID).getResultList();
 
 
         return project;
@@ -139,7 +186,7 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
 
-        List<User> user = session.createQuery("FROM project WHERE id=:userId").setParameter("userId", userId).getResultList();
+        List<User> user = session.createQuery("FROM User WHERE user_Id=:userId").setParameter("userId", userId).getResultList();
 
 
         return user;
@@ -151,7 +198,7 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         //User user = session.get(User.class, email);
 
-        List<Website> website = session.createQuery("FROM project WHERE id=:userId").setParameter("userId", websiteId).getResultList();
+        List<Website> website = session.createQuery("FROM Website WHERE website_id=:websiteId").setParameter("websiteId", websiteId).getResultList();
 
 
         return website;
@@ -244,6 +291,7 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         session.saveOrUpdate(resume);
     }
+
 
     //WIP
     //needs to be implemented once the entity(s) foreign keys have been properly configured

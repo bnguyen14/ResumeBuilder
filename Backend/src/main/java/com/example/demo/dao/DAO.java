@@ -6,10 +6,15 @@ import java.util.List;
 
 public interface DAO {
 
+    List<Resume> TestFindAPI(int random);
+
+    void saveEntireResume(Resume resume);
+
     User findUserEmail(String email);
     User findUserPassword(String password);
     List<User> findUserID(int id);
     List<Website> findWebsiteID(int id);
+    List<Resume> findResumesByUserID(int id);
 
     // Login
     User findByLogin(String email, String password);

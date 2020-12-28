@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Website {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="website_id")
+    @Column(name="website_Id")
     private int websiteID;
 
     @Column(name="site")
@@ -38,6 +38,10 @@ public class Website {
 
     //setters
 
+    // Resume Setter for Resume Object
+    public void setResume(Resume resume) {
+        this.resume = resume;
+    }
 
     public void setWebsiteID(int websiteID) {
         this.websiteID = websiteID;
@@ -49,7 +53,14 @@ public class Website {
 
 
     //override toString method here
-
+    @Override
+    public String toString() {
+        return "Website{" +
+                "websiteID=" + websiteID +
+                ", site='" + site + '\'' +
+                //", resume=" + resume +
+                '}';
+    }
 
     //empty constructor
     public Website(){}

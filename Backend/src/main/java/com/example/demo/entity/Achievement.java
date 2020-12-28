@@ -53,6 +53,10 @@ public class Achievement {
 
     //setters
 
+    // Resume Setter for Resume Object
+    public void setResume(Resume resume) {
+        this.resume = resume;
+    }
 
     public void setAchievementID(int achievementID) {
         this.achievementID = achievementID;
@@ -72,7 +76,16 @@ public class Achievement {
 
 
     //override toString method here
-
+    @Override
+    public String toString() {
+        return "Achievement{" +
+                "achievementID=" + achievementID +
+                ", issuer='" + issuer + '\'' +
+                ", name='" + name + '\'' +
+                ", date='" + date + '\'' +
+                //", resume=" + resume +
+                '}';
+    }
 
     //empty constructor
     public Achievement(){}

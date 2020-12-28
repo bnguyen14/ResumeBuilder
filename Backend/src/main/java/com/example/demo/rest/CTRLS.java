@@ -24,8 +24,28 @@ public class CTRLS {
 
     //Request mappings below
 
+    // Test API
+    //    http://localhost:8080/api/Test/{name}
+    @GetMapping("/Test/{name}")
+    public List<Resume> Test(@PathVariable int name){
+        List<Resume> achievement = dao.TestFindAPI(name);
+        if(achievement == null){
+            throw new RuntimeException("Couldn't find use with name: " + name);
+        }
+
+        return achievement;
+    }
+
+    //http://localhost:8080/api/addEntireResume
+    @PostMapping("/addEntireResume")
+    public Resume addEntireResume(@RequestBody Resume resume){
+    	System.out.println("Resume INFO: " + resume.toString().toUpperCase()); //for backend visualization
+        dao.saveEntireResume(resume);
+        return resume;
+    }
+
     // Login API
-    //http://localhost:8080/users/login
+    //http://localhost:8080/api/users/login
     @PostMapping(path="/users/login")
     public ResponseEntity<User> login(@RequestBody User user){
         System.out.println("user:" + user.toString());
@@ -43,7 +63,7 @@ public class CTRLS {
      *************
      */
     //grabs a user by email
-    //    http://localhost:8080/getUserByEmail/{email}
+    //    http://localhost:8080/api/getUserByEmail/{email}
     @GetMapping("/getUserByEmail/{email}")
     public User getUser(@PathVariable String email){
         User user = dao.findUserEmail(email);
@@ -54,8 +74,18 @@ public class CTRLS {
         return user;
     }
 
+    // http://localhost:8080/api/getResumeByUserID/{userID}
+    @GetMapping("/getResumeByUserID/{userID}")
+    public List <Resume> getResumeByUserID(@PathVariable int userID){
+        List <Resume> resume = dao.findResumesByUserID(userID);
+        if(resume == null){
+            throw new RuntimeException(("Couldn't find a resume with userID " + userID + " , mate."));
+        }
+        return resume;
+    }
+
     //grabs a resume by its respective id
-    // http://localhost:8080/getResumeByID/{resumeID}
+    // http://localhost:8080/api/getResumeByID/{resumeID}
     @GetMapping("/getResumeByID/{resumeID}")
     public List <Resume> getResume(@PathVariable int resumeID){
         List <Resume> resume = dao.findResumeID(resumeID);
@@ -65,7 +95,7 @@ public class CTRLS {
         return resume;
     }
 
-    //    http://localhost:8080/getAchievementByID/{achievementID}
+    //    http://localhost:8080/api/getAchievementByID/{achievementID}
     @GetMapping("/getAchievementByID/{achievementID}")
     public List<Achievement> getAchievementByID(@PathVariable int achievementID){
         List<Achievement> achievement = dao.findAchievementID(achievementID);
@@ -75,7 +105,7 @@ public class CTRLS {
         return achievement;
     }
 
-    //    http://localhost:8080/getEducationByID/{educationID}
+    //    http://localhost:8080/api/getEducationByID/{educationID}
     @GetMapping("/getEducationByID/{educationID}")
     public List<Education> getEducationByID(@PathVariable int educationID){
         List<Education> education = dao.findEducationID(educationID);
@@ -85,7 +115,7 @@ public class CTRLS {
         return education;
     }
 
-    //    http://localhost:8080/getExperienceByID/{experienceID}
+    //    http://localhost:8080/api/getExperienceByID/{experienceID}
     @GetMapping("/getExperienceByID/{experienceID}")
     public List<Experience> getExperienceByID(@PathVariable int experienceID){
         List<Experience> experience = dao.findExperienceID(experienceID);
@@ -95,7 +125,7 @@ public class CTRLS {
         return experience;
     }
 
-    //    http://localhost:8080/getProjectByID/{projectID}
+    //    http://localhost:8080/api/getProjectByID/{projectID}
     @GetMapping("/getProjectByID/{projectID}")
     public List<Project> getProjectByID(@PathVariable int projectID){
         List<Project> project = dao.findProjectID(projectID);
@@ -105,7 +135,7 @@ public class CTRLS {
         return project;
     }
 
-    //    http://localhost:8080/getUserByID/{userID}
+    //    http://localhost:8080/api/getUserByID/{userID}
     @GetMapping("/getUserByID/{userID}")
     public List<User> getUserByID(@PathVariable int userID){
         List<User> user = dao.findUserID(userID);
@@ -115,7 +145,7 @@ public class CTRLS {
         return user;
     }
 
-    //    http://localhost:8080/getWebsiteByID/{websiteID}
+    //    http://localhost:8080/api/getWebsiteByID/{websiteID}
     @GetMapping("/getWebsiteByID/{websiteID}")
     public List<Website> getWebsiteByID(@PathVariable int websiteID){
         List<Website> website = dao.findWebsiteID(websiteID);
@@ -131,7 +161,7 @@ public class CTRLS {
      */
 
     //This is a PUT request to update an existing Achievement.
-    //http://localhost:8080/updateAchievement
+    //http://localhost:8080/api/updateAchievement
     @PutMapping("/updateAchievement")
     public Achievement updateAchievement(@RequestBody Achievement theAchievement) {
 
@@ -139,7 +169,7 @@ public class CTRLS {
         return theAchievement;
     }
 
-    //http://localhost:8080/updateEducation
+    //http://localhost:8080/api/updateEducation
     @PutMapping("/updateEducation")
     public Education updateEducation(@RequestBody Education theEducation) {
 
@@ -147,7 +177,7 @@ public class CTRLS {
         return theEducation;
     }
 
-    //http://localhost:8080/updateExperience
+    //http://localhost:8080/api/updateExperience
     @PutMapping("/updateExperience")
     public Experience updateExperience(@RequestBody Experience theExperience) {
 
@@ -155,7 +185,7 @@ public class CTRLS {
         return theExperience;
     }
 
-    //http://localhost:8080/updateProject
+    //http://localhost:8080/api/updateProject
     @PutMapping("/updateProject")
     public Project updateProject(@RequestBody Project theProject) {
 
@@ -163,7 +193,7 @@ public class CTRLS {
         return theProject;
     }
 
-    //http://localhost:8080/updateResume
+    //http://localhost:8080/api/updateResume
     @PutMapping("/updateResume")
     public Resume updateResume(@RequestBody Resume theResume) {
 
@@ -171,7 +201,7 @@ public class CTRLS {
         return theResume;
     }
 
-    //http://localhost:8080/updateUser
+    //http://localhost:8080/api/updateUser
     @PutMapping("/updateUser")
     public User updateUser(@RequestBody User theUser) {
 
@@ -179,7 +209,7 @@ public class CTRLS {
         return theUser;
     }
 
-    //http://localhost:8080/updateWebsite
+    //http://localhost:8080/api/updateWebsite
     @PutMapping("/updateWebsite")
     public Website updateWebsite(@RequestBody Website theWebsite) {
 
@@ -229,7 +259,7 @@ public class CTRLS {
      */
 
     //adds a new user
-    //http://localhost:8080/addUser
+    //http://localhost:8080/api/addUser
     @PostMapping("/addUser")
     public User addUser(@RequestBody User user){
         dao.addUser(user);
@@ -238,7 +268,7 @@ public class CTRLS {
     }
 
     //adds a new resume entity
-    //http://localhost:8080/addResume
+    //http://localhost:8080/api/addResume
     @PostMapping("/addResume")
     public Resume addResume(@RequestBody Resume resume){
     	System.out.println("the resume "+resume.toString());
@@ -248,7 +278,7 @@ public class CTRLS {
     }
 
     //adds new achievement
-    //http://localhost:8080/addAchievement
+    //http://localhost:8080/api/addAchievement
     @PostMapping("addAchievement")
     public Achievement addAchievements(@RequestBody Achievement achievement){
         dao.addAchievement(achievement);
@@ -257,7 +287,7 @@ public class CTRLS {
     }
 
     //adds new edu
-    //http://localhost:8080/addEducation
+    //http://localhost:8080/api/addEducation
     @PostMapping("addEducation")
     public Education addEducation(@RequestBody Education education){
         dao.addEducation(education);
@@ -266,7 +296,7 @@ public class CTRLS {
     }
 
     //adds new exp
-    //http://localhost:8080/addExperience
+    //http://localhost:8080/api/addExperience
     @PostMapping("addExperience")
     public Experience addExperience(@RequestBody Experience experience){
         dao.addExperience(experience);
@@ -275,7 +305,7 @@ public class CTRLS {
     }
 
     //adds new project
-    //http://localhost:8080/addProjects
+    //http://localhost:8080/api/addProjects
     @PostMapping("addProjects")
     public Project addProject(@RequestBody Project project){
         dao.addProject(project);
@@ -284,7 +314,7 @@ public class CTRLS {
     }
 
     //adds new Website
-    //http://localhost:8080/addWebsite
+    //http://localhost:8080/api/addWebsite
     @PostMapping("addWebsite")
     public Website addWebsite(@RequestBody Website website){
         dao.addWebsite(website);
@@ -299,7 +329,7 @@ public class CTRLS {
      */
 
     //deletes User entity by id
-    //http://localhost:8080/deleteUserByID/{userID}
+    //http://localhost:8080/api/deleteUserByID/{userID}
     @DeleteMapping("/deleteUserByID/{userID}")
     public String deleteUserByID(@PathVariable int userID){
         User user = dao.findID(userID);
@@ -310,7 +340,7 @@ public class CTRLS {
         return "Deleted user with ID:" + userID;
     }
 
-    //http://localhost:8080/deleteAchievementByID/{achievementID}
+    //http://localhost:8080/api/deleteAchievementByID/{achievementID}
     @DeleteMapping("/deleteAchievementByID/{achievementID}")
     public String deleteAchievementByID(@PathVariable int achievementID){
         Achievement achievement = dao.findAchievementByID(achievementID);
@@ -321,7 +351,7 @@ public class CTRLS {
         return "Deleted achievement with ID:" + achievementID;
     }
 
-    //http://localhost:8080/deleteEducationByID/{educationID}
+    //http://localhost:8080/api/deleteEducationByID/{educationID}
     @DeleteMapping("/deleteEducationByID/{educationID}")
     public String deleteEducationByID(@PathVariable int educationID){
         Education education = dao.findEducationByID(educationID);
@@ -332,7 +362,7 @@ public class CTRLS {
         return "Deleted education with ID:" + educationID;
     }
 
-    //http://localhost:8080/deleteExperienceByID/{experienceID}
+    //http://localhost:8080/api/deleteExperienceByID/{experienceID}
     @DeleteMapping("/deleteExperienceByID/{experienceID}")
     public String deleteExperienceByID(@PathVariable int experienceID){
         Experience experience = dao.findExperienceByID(experienceID);
@@ -343,7 +373,7 @@ public class CTRLS {
         return "Deleted experience with ID:" + experienceID;
     }
 
-    //http://localhost:8080/deleteProjectByID/{projectID}
+    //http://localhost:8080/api/deleteProjectByID/{projectID}
     @DeleteMapping("/deleteProjectByID/{projectID}")
     public String deleteProjectByID(@PathVariable int projectID){
         Project project = dao.findProjectByID(projectID);
@@ -354,7 +384,7 @@ public class CTRLS {
         return "Deleted project with ID:" + projectID;
     }
 
-    //http://localhost:8080/deleteResumeByID/{resumeID}
+    //http://localhost:8080/api/deleteResumeByID/{resumeID}
     @DeleteMapping("/deleteResumeByID/{resumeID}")
     public String deleteResumeByID(@PathVariable int resumeID){
         Resume resume = dao.findResViaID(resumeID);
@@ -365,7 +395,7 @@ public class CTRLS {
         return "Deleted resume with ID:" + resumeID;
     }
 
-    //http://localhost:8080/deleteWebsiteByID/{websiteID}
+    //http://localhost:8080/api/deleteWebsiteByID/{websiteID}
     @DeleteMapping("/deleteWebsiteByID/{websiteID}")
     public String deleteWebsiteByID(@PathVariable int websiteID){
         Website website = dao.findWebsiteByID(websiteID);

@@ -8,14 +8,14 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ResumeService {
-  resume:Subject<number> = new Subject();
+  resume:Subject<Resume> = new Subject();
   resumeSaves:Resumesave[]=[];
 
   constructor(private httpClient: HttpClient) {}
 
   saveResume(resume:Resume){
     console.log(resume);
-    return this.httpClient.post<Resume>('http://localhost:8080/api/addResume',resume);
+    return this.httpClient.post<Resume>('http://localhost:8080/api/addEntireResume',resume);
   }
   
   editResume(id:number){
@@ -32,7 +32,5 @@ export class ResumeService {
   deleteResume(id:number){
     return this.httpClient.delete<Resume>('http://localhost:8080/deleteResumeByID/'+id);
   }
-  getResumeObs():Observable<number>{
-    return this.resume.asObservable();
-  }
+ 
 }

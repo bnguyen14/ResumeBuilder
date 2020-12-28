@@ -8,6 +8,7 @@ import { Website } from './website';
 export class Resume {
     constructor(
         // public resumeId:number,
+        public resumeName:string,
         public name:string,
         public email:string,
         public location:string,
@@ -15,7 +16,7 @@ export class Resume {
         public skills:string,
         public achievements:Achievement[],
         public educationList:Education[],
-        public exeriences:Experience[],
+        public experiences:Experience[],
         public projects:Project[],
         public websites:Website[],
         public save_date:Date,

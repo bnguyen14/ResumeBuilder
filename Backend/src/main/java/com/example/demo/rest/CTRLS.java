@@ -39,8 +39,8 @@ public class CTRLS {
     //http://localhost:8080/api/addEntireResume
     @PostMapping("/addEntireResume")
     public Resume addEntireResume(@RequestBody Resume resume){
+    	System.out.println("Resume INFO: " + resume.toString().toUpperCase()); //for backend visualization
         dao.saveEntireResume(resume);
-        System.out.println("LOOK HERE FOR THAT [FRESHLY ADDED] Resume INFO, FOO: " + resume.toString().toUpperCase()); //for backend visualization
         return resume;
     }
 

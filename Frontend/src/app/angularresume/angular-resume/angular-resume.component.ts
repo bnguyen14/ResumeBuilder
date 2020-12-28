@@ -13,6 +13,9 @@ import { UserService } from 'src/app/services/user.service';
 import { ResumeService } from 'src/app/services/resume.service';
 import { DatePipe } from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatDialog , MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ThisReceiver } from '@angular/compiler';
+import { SavedResumeDialogComponent } from 'src/app/saved-resume-dialog/saved-resume-dialog.component';
 
 @Component({
   selector: 'app-angular-resume',
@@ -40,8 +43,11 @@ export class AngularResumeComponent implements OnInit {
     private router: Router, 
     private userService: UserService,
     private resumeService: ResumeService,
-    private _snackBar: MatSnackBar){}
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog){}
 
+
+    savedResumeName: string;
   // name: string;
   // email: string;
   // number: string;
@@ -51,6 +57,21 @@ export class AngularResumeComponent implements OnInit {
   // testing purposes
   // resume: Resume;
 
+  openDialog(){
+    let dialogRef = this.dialog.open(SavedResumeDialogComponent, {
+      data: { resumeName: this.savedResumeName }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.savedResumeName = result;
+      console.log("Resume name: " + this.savedResumeName);
+      this.saveResume();
+      this.openSnackBar;
+
+    }
+      
+      )
+  }
 
   ngOnInit(): void {
     if(this.userService.authentication==false){
@@ -58,8 +79,23 @@ export class AngularResumeComponent implements OnInit {
     }
     this.resumeService.resume.subscribe(
       (resume) => {
-        console.log('resume change triggered');
-        console.log(resume);
+        // console.log(resume);
+        // console.log(resume[0].name);
+        this.basicFormGroup.setValue({
+          name: resume[0].name,
+          email: resume[0].email,
+          location:resume[0].location,
+          summary: resume[0].summary,
+          skills: resume[0].skills
+        });
+
+        this.websiteFormGroup[0].setValue({
+          site: resume[0].websites[0],
+          
+        });
+
+       
+
       }
     )
     this.initializeForm();
@@ -117,7 +153,7 @@ export class AngularResumeComponent implements OnInit {
     });
     // the first form initialized for "website"
     this.websiteFormArray.push(this.formBuilder.group({
-      website : ''
+      site : ''
     }));
     this.educationFormArray.push(this.formBuilder.group({
       school: '',
@@ -153,7 +189,7 @@ export class AngularResumeComponent implements OnInit {
       case 'website': {
         if (this.websiteFormGroup.length < this.maximumFormList){
           this.websiteFormArray.push(this.formBuilder.group({
-            website : ''
+            site : ''
           }));
         }
         break;
@@ -272,12 +308,12 @@ export class AngularResumeComponent implements OnInit {
 
   //restreives resume from form
   createResumeObject():Resume{
-    let resume = new Resume(this.basicFormValue.name, this.basicFormValue.email, this.basicFormValue.location,
+    let resume = new Resume(this.savedResumeName,this.basicFormValue.name, this.basicFormValue.email, this.basicFormValue.location,
       this.basicFormValue.summary, this.basicFormValue.skills, this.achievementValue, this.educationValue,
       this.experienceValue,this.projectValue,this.websiteValue,undefined,this.userService.user);
     // console.log(this.userService.user);
     // console.log(this.userService.user.userID);
-    // console.log(resume);
+    console.log(resume);
     return resume;
   }
 
@@ -321,7 +357,7 @@ export class AngularResumeComponent implements OnInit {
         heading: HeadingLevel.HEADING_1,
         alignment: AlignmentType.CENTER,
         thematicBreak: true}),
-        ...this.experienceList(resume.exeriences),
+        ...this.experienceList(resume.experiences),
         //  skills
         new Paragraph({ text: 'Skills',
         heading: HeadingLevel.HEADING_1,
@@ -370,7 +406,7 @@ export class AngularResumeComponent implements OnInit {
     for (const test of websiteArr) {
       console.log('website: ' + test);
       paragraphOut.push(new Paragraph({
-        text : test.website,
+        text : test.site,
         alignment: AlignmentType.CENTER
       }));
     }

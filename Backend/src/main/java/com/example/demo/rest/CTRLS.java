@@ -27,13 +27,21 @@ public class CTRLS {
     // Test API
     //    http://localhost:8080/api/Test/{name}
     @GetMapping("/Test/{name}")
-    public List<Resume> Test(@PathVariable String name){
+    public List<Resume> Test(@PathVariable int name){
         List<Resume> achievement = dao.TestFindAPI(name);
         if(achievement == null){
             throw new RuntimeException("Couldn't find use with name: " + name);
         }
 
         return achievement;
+    }
+
+    //http://localhost:8080/api/addEntireResume
+    @PostMapping("/addEntireResume")
+    public Resume addEntireResume(@RequestBody Resume resume){
+        dao.saveEntireResume(resume);
+        System.out.println("LOOK HERE FOR THAT [FRESHLY ADDED] Resume INFO, FOO: " + resume.toString().toUpperCase()); //for backend visualization
+        return resume;
     }
 
     // Login API

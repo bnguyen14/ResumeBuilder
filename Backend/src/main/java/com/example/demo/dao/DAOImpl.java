@@ -21,13 +21,41 @@ public class DAOImpl implements DAO {
     // Test API
     @Override
     @Transactional
-    public List<Resume> TestFindAPI(String name) {
+    public List<Resume> TestFindAPI(int name) {
         session = entityManager.unwrap(Session.class);
         // REMEMBER CAPITAL LETTERS for Queries!!!!!!
-        List<Resume> achievements = session.createQuery("FROM User WHERE password=:name")
+        List<Resume> achievements = session.createQuery("select * from Resume, Website WHERE Resume.resume_Id=:name & Resume.resume_Id = Website.resume_Id;")
                 .setParameter("name", name).getResultList();
 
         return achievements;
+    }
+
+    @Override
+    @Transactional
+    public void saveEntireResume(Resume resume) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(resume);
+        for(Website w:resume.getWebsites()){
+            w.setResume(resume);
+            saveWebsite(w);
+        }
+        for(Achievement a:resume.getAchievements()){
+            a.setResume(resume);
+            saveAchievement(a);
+        }
+        for(Education ed:resume.getEducationList()){
+            ed.setResume(resume);
+            saveEducation(ed);
+        }
+        for(Experience ex:resume.getExperiences()){
+            ex.setResume(resume);
+            saveExperience(ex);
+        }
+        for(Project p:resume.getProjects()){
+            p.setResume(resume);
+            saveProject(p);
+        }
+
     }
 
 
@@ -263,6 +291,7 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         session.saveOrUpdate(resume);
     }
+
 
     //WIP
     //needs to be implemented once the entity(s) foreign keys have been properly configured

@@ -38,6 +38,10 @@ public class Website {
 
     //setters
 
+    // Resume Setter for Resume Object
+    public void setResume(Resume resume) {
+        this.resume = resume;
+    }
 
     public void setWebsiteID(int websiteID) {
         this.websiteID = websiteID;
@@ -54,7 +58,7 @@ public class Website {
         return "Website{" +
                 "websiteID=" + websiteID +
                 ", site='" + site + '\'' +
-                ", resume=" + resume +
+                //", resume=" + resume +
                 '}';
     }
 

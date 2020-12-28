@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface DAO {
 
-    List<Resume> TestFindAPI(String random);
+    List<Resume> TestFindAPI(int random);
+
+    void saveEntireResume(Resume resume);
 
     User findUserEmail(String email);
     User findUserPassword(String password);

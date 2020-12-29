@@ -10,7 +10,7 @@ INSERT INTO website VALUES("1", "1", "https://github.com/ptrotman22");
 
 INSERT INTO user VALUES("2", "test@gmail.com", "admin");
 INSERT INTO resume VALUES("2", "2", "Cyber Security Resume", "Ricky Bao", "test@gmail.com", "Atlanta, Georgia", 'IT specialist with experience working with Microsoft office implementing methodologies of the IT industry using mediation and perseverance with a focus on problem solving and customer satisfaction.', "Software & Tools: Windows, Mac OSX, IntelliJ, MySQL Workbench, React, Spring Boot, AWS", "2020-12-22");
-INSERT INTO education VALUES("2", "2", "Georgia State University", "Atlanta, Georgia", "2014-10-01", "2018-10-01", 'Information Technology', "1");
+INSERT INTO education VALUES("3", "2", "Georgia State University", "Atlanta, Georgia", "2014-10-01", "2018-10-01", 'Information Technology', "1");
 INSERT INTO project VALUES("2", "2", "Employee Project", "A employee montioring program that creates a employees information through a admin’s input. The program can add, delete, and update information in a comprehensive database demonstrating Java, Hibernate, MySQL, and SQL design principles.");
 INSERT INTO achievement VALUES("3", "2", "Military Practice", "Team Leader", "2010-10-01");
 INSERT INTO achievement VALUES("4", "2", "Mock Trial", "Mock Lawyer", "2010-09-02");

@@ -21,7 +21,7 @@ DROP TABLE IF EXISTS `User`;
 
 
 CREATE TABLE User (
-                user_Id INT AUTO_INCREMENT NOT NULL,
+                user_Id INT Unique AUTO_INCREMENT NOT NULL,
                 email VARCHAR(45) unique not NULL,
                 password varchar(45) Not Null,
                 PRIMARY KEY (user_Id)
@@ -29,7 +29,7 @@ CREATE TABLE User (
 
 
 CREATE TABLE Resume (
-                resume_Id INT AUTO_INCREMENT NOT NULL,
+                resume_Id INT Unique AUTO_INCREMENT NOT NULL,
                 user_Id INT NOT NULL,
                 resume_name varchar(45) NOT NULL,
                 name VARCHAR(45) ,
@@ -43,7 +43,7 @@ CREATE TABLE Resume (
 
 
 CREATE TABLE Website (
-                website_Id INT AUTO_INCREMENT NOT NULL,
+                website_Id INT Unique AUTO_INCREMENT NOT NULL,
                 resume_Id INT NOT NULL,
                 site VARCHAR(200) ,
                 PRIMARY KEY (website_Id, resume_Id)
@@ -51,7 +51,7 @@ CREATE TABLE Website (
 
 
 CREATE TABLE Achievement (
-                achievement_Id INT AUTO_INCREMENT NOT NULL,
+                achievement_Id INT Unique AUTO_INCREMENT NOT NULL,
                 resume_Id INT NOT NULL,
                 issuer VARCHAR(45) ,
                 name VARCHAR(45) ,
@@ -61,7 +61,7 @@ CREATE TABLE Achievement (
 
 
 CREATE TABLE Project (
-                project_Id INT AUTO_INCREMENT NOT NULL,
+                project_Id INT Unique AUTO_INCREMENT NOT NULL,
                 resume_Id INT NOT NULL,
                 title VARCHAR(100) ,
                 description VARCHAR(10000) ,
@@ -70,7 +70,7 @@ CREATE TABLE Project (
 
 
 CREATE TABLE Experience (
-                experience_Id INT AUTO_INCREMENT NOT NULL,
+                experience_Id INT Unique AUTO_INCREMENT NOT NULL,
                 resume_Id INT NOT NULL,
                 company VARCHAR(100) ,
                 location VARCHAR(100) ,
@@ -84,7 +84,7 @@ CREATE TABLE Experience (
 
 
 CREATE TABLE Education (
-                education_Id INT AUTO_INCREMENT NOT NULL,
+                education_Id INT Unique AUTO_INCREMENT NOT NULL,
                 resume_Id INT NOT NULL,
                 school VARCHAR(100) ,
                 location VARCHAR(100) ,

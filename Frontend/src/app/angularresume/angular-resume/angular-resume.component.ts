@@ -452,12 +452,10 @@ export class AngularResumeComponent implements OnInit {
         }),
         ...this.educationList(resume.educationList),
         //  experience
-        new Paragraph({
-          text: 'Experience',
-          heading: HeadingLevel.HEADING_1,
-          alignment: AlignmentType.CENTER,
-          thematicBreak: true
-        }),
+        new Paragraph({ text: 'Experience',
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+        thematicBreak: true}),
         ...this.experienceList(resume.experiences),
         //  skills
         new Paragraph({

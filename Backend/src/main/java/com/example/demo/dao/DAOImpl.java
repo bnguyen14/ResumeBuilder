@@ -35,27 +35,40 @@ public class DAOImpl implements DAO {
     public void saveEntireResume(Resume resume) {
         session = entityManager.unwrap(Session.class);
         session.saveOrUpdate(resume);
-        for(Website w:resume.getWebsites()){
-            w.setResume(resume);
-            saveWebsite(w);
+        if(resume.getWebsites()!=null) {
+        	for(Website w:resume.getWebsites()){
+	            w.setResume(resume);
+	            saveWebsite(w);
+	        }
         }
-        for(Achievement a:resume.getAchievements()){
-            a.setResume(resume);
-            saveAchievement(a);
+	        
+        if(resume.getAchievements()!=null) {
+        	for(Achievement a:resume.getAchievements()){
+	            a.setResume(resume);
+	            saveAchievement(a);
+	        }
         }
-        for(Education ed:resume.getEducationList()){
-            ed.setResume(resume);
-            saveEducation(ed);
+	        
+        if(resume.getEducationList()!=null) {
+        	for(Education ed:resume.getEducationList()){
+	            ed.setResume(resume);
+	            saveEducation(ed);
+	        }
         }
-        for(Experience ex:resume.getExperiences()){
-            ex.setResume(resume);
-            saveExperience(ex);
+	        
+        if(resume.getExperiences()!=null) {
+        	for(Experience ex:resume.getExperiences()){
+	            ex.setResume(resume);
+	            saveExperience(ex);
+	        }
         }
-        for(Project p:resume.getProjects()){
-            p.setResume(resume);
-            saveProject(p);
+	        
+        if(resume.getProjects()!=null) {
+        	for(Project p:resume.getProjects()){
+	            p.setResume(resume);
+	            saveProject(p);
+	        }
         }
-
     }
 
 

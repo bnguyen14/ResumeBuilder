@@ -40,7 +40,7 @@ public class Resume {
     private String skills;
 
     @Column(name = "save_date")
-    private java.time.LocalDate saveDate;
+    private LocalDate saveDate = java.time.LocalDate.now();
 
     /**
      * Reference this, dumba$$

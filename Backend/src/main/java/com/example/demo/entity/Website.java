@@ -64,4 +64,12 @@ public class Website {
 
     //empty constructor
     public Website(){}
+    
+    public boolean isEmpty() {
+    	if(this.websiteID==0 && this.site=="") {
+    		return true;
+    	}else {
+    		return false;
+    	}
+    }
 }

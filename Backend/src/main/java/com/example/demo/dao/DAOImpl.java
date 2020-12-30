@@ -35,16 +35,13 @@ public class DAOImpl implements DAO {
     public void saveEntireResume(Resume resume) {
         session = entityManager.unwrap(Session.class);
         session.saveOrUpdate(resume);
-        if(resume.getWebsites()!=null) {
-        	for(Website w:resume.getWebsites()){
-	            w.setResume(resume);
-	            saveWebsite(w);
-	        }
-        }
-//        else{
-//            //deleteWebsiteByID(resume.getResumeID());
-//            System.out.println("Websites is null");
-//        }
+        for(Website w:resume.getWebsites()){
+        	if(!w.isEmpty()) {
+        		w.setResume(resume);
+        		saveWebsite(w);
+        	}
+	    }
+        
 	        
         if(resume.getAchievements()!=null) {
         	for(Achievement a:resume.getAchievements()){

@@ -41,6 +41,10 @@ public class DAOImpl implements DAO {
 	            saveWebsite(w);
 	        }
         }
+//        else{
+//            //deleteWebsiteByID(resume.getResumeID());
+//            System.out.println("Websites is null");
+//        }
 	        
         if(resume.getAchievements()!=null) {
         	for(Achievement a:resume.getAchievements()){

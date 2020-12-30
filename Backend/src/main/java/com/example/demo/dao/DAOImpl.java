@@ -30,6 +30,8 @@ public class DAOImpl implements DAO {
         return achievements;
     }
 
+
+    // READ THIS!!!!!!!!!!!!!!! Save Entire Resume DAO
     @Override
     @Transactional
     public void saveEntireResume(Resume resume) {
@@ -41,31 +43,32 @@ public class DAOImpl implements DAO {
         		saveWebsite(w);
         	}
 	    }
-        
-	        
-        if(resume.getAchievements()!=null) {
-        	for(Achievement a:resume.getAchievements()){
-	            a.setResume(resume);
-	            saveAchievement(a);
-	        }
+
+        for(Achievement a:resume.getAchievements()){
+            if(!a.isEmpty()) {
+                a.setResume(resume);
+                saveAchievement(a);
+            }
         }
 	        
-        if(resume.getEducationList()!=null) {
-        	for(Education ed:resume.getEducationList()){
-	            ed.setResume(resume);
-	            saveEducation(ed);
-	        }
+
+        for(Education ed:resume.getEducationList()){
+            if(!ed.isEmpty()) {
+                ed.setResume(resume);
+                saveEducation(ed);
+            }
         }
 	        
-        if(resume.getExperiences()!=null) {
-        	for(Experience ex:resume.getExperiences()){
+
+        for(Experience ex:resume.getExperiences()){
+            if(!ex.isEmpty()) {
 	            ex.setResume(resume);
 	            saveExperience(ex);
 	        }
         }
-	        
-        if(resume.getProjects()!=null) {
-        	for(Project p:resume.getProjects()){
+
+        for(Project p:resume.getProjects()){
+            if(!p.isEmpty()) {
 	            p.setResume(resume);
 	            saveProject(p);
 	        }

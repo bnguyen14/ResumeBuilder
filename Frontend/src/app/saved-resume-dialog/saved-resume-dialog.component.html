@@ -9,5 +9,5 @@
 
 <mat-dialog-actions>
     <button mat-raised-button (click)="onCloseClick()">Close</button>
-    <button [disabled] = "!data.resumeName" mat-raised-button [mat-dialog-close]="data.resumeName">Save</button>
+    <button mat-raised-button [disabled] = "!data.resumeName" [mat-dialog-close]="data.resumeName">Save</button>
 </mat-dialog-actions>

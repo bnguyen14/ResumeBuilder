@@ -136,7 +136,11 @@ public class Education {
     public Education(){}
 
     public boolean isEmpty() {
-        if(this.educationID==0 && this.school.equals("") && this.location.equals("") && this.startDate.equals("") && this.endDate.equals("") && this.degree.equals("")) {
+        if(this.educationID==0 && 
+        		this.school.equals("") && 
+        		this.location.equals("") && 
+        		this.startDate.equals("") && 
+        		this.degree.equals("")) {
             return true;
         }else {
             return false;

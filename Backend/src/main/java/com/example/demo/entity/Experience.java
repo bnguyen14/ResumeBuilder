@@ -146,7 +146,12 @@ public class Experience {
     public Experience(){}
 
     public boolean isEmpty() {
-        if(this.experienceID==0 && this.company.equals("") && this.location.equals("")  && this.jobTitle.equals("") && this.startDate.equals("") && this.endDate.equals("") && this.description.equals("")) {
+        if(this.experienceID==0 && 
+        		this.company.equals("") && 
+        		this.location.equals("")  && 
+        		this.jobTitle.equals("") && 
+        		this.startDate.equals("") && 
+        		this.description.equals("")) {
             return true;
         }else {
             return false;

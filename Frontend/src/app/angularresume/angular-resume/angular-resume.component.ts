@@ -256,7 +256,7 @@ export class AngularResumeComponent implements OnInit {
       school: '',
       location: '',
       startDate: '',
-      endDate: { value: '', disabled: false },
+      endDate: { value: null, disabled: false },
       degree: '',
       current: ''
     }));
@@ -265,7 +265,7 @@ export class AngularResumeComponent implements OnInit {
       location: '',
       jobTitle: '',
       startDate: '',
-      endDate: { value: '', disabled: false },
+      endDate: { value: null, disabled: false },
       description: '',
       current: ''
     }));
@@ -297,7 +297,7 @@ export class AngularResumeComponent implements OnInit {
             school: '',
             location: '',
             startDate: '',
-            endDate: { value: '', disabled: false },
+            endDate: { value: null, disabled: false },
             degree: '',
             current: ''
           }));
@@ -311,7 +311,7 @@ export class AngularResumeComponent implements OnInit {
             location: '',
             jobTitle: '',
             startDate: '',
-            endDate: { value: '', disabled: false },
+            endDate: { value: null, disabled: false },
             description: '',
             current: ''
           }));
@@ -393,6 +393,11 @@ export class AngularResumeComponent implements OnInit {
       (resume) => {
         if (resume) {
           this.openSnackBar();
+          this.resumeService.resumeSaves.push({
+              resumeID: resume.resumeId,
+              resumeName: resume.resumeName,
+              saveDate: resume.save_date
+            })
         }
       }
     )
@@ -405,7 +410,7 @@ export class AngularResumeComponent implements OnInit {
 
   //restreives resume from form
   createResumeObject(): Resume {
-    let resume = new Resume(this.savedResumeName, this.basicFormValue.name, this.basicFormValue.email, this.basicFormValue.location,
+    let resume = new Resume(0,this.savedResumeName, this.basicFormValue.name, this.basicFormValue.email, this.basicFormValue.location,
       this.basicFormValue.summary, this.basicFormValue.skills, this.achievementValue, this.educationValue,
       this.experienceValue, this.projectValue, this.websiteValue, undefined, this.userService.user);
     // console.log(this.userService.user);
@@ -520,11 +525,13 @@ export class AngularResumeComponent implements OnInit {
   educationList(educationArr: Education[]) {
     // const tmparr = this.educationValue;
     const paragraphOut: Paragraph[] = [];
-
     for (const test of educationArr) {
       const startDateFormat: string = new Date(test.startDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short' });
-      const endDateFormat: string = new Date(test.endDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short' });
-
+      let endDateFormat: string = new Date(test.endDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short' });
+      if(test.current === true){
+        endDateFormat = "current"      
+      }
+  
       console.log(test.degree);
       paragraphOut.push(new Paragraph({
 
@@ -640,7 +647,12 @@ export class AngularResumeComponent implements OnInit {
     for (const test of experienceArr) {
 
       const startDateFormat: string = new Date(test.startDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short' });
-      const endDateFormat: string = new Date(test.endDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short' });
+      // const endDateFormat: string = new Date(test.endDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short' });
+      let endDateFormat: string = new Date(test.endDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short' });
+      if(test.current === true){
+        endDateFormat = "current"
+       }
+      
       paragraphOut.push(new Paragraph({
 
         tabStops: [

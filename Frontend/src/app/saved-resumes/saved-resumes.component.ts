@@ -26,7 +26,13 @@ export class SavedResumesComponent implements OnInit {
         this.drawer.toggle();
       }
     )
-    
-    
+  }
+  deleteResume(){
+    this.resumeService.deleteResume(this.resume.resumeID).subscribe(
+      (response) => {
+        if(response.status==200)
+        this.resumeService.deleteFromResumeSave(this.resume);
+      }
+    )
   }
 }

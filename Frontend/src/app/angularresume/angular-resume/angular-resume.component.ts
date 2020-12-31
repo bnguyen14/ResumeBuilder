@@ -393,6 +393,11 @@ export class AngularResumeComponent implements OnInit {
       (resume) => {
         if (resume) {
           this.openSnackBar();
+          this.resumeService.resumeSaves.push({
+              resumeID: resume.resumeId,
+              resumeName: resume.resumeName,
+              saveDate: resume.save_date
+            })
         }
       }
     )
@@ -405,7 +410,7 @@ export class AngularResumeComponent implements OnInit {
 
   //restreives resume from form
   createResumeObject(): Resume {
-    let resume = new Resume(this.savedResumeName, this.basicFormValue.name, this.basicFormValue.email, this.basicFormValue.location,
+    let resume = new Resume(0,this.savedResumeName, this.basicFormValue.name, this.basicFormValue.email, this.basicFormValue.location,
       this.basicFormValue.summary, this.basicFormValue.skills, this.achievementValue, this.educationValue,
       this.experienceValue, this.projectValue, this.websiteValue, undefined, this.userService.user);
     // console.log(this.userService.user);

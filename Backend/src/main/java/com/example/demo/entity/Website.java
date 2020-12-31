@@ -66,7 +66,7 @@ public class Website {
     public Website(){}
     
     public boolean isEmpty() {
-    	if(this.websiteID==0 && this.site=="") {
+    	if(this.websiteID==0 && this.site.equals("")) {
     		return true;
     	}else {
     		return false;

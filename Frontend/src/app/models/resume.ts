@@ -7,7 +7,7 @@ import { Website } from './website';
 
 export class Resume {
     constructor(
-        // public resumeId:number,
+        public resumeId:number,
         public resumeName:string,
         public name:string,
         public email:string,

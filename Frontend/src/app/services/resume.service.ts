@@ -32,5 +32,8 @@ export class ResumeService {
   deleteResume(id:number){
     return this.httpClient.delete<Resume>('http://localhost:8080/deleteResumeByID/'+id);
   }
- 
+  deleteFromResumeSave(key:Resumesave){
+    let index = this.resumeSaves.indexOf(key);
+    this.resumeSaves.splice(index);
+  }
 }

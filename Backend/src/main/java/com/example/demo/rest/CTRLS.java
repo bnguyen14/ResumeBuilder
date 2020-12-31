@@ -386,13 +386,13 @@ public class CTRLS {
 
     //http://localhost:8080/api/deleteResumeByID/{resumeID}
     @DeleteMapping("/deleteResumeByID/{resumeID}")
-    public String deleteResumeByID(@PathVariable int resumeID){
+    public ResponseEntity deleteResumeByID(@PathVariable int resumeID){
         Resume resume = dao.findResViaID(resumeID);
         if (resume == null){
             throw new RuntimeException("Couldn't find resume with ID: " + resumeID);
         }
         dao.deleteResumeByID(resumeID);
-        return "Deleted resume with ID:" + resumeID;
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     //http://localhost:8080/api/deleteWebsiteByID/{websiteID}

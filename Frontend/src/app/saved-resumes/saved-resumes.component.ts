@@ -29,8 +29,8 @@ export class SavedResumesComponent implements OnInit {
   }
   deleteResume(){
     this.resumeService.deleteResume(this.resume.resumeID).subscribe(
-      (resume) => {
-        console.log(resume);
+      (response) => {
+        if(response.status==200)
         this.resumeService.deleteFromResumeSave(this.resume);
       }
     )

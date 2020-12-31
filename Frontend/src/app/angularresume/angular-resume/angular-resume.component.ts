@@ -26,15 +26,8 @@ import { SavedResumeDialogComponent } from 'src/app/saved-resume-dialog/saved-re
 })
 export class AngularResumeComponent implements OnInit {
 
-
+  savedResumeName: string;
   maximumFormList = 3;
-  // resumes: any[] = [
-  //   {"id": 1,"resumeName": "Resume 1",date: "1/12/2020"},
-  //   {"id": 2,"resumeName": "Resume 2",date: "1/12/2020"},
-  //   {"id": 3,"resumeName": "Resume 3",date: "1/12/2020"},
-  //   {"id": 4,"resumeName": "Resume 4",date: "1/12/2020"},
-  //   {"id": 5,"resumeName": "Resume 5",date: "1/12/2020"}
-  // ];
 
   dynamicForm: FormGroup;
 
@@ -44,32 +37,8 @@ export class AngularResumeComponent implements OnInit {
     private userService: UserService,
     private resumeService: ResumeService,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog) { }
-
-
-  savedResumeName: string;
-  // name: string;
-  // email: string;
-  // number: string;
-  // summary: string;
-  // skillDesc: string;
-
-  // testing purposes
-  // resume: Resume;
-
-  openDialog() {
-    let dialogRef = this.dialog.open(SavedResumeDialogComponent, {
-      data: { resumeName: this.savedResumeName }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.savedResumeName = result;
-      console.log("Resume name: " + this.savedResumeName);
-      this.saveResume();
-    }
-
-    )
-  }
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     if (this.userService.authentication == false) {
@@ -92,7 +61,6 @@ export class AngularResumeComponent implements OnInit {
         if (resume[0].websites.length > 0) {
           this.websiteFormGroup[0].setValue({
             site: resume[0].websites[0].site,
-
           });
 
           for (let i = 1; i < resume[0].websites.length; i++) {
@@ -229,7 +197,23 @@ export class AngularResumeComponent implements OnInit {
     this._snackBar.open("Resume Saved", "Dismiss", {
       duration: 2000,
     });
+  }
 
+  //generates dialog box for saving a resume
+  openDialog() {
+    let dialogRef = this.dialog.open(SavedResumeDialogComponent, {
+      data: { resumeName: this.savedResumeName }
+    });
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result){
+          this.savedResumeName = result;
+          console.log("Resume name: " + this.savedResumeName);
+          this.saveResume();
+        }
+      }
+    )
   }
 
   //initializes form controls and arrays and pushes the first set of forms onto each

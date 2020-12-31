@@ -47,6 +47,10 @@ public class Project {
 
     //setters
 
+    // Resume Setter for Resume Object
+    public void setResume(Resume resume) {
+        this.resume = resume;
+    }
 
     public void setProjectID(int projectID) {
         this.projectID = projectID;
@@ -62,8 +66,25 @@ public class Project {
 
 
     //override toString method here
-
+    @Override
+    public String toString() {
+        return "Project{" +
+                "projectID=" + projectID +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                //", resume=" + resume +
+                '}';
+    }
 
     //empty constructor
     public Project(){}
+
+    public boolean isEmpty() {
+        if(this.projectID==0 && this.title.equals("") && this.description.equals("")) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 }

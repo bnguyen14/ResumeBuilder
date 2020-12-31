@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
+import { Resume } from '../models/resume';
+import { Resumesave } from '../models/resumesave';
+import { ResumeService } from '../services/resume.service';
 
 @Component({
   selector: 'app-saved-resumes',
@@ -6,26 +10,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./saved-resumes.component.css']
 })
 export class SavedResumesComponent implements OnInit {
-  
-//    arr: Array<{id: number, resumeName: string, date: string}> = [
-//     {id: 1, resumeName: 'Resume 1', date: "1/12/2020"},
-//   {id: 2, resumeName: 'Resume 2', date: "1/12/2020"},
-//   {id: 3, resumeName: 'Resume 3', date: "1/12/2020"},
-//   {id: 4, resumeName: 'Resume 4', date: "1/12/2020"},
-// ];
-
-resumes: any[] = [
-  {"id": 1,"resumeName": "Resume 1",date: "1/12/2020"},
-  {"id": 2,"resumeName": "Resume 2",date: "1/12/2020"},
-  {"id": 3,"resumeName": "Resume 3",date: "1/12/2020"},
-  {"id": 4,"resumeName": "Resume 4",date: "1/12/2020"},
-  {"id": 5,"resumeName": "Resume 5",date: "1/12/2020"}
-];
-  
-
-  constructor() { }
+  @Input() 
+  resume:Resumesave;
+  @Input()
+  drawer:MatDrawer;
+  constructor(private resumeService:ResumeService) { }
 
   ngOnInit(): void {
   }
 
+  loadResume(){
+    this.resumeService.getResume(this.resume.resumeID).subscribe(
+      (resume) =>{
+        this.resumeService.resume.next(resume);
+        this.drawer.toggle();
+      }
+    )
+  }
+  deleteResume(){
+    this.resumeService.deleteResume(this.resume.resumeID).subscribe(
+      (response) => {
+        if(response.status==200)
+        this.resumeService.deleteFromResumeSave(this.resume);
+      }
+    )
+  }
 }

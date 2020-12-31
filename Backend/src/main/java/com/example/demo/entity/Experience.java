@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="experience_id")
+    @Column(name="experience_Id")
     private int experienceID;
 
     @Column(name="company")
@@ -90,6 +90,11 @@ public class Experience {
 
     //setters
 
+    // Resume Setter for Resume Object
+    public void setResume(Resume resume) {
+        this.resume = resume;
+    }
+
     public void setExperienceID(int experienceID) { this.experienceID = experienceID; }
 
     public void setCompany(String company) {
@@ -122,8 +127,34 @@ public class Experience {
 
 
     //override toString method here
-
+    @Override
+    public String toString() {
+        return "Experience{" +
+                "experienceID=" + experienceID +
+                ", company='" + company + '\'' +
+                ", location='" + location + '\'' +
+                ", jobTitle='" + jobTitle + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", description='" + description + '\'' +
+                ", current=" + current +
+                //", resume=" + resume +
+                '}';
+    }
 
     //empty constructor
     public Experience(){}
+
+    public boolean isEmpty() {
+        if(this.experienceID==0 && 
+        		this.company.equals("") && 
+        		this.location.equals("")  && 
+        		this.jobTitle.equals("") && 
+        		this.startDate.equals("") && 
+        		this.description.equals("")) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

@@ -1,4 +1,5 @@
 .container {
+    margin-top: 20px;
     width: 350px;
     margin-left: auto;
     margin-right: auto;
@@ -19,4 +20,8 @@
 .form-group button {
     margin-left: 5px;
     margin-right: 5px;
+}
+
+mat-hint{
+    color: red;
 }

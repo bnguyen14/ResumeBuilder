@@ -373,11 +373,12 @@ public class DAOImpl implements DAO {
     }
 
     @Override
+    @Transactional
     public void deleteAchievementByID(int achievementID) {
-        session = entityManager.unwrap(Session.class);
-        Achievement achievement = session.get(Achievement.class, achievementID);
-        session.delete(achievement);
-
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Achievement> theQuery = currentSession.createQuery("delete from Achievement where achievementID=:Id");
+        theQuery.setParameter("Id", achievementID);
+        theQuery.executeUpdate();
     }
 
     @Override
@@ -389,11 +390,12 @@ public class DAOImpl implements DAO {
     }
 
     @Override
+    @Transactional
     public void deleteEducationByID(int educationID) {
-        session = entityManager.unwrap(Session.class);
-        Education education = session.get(Education.class, educationID);
-
-        session.delete(education);
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Education> theQuery = currentSession.createQuery("delete from Education where educationID=:Id");
+        theQuery.setParameter("Id", educationID);
+        theQuery.executeUpdate();
     }
 
     @Override
@@ -404,10 +406,12 @@ public class DAOImpl implements DAO {
     }
 
     @Override
+    @Transactional
     public void deleteExperienceByID(int experienceID) {
-        session = entityManager.unwrap(Session.class);
-        Experience experience = session.get(Experience.class, experienceID);
-        session.delete(experience);
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Experience> theQuery = currentSession.createQuery("delete from Experience where experienceID=:Id");
+        theQuery.setParameter("Id", experienceID);
+        theQuery.executeUpdate();
     }
 
     @Override
@@ -419,10 +423,12 @@ public class DAOImpl implements DAO {
     }
 
     @Override
+    @Transactional
     public void deleteProjectByID(int projectID) {
-        session = entityManager.unwrap(Session.class);
-        Project project = session.get(Project.class, projectID);
-        session.delete(project);
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Project> theQuery = currentSession.createQuery("delete from Project where projectID=:Id");
+        theQuery.setParameter("Id", projectID);
+        theQuery.executeUpdate();
 
     }
 
@@ -435,11 +441,12 @@ public class DAOImpl implements DAO {
     }
 
     @Override
+    @Transactional
     public void deleteWebsiteByID(int websiteID) {
-        session = entityManager.unwrap(Session.class);
-        Website website = session.get(Website.class, websiteID);
-
-        session.delete(website);
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Website> theQuery = currentSession.createQuery("delete from Website where websiteID=:Id");
+        theQuery.setParameter("Id", websiteID);
+        theQuery.executeUpdate();
 
     }
 

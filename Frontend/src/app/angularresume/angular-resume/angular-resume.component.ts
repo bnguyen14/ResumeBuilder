@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ThisReceiver } from '@angular/compiler';
 import { SavedResumeDialogComponent } from 'src/app/saved-resume-dialog/saved-resume-dialog.component';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-angular-resume',
@@ -201,16 +202,25 @@ export class AngularResumeComponent implements OnInit {
 
   //generates dialog box for saving a resume
   openDialog() {
+    // let overwrite = false;
     let dialogRef = this.dialog.open(SavedResumeDialogComponent, {
-      data: { resumeName: this.savedResumeName }
+      data: { 
+        // confirmOverwrite: overwrite,
+        resumeName: this.savedResumeName 
+      }
     });
 
     dialogRef.afterClosed().subscribe(
       result => {
         if(result){
-          this.savedResumeName = result;
+          if(result.overwrite==true){
+            console.log('resume will update');
+          }else{
+            console.log('resume will save');
+          }
+          this.savedResumeName = result.resumeName;
           console.log("Resume name: " + this.savedResumeName);
-          this.saveResume();
+          // this.saveResume();
         }
       }
     )
@@ -380,7 +390,7 @@ export class AngularResumeComponent implements OnInit {
           this.resumeService.resumeSaves.push({
               resumeID: resume.resumeId,
               resumeName: resume.resumeName,
-              saveDate: resume.save_date
+              saveDate: formatDate(new Date(), 'yyyy-MM-dd', 'en') as unknown as Date
             })
         }
       }

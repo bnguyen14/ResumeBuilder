@@ -32,6 +32,7 @@ import { RegisterComponent } from './register/register.component';
 import { SavedResumesComponent } from './saved-resumes/saved-resumes.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SavedResumeDialogComponent } from './saved-resume-dialog/saved-resume-dialog.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 
@@ -46,6 +47,7 @@ import { SavedResumeDialogComponent } from './saved-resume-dialog/saved-resume-d
    RegisterComponent,
    SavedResumesComponent,
    SavedResumeDialogComponent,
+   ConfirmDialogComponent,
   ],
     imports: [
         BrowserModule,

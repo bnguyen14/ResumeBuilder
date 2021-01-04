@@ -2,12 +2,22 @@
 
 <mat-dialog-content>
     <mat-form-field>
-        <input matInput
-             placeholder="Resume Name"[(ngModel)]="data.resumeName" >
-            </mat-form-field>
+        <input matInput placeholder="Resume Name" [(ngModel)]="data.resumeName">
+    </mat-form-field>
 </mat-dialog-content>
-
-<mat-dialog-actions>
+<div>
     <button mat-raised-button (click)="onCloseClick()">Close</button>
-    <button mat-raised-button [disabled] = "!data.resumeName" [mat-dialog-close]="data.resumeName">Save</button>
-</mat-dialog-actions>
+    <button mat-raised-button (click)="onSaveClick()" [disabled]="!data.resumeName">Save</button>
+</div>
+
+<mat-divider></mat-divider>
+<div *ngFor="let save of resumeSaveList">
+    <mat-card mat-raised-button class="mat-elevation-z4" (click)="selectCard(save.resumeName)">
+        <mat-card-header>
+            <mat-card-title>{{save.resumeName}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Date Created: {{save.saveDate}}</p>
+        </mat-card-content>
+    </mat-card>
+</div>

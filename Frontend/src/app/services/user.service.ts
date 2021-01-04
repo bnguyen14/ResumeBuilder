@@ -28,6 +28,7 @@ export class UserService {
   invalidateUser(){
     this.authentication=false;
     this.user=null;
+    this.resumeService.resumeSaves=[];
     this.router.navigate(['']);
   }
 

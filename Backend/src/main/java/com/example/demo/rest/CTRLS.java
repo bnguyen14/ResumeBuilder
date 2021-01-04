@@ -36,6 +36,14 @@ public class CTRLS {
         return achievement;
     }
 
+    //http://localhost:8080/api/updateEntireResume
+    @PutMapping("/updateEntireResume")
+    public Resume updateEntireResume(@RequestBody Resume resume){
+        System.out.println("Resume INFO: " + resume.toString().toUpperCase()); //for backend visualization
+        dao.saveEntireResume(resume);
+        return resume;
+    }
+
     //http://localhost:8080/api/addEntireResume
     @PostMapping("/addEntireResume")
     public Resume addEntireResume(@RequestBody Resume resume){

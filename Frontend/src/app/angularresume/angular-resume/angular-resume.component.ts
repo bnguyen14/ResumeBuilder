@@ -213,9 +213,9 @@ export class AngularResumeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         if(result){
-          if(result.overwrite==true){
+          if(result.overwrite==true){ // will overwrite a resume
             console.log('resume will update');
-          }else{
+          }else{  // will save a resume
             console.log('resume will save');
           }
           this.savedResumeName = result.resumeName;

@@ -214,6 +214,7 @@ export class AngularResumeComponent implements OnInit {
       result => {
         if(result){
           if(result.overwrite==true){ // will overwrite a resume
+            console.log(result.resumeID);
             console.log('resume will update');
           }else{  // will save a resume
             console.log('resume will save');

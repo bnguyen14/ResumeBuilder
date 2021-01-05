@@ -13,7 +13,7 @@ import { ResumeService } from '../services/resume.service';
 export class SavedResumeDialogComponent implements OnInit {
 
   resumeSaveList:Resumesave[];
-  selection = '';
+  idSelection = 0;
   confirmOverwrite : boolean;
   constructor(
     @Inject(MAT_DIALOG_DATA) 
@@ -37,6 +37,7 @@ export class SavedResumeDialogComponent implements OnInit {
       let dialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
         data: { 
           resumeName: this.data.resumeName,
+
         }
       });
       dialogRef.afterClosed().subscribe(
@@ -45,7 +46,8 @@ export class SavedResumeDialogComponent implements OnInit {
             // this.data.confirmOverwrite = true;
             this.dialog.close({
               resumeName: this.data.resumeName,
-              overwrite: true
+              overwrite: true,
+              resumeID: this.idSelection
             })
           }
         }
@@ -57,8 +59,9 @@ export class SavedResumeDialogComponent implements OnInit {
       });
     }
   }
-  selectCard(selection:string){
+  selectCard(selection:string,id:number){
     this.data.resumeName=selection;
+    this.idSelection=id;
   }
   checkListOfSave():boolean{
     for(let save of this.resumeSaveList){

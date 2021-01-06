@@ -17,6 +17,13 @@ export class ResumeService {
     console.log(resume);
     return this.httpClient.post<Resume>('http://localhost:8080/api/addEntireResume',resume);
   }
+
+  updateResume(resume:Resume){
+    console.log(resume);
+    return this.httpClient.put<Resume>('http://localhost:8080/api/updateEntireResume',resume);
+  }
+
+
   
   editResume(id:number){
 

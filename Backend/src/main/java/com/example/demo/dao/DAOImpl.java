@@ -30,6 +30,77 @@ public class DAOImpl implements DAO {
         return achievements;
     }
 
+    // Update Entire Resume
+    @Override
+    @Transactional
+    public void updateEntireResume(Resume resume) {
+        session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(resume);
+
+        List <Resume> databaseResume = findResumeID(resume.getResumeID());
+        //List <Website> website = findWebsiteID(resume.getResumeID());
+        //Website website = findWebsiteID(w.getWebsiteID());
+
+        // Delete Website function
+        for (Website w:databaseResume.get(0).getWebsites()){
+            int check = 0;
+            for(Website w2:resume.getWebsites()){
+                if(!w2.isEmpty()) {
+                    if (w.getWebsiteID() == w2.getWebsiteID()){
+                        check = 1;
+                        break;
+                    }
+                    check = 2;
+                }
+                else if (w2.isEmpty()){
+                    check = 1;
+                    break;
+                }
+            }
+            if (check == 2){
+                //w.setResume(resume);
+                deleteWebsiteByID(w.getWebsiteID());
+            }
+        }
+
+        for(Website w:resume.getWebsites()){
+            if(!w.isEmpty()) {
+                    w.setResume(resume);
+                    saveWebsite(w);
+            }
+        }
+
+        for(Achievement a:resume.getAchievements()){
+            if(!a.isEmpty()) {
+                a.setResume(resume);
+                saveAchievement(a);
+            }
+        }
+
+
+        for(Education ed:resume.getEducationList()){
+            if(!ed.isEmpty()) {
+                ed.setResume(resume);
+                saveEducation(ed);
+            }
+        }
+
+
+        for(Experience ex:resume.getExperiences()){
+            if(!ex.isEmpty()) {
+                ex.setResume(resume);
+                saveExperience(ex);
+            }
+        }
+
+        for(Project p:resume.getProjects()){
+            if(!p.isEmpty()) {
+                p.setResume(resume);
+                saveProject(p);
+            }
+        }
+    }
+
 
     // READ THIS!!!!!!!!!!!!!!! Save Entire Resume DAO
     @Override

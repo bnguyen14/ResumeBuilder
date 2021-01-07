@@ -9,6 +9,7 @@ public interface DAO {
     List<Resume> TestFindAPI(int random);
 
     void saveEntireResume(Resume resume);
+    void updateEntireResume(Resume resume);
 
     User findUserEmail(String email);
     User findUserPassword(String password);

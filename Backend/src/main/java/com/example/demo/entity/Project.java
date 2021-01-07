@@ -79,7 +79,7 @@ public class Project {
     //empty constructor
     public Project(){}
 
-    public boolean isEmpty() {
+    public boolean emptyObject() {
         if(this.projectID==0 && this.title.equals("") && this.description.equals("")) {
             return true;
         }else {

@@ -230,15 +230,16 @@ export class AngularResumeComponent implements OnInit {
         if(result){
           if(result.overwrite==true){ // will overwrite a resume
             console.log(result.resumeID);
-            console.log('resume will update');
-            this.updateResume();
 
-          } // will save a resume
+            console.log('resume will update');
+          }else{  // will save a resume
+            //this.saveResume();
             console.log('resume will save');
             // this.saveResume();
           this.savedResumeName = result.resumeName;
           this.saveResume();
           console.log("Resume name: " + this.savedResumeName);
+          // this.saveResume();
         }
       }
     )
@@ -427,22 +428,6 @@ export class AngularResumeComponent implements OnInit {
       }
     )
   }
-
-  updateResume() {
-    this.resumeService.updateResume(this.createResumeObject()).subscribe(
-      (resume) => {
-        if (resume) {
-          this.openSnackBar();
-          this.resumeService.resumeSaves.push({
-              resumeID: resume.resumeId,
-              resumeName: resume.resumeName,
-              saveDate: formatDate(new Date(), 'yyyy-MM-dd', 'en') as unknown as Date
-            })
-        }
-      }
-    )
-  }
-
 
   //self explanitory
   downloadResume() {

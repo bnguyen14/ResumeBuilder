@@ -29,76 +29,99 @@ public class DAOImpl implements DAO {
 
         return achievements;
     }
-
+    
+    //website list helper method
+    private boolean websiteListContainId(int id, List<Website> list) {
+    	for(Website w:list) {
+    		if(id==w.getWebsiteID()) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
     // Update Entire Resume
     @Override
     @Transactional
     public void updateEntireResume(Resume resume) {
-        session = entityManager.unwrap(Session.class);
-        session.saveOrUpdate(resume);
-
+        
+    	
         List <Resume> databaseResume = findResumeID(resume.getResumeID());
-        //List <Website> website = findWebsiteID(resume.getResumeID());
-        //Website website = findWebsiteID(w.getWebsiteID());
-
+//    	List<Website> websites = findWebsiteByResumeId(resume.getResumeID());
+        System.out.println("websites from BACKEND: " + databaseResume.toString());
+        
+        session = entityManager.unwrap(Session.class);
+        session.clear();
+        session.saveOrUpdate(resume);
+        
+//        List <Website> oldWebsite = findWebsiteID(resume.getResumeID());
+//        Website website = findWebsiteID(w.getWebsiteID());
+        
         // Delete Website function
         for (Website w:databaseResume.get(0).getWebsites()){
-            int check = 0;
-            for(Website w2:resume.getWebsites()){
-                if(!w2.isEmpty()) {
-                    if (w.getWebsiteID() == w2.getWebsiteID()){
-                        check = 1;
-                        break;
-                    }
-                    check = 2;
-                }
-                else if (w2.isEmpty()){
-                    check = 1;
-                    break;
-                }
-            }
-            if (check == 2){
-                //w.setResume(resume);
-                deleteWebsiteByID(w.getWebsiteID());
-            }
+        	if(w.getWebsiteID()!=0) {
+        		if(!websiteListContainId(w.getWebsiteID(),resume.getWebsites())) {
+        			System.out.println("website should be deleted: " + w.toString());
+        			deleteWebsiteByID(w.getWebsiteID());
+        		}
+        	}
+//            int check = 0;
+//            for(Website w2:resume.getWebsites()){
+//                if(!w2.emptyObject()) {
+//                    if (w.getWebsiteID() == w2.getWebsiteID()){
+//                        check = 1;
+//                        break;
+//                    }
+//                    check = 2;
+//                }
+//                else if (w2.emptyObject()){
+//                    check = 1;
+//                    break;
+//                }
+//            }
+//            if (check == 2){
+//            	System.out.println("attempting to delete: " + w.toString());
+//                //w.setResume(resume);
+//                deleteWebsiteByID(w.getWebsiteID());
+//            }
         }
 
         for(Website w:resume.getWebsites()){
-            if(!w.isEmpty()) {
+            if(!w.emptyObject()) {
                     w.setResume(resume);
                     saveWebsite(w);
             }
         }
 
-        for(Achievement a:resume.getAchievements()){
-            if(!a.isEmpty()) {
-                a.setResume(resume);
-                saveAchievement(a);
-            }
-        }
-
-
-        for(Education ed:resume.getEducationList()){
-            if(!ed.isEmpty()) {
-                ed.setResume(resume);
-                saveEducation(ed);
-            }
-        }
-
-
-        for(Experience ex:resume.getExperiences()){
-            if(!ex.isEmpty()) {
-                ex.setResume(resume);
-                saveExperience(ex);
-            }
-        }
-
-        for(Project p:resume.getProjects()){
-            if(!p.isEmpty()) {
-                p.setResume(resume);
-                saveProject(p);
-            }
-        }
+//        for(Achievement a:resume.getAchievements()){
+//            if(!a.emptyObject()) {
+//                a.setResume(resume);
+//                saveAchievement(a);
+//            }
+//        }
+//
+//
+//        for(Education ed:resume.getEducationList()){
+//            if(!ed.emptyObject()) {
+//                ed.setResume(resume);
+//                saveEducation(ed);
+//            }
+//        }
+//
+//
+//        for(Experience ex:resume.getExperiences()){
+//            if(!ex.emptyObject()) {
+//                ex.setResume(resume);
+//                saveExperience(ex);
+//            }
+//        }
+//
+//        for(Project p:resume.getProjects()){
+//            if(!p.emptyObject()) {
+//                p.setResume(resume);
+//                saveProject(p);
+//            }
+//        }
     }
 
 
@@ -109,14 +132,15 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         session.saveOrUpdate(resume);
         for(Website w:resume.getWebsites()){
-        	if(!w.isEmpty()) {
+        	if(!w.emptyObject()) {
+        		System.out.println(" ATTEMPT SAVING WEBSITE: " + w);
         		w.setResume(resume);
         		saveWebsite(w);
         	}
 	    }
 
         for(Achievement a:resume.getAchievements()){
-            if(!a.isEmpty()) {
+            if(!a.emptyObject()) {
                 a.setResume(resume);
                 saveAchievement(a);
             }
@@ -124,7 +148,7 @@ public class DAOImpl implements DAO {
 	        
 
         for(Education ed:resume.getEducationList()){
-            if(!ed.isEmpty()) {
+            if(!ed.emptyObject()) {
                 ed.setResume(resume);
                 saveEducation(ed);
             }
@@ -132,14 +156,14 @@ public class DAOImpl implements DAO {
 	        
 
         for(Experience ex:resume.getExperiences()){
-            if(!ex.isEmpty()) {
+            if(!ex.emptyObject()) {
 	            ex.setResume(resume);
 	            saveExperience(ex);
 	        }
         }
 
         for(Project p:resume.getProjects()){
-            if(!p.isEmpty()) {
+            if(!p.emptyObject()) {
 	            p.setResume(resume);
 	            saveProject(p);
 	        }
@@ -404,7 +428,6 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         List <Resume> resumeList = session.createQuery("FROM Resume WHERE resume_Id=:resume_Id").setParameter("resume_Id", resumeID).getResultList();
         //Resume resume = session.get(Resume.class, resumeID);
-
 
 
         return resumeList; //session.createQuery("FROM Resume WHERE resume_Id=:resume_Id").setParameter("resume_Id", resumeID).getResultList();

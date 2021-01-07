@@ -281,7 +281,7 @@ public class CTRLS {
     public Resume addResume(@RequestBody Resume resume){
     	System.out.println("the resume "+resume.toString());
         dao.addResume(resume);
-        System.out.println("LOOK HERE FOR THAT [FRESHLY ADDED] RESUME INFO, MY GUY: " + resume.toString().toUpperCase()); //for backend visualization;
+//        System.out.println("LOOK HERE FOR THAT [FRESHLY ADDED] RESUME INFO, MY GUY: " + resume.toString().toUpperCase()); //for backend visualization;
         return resume;
     }
 
@@ -399,6 +399,7 @@ public class CTRLS {
         if (resume == null){
             throw new RuntimeException("Couldn't find resume with ID: " + resumeID);
         }
+        System.out.println("RESUME to DELETE: " + resume.toString().toUpperCase());
         dao.deleteResumeByID(resumeID);
         return new ResponseEntity(HttpStatus.OK);
     }

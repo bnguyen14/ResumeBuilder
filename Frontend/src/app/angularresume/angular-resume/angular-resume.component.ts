@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ThisReceiver } from '@angular/compiler';
 import { SavedResumeDialogComponent } from 'src/app/saved-resume-dialog/saved-resume-dialog.component';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-angular-resume',
@@ -26,15 +27,8 @@ import { SavedResumeDialogComponent } from 'src/app/saved-resume-dialog/saved-re
 })
 export class AngularResumeComponent implements OnInit {
 
-
+  savedResumeName: string;
   maximumFormList = 3;
-  // resumes: any[] = [
-  //   {"id": 1,"resumeName": "Resume 1",date: "1/12/2020"},
-  //   {"id": 2,"resumeName": "Resume 2",date: "1/12/2020"},
-  //   {"id": 3,"resumeName": "Resume 3",date: "1/12/2020"},
-  //   {"id": 4,"resumeName": "Resume 4",date: "1/12/2020"},
-  //   {"id": 5,"resumeName": "Resume 5",date: "1/12/2020"}
-  // ];
 
   dynamicForm: FormGroup;
 
@@ -44,32 +38,8 @@ export class AngularResumeComponent implements OnInit {
     private userService: UserService,
     private resumeService: ResumeService,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog) { }
-
-
-  savedResumeName: string;
-  // name: string;
-  // email: string;
-  // number: string;
-  // summary: string;
-  // skillDesc: string;
-
-  // testing purposes
-  // resume: Resume;
-
-  openDialog() {
-    let dialogRef = this.dialog.open(SavedResumeDialogComponent, {
-      data: { resumeName: this.savedResumeName }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.savedResumeName = result;
-      console.log("Resume name: " + this.savedResumeName);
-      this.saveResume();
-    }
-
-    )
-  }
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     if (this.userService.authentication == false) {
@@ -81,6 +51,7 @@ export class AngularResumeComponent implements OnInit {
         // console.log(resume[0].name);
         //Saved Resume edit basic info
         this.basicFormGroup.setValue({
+          resumeId: resume[0].resumeID,
           name: resume[0].name,
           email: resume[0].email,
           location: resume[0].location,
@@ -92,13 +63,14 @@ export class AngularResumeComponent implements OnInit {
         if (resume[0].websites.length > 0) {
           this.websiteFormGroup[0].setValue({
             site: resume[0].websites[0].site,
-
+            website_id: resume[0].websites[0].websiteID,
           });
 
           for (let i = 1; i < resume[0].websites.length; i++) {
             this.incrementList('website')
             this.websiteFormGroup[i].setValue({
               site: resume[0].websites[i].site,
+              website_id: resume[0].websites[i].websiteID,
             });
           }
         }
@@ -106,6 +78,8 @@ export class AngularResumeComponent implements OnInit {
         // saved resume education edit info
         if (resume[0].websites.length > 0) {
           this.educationFormGroup[0].setValue({
+
+            education_Id: resume[0].educationList[0].educationID,
             school: resume[0].educationList[0].school,
             location: resume[0].educationList[0].location,
             startDate: resume[0].educationList[0].startDate,
@@ -118,6 +92,8 @@ export class AngularResumeComponent implements OnInit {
           for (let i = 1; i < resume[0].educationList.length; i++) {
             this.incrementList('education')
             this.educationFormGroup[i].setValue({
+
+              education_Id: resume[0].educationList[i].educationID,
               school: resume[0].educationList[i].school,
               location: resume[0].educationList[i].location,
               startDate: resume[0].educationList[i].startDate,
@@ -130,6 +106,8 @@ export class AngularResumeComponent implements OnInit {
         //saved resume experience edit info
         if (resume[0].websites.length > 0) {
           this.experienceFormGroup[0].setValue({
+
+            experience_Id: resume[0].experiences[0].experienceID,
             company: resume[0].experiences[0].company,
             location: resume[0].experiences[0].location,
             jobTitle: resume[0].experiences[0].jobTitle,
@@ -143,6 +121,7 @@ export class AngularResumeComponent implements OnInit {
           for (let i = 1; i < resume[0].experiences.length; i++) {
             this.incrementList('experience')
             this.experienceFormGroup[i].setValue({
+              experience_Id: resume[0].experiences[i].experienceID,
               company: resume[0].experiences[i].company,
               location: resume[0].experiences[i].location,
               jobTitle: resume[0].experiences[i].jobTitle,
@@ -157,6 +136,7 @@ export class AngularResumeComponent implements OnInit {
         // Saved resume project info
         if (resume[0].websites.length > 0) {
           this.projectFormGroup[0].setValue({
+            project_Id: resume[0].projects[0].projectID,
             title: resume[0].projects[0].title,
             description: resume[0].projects[0].description,
 
@@ -165,6 +145,7 @@ export class AngularResumeComponent implements OnInit {
           for (let i = 1; i < resume[0].projects.length; i++) {
             this.incrementList('project')
             this.projectFormGroup[i].setValue({
+              project_Id: resume[0].projects[i].projectID,
               title: resume[0].projects[i].title,
               description: resume[0].projects[i].description,
             });
@@ -174,6 +155,8 @@ export class AngularResumeComponent implements OnInit {
         // saved resume achievments info
         if (resume[0].websites.length > 0) {
           this.achievementFormGroup[0].setValue({
+
+            achievement_Id: resume[0].achievements[0].achievementID,
             issuer: resume[0].achievements[0].issuer,
             name: resume[0].achievements[0].name,
             date: resume[0].achievements[0].date
@@ -183,6 +166,7 @@ export class AngularResumeComponent implements OnInit {
           for (let i = 1; i < resume[0].achievements.length; i++) {
             this.incrementList('achievement')
             this.achievementFormGroup[i].setValue({
+              achievement_Id: resume[0].achievements[i].achievementID,
               issuer: resume[0].achievements[i].issuer,
               name: resume[0].achievements[i].name,
               date: resume[0].achievements[i].date
@@ -229,18 +213,49 @@ export class AngularResumeComponent implements OnInit {
     this._snackBar.open("Resume Saved", "Dismiss", {
       duration: 2000,
     });
+  }
 
+  //generates dialog box for saving a resume
+  openDialog() {
+    // let overwrite = false;
+    let dialogRef = this.dialog.open(SavedResumeDialogComponent, {
+      data: { 
+        // confirmOverwrite: overwrite,
+        resumeName: this.savedResumeName 
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result){
+          if(result.overwrite==true){ // will overwrite a resume
+            console.log(result.resumeID);
+
+            console.log('resume will update');
+          }else{  // will save a resume
+            //this.saveResume();
+            console.log('resume will save');
+            // this.saveResume();
+          this.savedResumeName = result.resumeName;
+          this.saveResume();
+          console.log("Resume name: " + this.savedResumeName);
+          // this.saveResume();
+        }
+      }
+    )
   }
 
   //initializes form controls and arrays and pushes the first set of forms onto each
   initializeForm() {
     this.dynamicForm = this.formBuilder.group({
       basic: new FormGroup({
+        resumeId: new FormControl(''),
         name: new FormControl('', [Validators.required, Validators.email]),
         email: new FormControl('', [Validators.required, Validators.email]),
         location: new FormControl('', [Validators.required, Validators.email]),
         summary: new FormControl(''),
         skills: new FormControl(''),
+
       }),
       websites: new FormArray([]),
       educations: new FormArray([]),
@@ -250,9 +265,12 @@ export class AngularResumeComponent implements OnInit {
     });
     // the first form initialized for "website"
     this.websiteFormArray.push(this.formBuilder.group({
-      site: ''
+      site: '',
+      website_id: '',
+
     }));
     this.educationFormArray.push(this.formBuilder.group({
+      education_Id: '',
       school: '',
       location: '',
       startDate: '',
@@ -261,6 +279,7 @@ export class AngularResumeComponent implements OnInit {
       current: ''
     }));
     this.experienceFormArray.push(this.formBuilder.group({
+      experience_Id: '',
       company: '',
       location: '',
       jobTitle: '',
@@ -270,10 +289,12 @@ export class AngularResumeComponent implements OnInit {
       current: ''
     }));
     this.projectFormArray.push(this.formBuilder.group({
+      project_Id:'',
       title: '',
       description: ''
     }));
     this.achievementFormArray.push(this.formBuilder.group({
+      achievement_Id: '',
       issuer: '',
       name: '',
       date: ''
@@ -286,7 +307,8 @@ export class AngularResumeComponent implements OnInit {
       case 'website': {
         if (this.websiteFormGroup.length < this.maximumFormList) {
           this.websiteFormArray.push(this.formBuilder.group({
-            site: ''
+            site: '',
+            website_id: '',
           }));
         }
         break;
@@ -294,6 +316,7 @@ export class AngularResumeComponent implements OnInit {
       case 'education': {
         if (this.educationFormGroup.length < this.maximumFormList) {
           this.educationFormArray.push(this.formBuilder.group({
+            education_Id: '',
             school: '',
             location: '',
             startDate: '',
@@ -307,6 +330,7 @@ export class AngularResumeComponent implements OnInit {
       case 'experience': {
         if (this.experienceFormGroup.length < this.maximumFormList) {
           this.experienceFormArray.push(this.formBuilder.group({
+            experience_Id: '',
             company: '',
             location: '',
             jobTitle: '',
@@ -321,6 +345,7 @@ export class AngularResumeComponent implements OnInit {
       case 'project': {
         if (this.projectFormGroup.length < this.maximumFormList) {
           this.projectFormArray.push(this.formBuilder.group({
+            project_Id:'',
             title: '',
             description: ''
           }));
@@ -330,6 +355,7 @@ export class AngularResumeComponent implements OnInit {
       case 'achievement': {
         if (this.achievementFormGroup.length < this.maximumFormList) {
           this.achievementFormArray.push(this.formBuilder.group({
+            achievement_Id: '',
             issuer: '',
             name: '',
             date: ''
@@ -396,7 +422,7 @@ export class AngularResumeComponent implements OnInit {
           this.resumeService.resumeSaves.push({
               resumeID: resume.resumeId,
               resumeName: resume.resumeName,
-              saveDate: resume.save_date
+              saveDate: formatDate(new Date(), 'yyyy-MM-dd', 'en') as unknown as Date
             })
         }
       }

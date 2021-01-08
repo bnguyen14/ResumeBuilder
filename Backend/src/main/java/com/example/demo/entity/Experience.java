@@ -145,7 +145,7 @@ public class Experience {
     //empty constructor
     public Experience(){}
 
-    public boolean isEmpty() {
+    public boolean emptyObject() {
         if(this.experienceID==0 && 
         		this.company.equals("") && 
         		this.location.equals("")  && 

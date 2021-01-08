@@ -135,7 +135,7 @@ public class Education {
     //empty constructor
     public Education(){}
 
-    public boolean isEmpty() {
+    public boolean emptyObject() {
         if(this.educationID==0 && 
         		this.school.equals("") && 
         		this.location.equals("") && 

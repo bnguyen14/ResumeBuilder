@@ -65,7 +65,7 @@ public class Website {
     //empty constructor
     public Website(){}
     
-    public boolean isEmpty() {
+    public boolean emptyObject() {
     	if(this.websiteID==0 && this.site.equals("")) {
     		return true;
     	}else {

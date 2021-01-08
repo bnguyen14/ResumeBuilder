@@ -90,7 +90,7 @@ public class Achievement {
     //empty constructor
     public Achievement(){}
 
-    public boolean isEmpty() {
+    public boolean emptyObject() {
         if(this.achievementID==0 && this.issuer.equals("") && this.name.equals("") && this.date.equals("")) {
             return true;
         }else {

@@ -40,6 +40,8 @@ public class CTRLS {
     @PutMapping("/updateEntireResume")
     public Resume updateEntireResume(@RequestBody Resume resume){
         System.out.println("Resume INFO: " + resume.toString().toUpperCase()); //for backend visualization
+//        int resumeId = resume.getResumeID();
+//        List <Resume> oldResume = dao.findResumeID(resumeId);
         dao.updateEntireResume(resume);
         return resume;
     }

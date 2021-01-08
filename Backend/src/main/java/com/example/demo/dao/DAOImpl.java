@@ -34,10 +34,15 @@ public class DAOImpl implements DAO {
     @Override
     @Transactional
     public void updateEntireResume(Resume resume) {
+        int resumeId = resume.getResumeID();
+        List <Resume> databaseResume = findResumeID(resumeId);
+
         session = entityManager.unwrap(Session.class);
+        session.clear();
         session.saveOrUpdate(resume);
 
-        List <Resume> databaseResume = findResumeID(resume.getResumeID());
+//        int resumeId = resume.getResumeID();
+//        List <Resume> databaseResume = findResumeID(resumeId);
         //List <Website> website = findWebsiteID(resume.getResumeID());
         //Website website = findWebsiteID(w.getWebsiteID());
 
@@ -58,7 +63,7 @@ public class DAOImpl implements DAO {
                 }
             }
             if (check == 2){
-                //w.setResume(resume);
+                w.setResume(resume);
                 deleteWebsiteByID(w.getWebsiteID());
             }
         }
@@ -70,35 +75,35 @@ public class DAOImpl implements DAO {
             }
         }
 
-        for(Achievement a:resume.getAchievements()){
-            if(!a.isEmpty()) {
-                a.setResume(resume);
-                saveAchievement(a);
-            }
-        }
-
-
-        for(Education ed:resume.getEducationList()){
-            if(!ed.isEmpty()) {
-                ed.setResume(resume);
-                saveEducation(ed);
-            }
-        }
-
-
-        for(Experience ex:resume.getExperiences()){
-            if(!ex.isEmpty()) {
-                ex.setResume(resume);
-                saveExperience(ex);
-            }
-        }
-
-        for(Project p:resume.getProjects()){
-            if(!p.isEmpty()) {
-                p.setResume(resume);
-                saveProject(p);
-            }
-        }
+//        for(Achievement a:resume.getAchievements()){
+//            if(!a.isEmpty()) {
+//                a.setResume(resume);
+//                saveAchievement(a);
+//            }
+//        }
+//
+//
+//        for(Education ed:resume.getEducationList()){
+//            if(!ed.isEmpty()) {
+//                ed.setResume(resume);
+//                saveEducation(ed);
+//            }
+//        }
+//
+//
+//        for(Experience ex:resume.getExperiences()){
+//            if(!ex.isEmpty()) {
+//                ex.setResume(resume);
+//                saveExperience(ex);
+//            }
+//        }
+//
+//        for(Project p:resume.getProjects()){
+//            if(!p.isEmpty()) {
+//                p.setResume(resume);
+//                saveProject(p);
+//            }
+//        }
     }
 
 
@@ -404,8 +409,6 @@ public class DAOImpl implements DAO {
         session = entityManager.unwrap(Session.class);
         List <Resume> resumeList = session.createQuery("FROM Resume WHERE resume_Id=:resume_Id").setParameter("resume_Id", resumeID).getResultList();
         //Resume resume = session.get(Resume.class, resumeID);
-
-
 
         return resumeList; //session.createQuery("FROM Resume WHERE resume_Id=:resume_Id").setParameter("resume_Id", resumeID).getResultList();
     }

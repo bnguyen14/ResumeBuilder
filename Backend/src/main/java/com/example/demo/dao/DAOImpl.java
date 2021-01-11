@@ -39,6 +39,46 @@ public class DAOImpl implements DAO {
     	}
     	return false;
     }
+
+    //Achievement list helper method
+    private boolean achievementListContainId(int id, List<Achievement> list) {
+        for(Achievement w:list) {
+            if(id==w.getAchievementID()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Education list helper method
+    private boolean educationListContainId(int id, List<Education> list) {
+        for(Education w:list) {
+            if(id==w.getEducationID()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Experience list helper method
+    private boolean experienceListContainId(int id, List<Experience> list) {
+        for(Experience w:list) {
+            if(id==w.getExperienceID()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Project list helper method
+    private boolean projectListContainId(int id, List<Project> list) {
+        for(Project w:list) {
+            if(id==w.getProjectID()) {
+                return true;
+            }
+        }
+        return false;
+    }
     
     // Update Entire Resume
     @Override
@@ -65,25 +105,46 @@ public class DAOImpl implements DAO {
         			deleteWebsiteByID(w.getWebsiteID());
         		}
         	}
-//            int check = 0;
-//            for(Website w2:resume.getWebsites()){
-//                if(!w2.emptyObject()) {
-//                    if (w.getWebsiteID() == w2.getWebsiteID()){
-//                        check = 1;
-//                        break;
-//                    }
-//                    check = 2;
-//                }
-//                else if (w2.emptyObject()){
-//                    check = 1;
-//                    break;
-//                }
-//            }
-//            if (check == 2){
-//            	System.out.println("attempting to delete: " + w.toString());
-//                //w.setResume(resume);
-//                deleteWebsiteByID(w.getWebsiteID());
-//            }
+        }
+
+        // Delete Achievement function
+        for (Achievement w:databaseResume.get(0).getAchievements()){
+            if(w.getAchievementID()!=0) {
+                if(!achievementListContainId(w.getAchievementID(),resume.getAchievements())) {
+                    System.out.println("achievement should be deleted: " + w.toString());
+                    deleteAchievementByID(w.getAchievementID());
+                }
+            }
+        }
+
+        // Delete Education function
+        for (Education w:databaseResume.get(0).getEducationList()){
+            if(w.getEducationID()!=0) {
+                if(!educationListContainId(w.getEducationID(),resume.getEducationList())) {
+                    System.out.println("education should be deleted: " + w.toString());
+                    deleteEducationByID(w.getEducationID());
+                }
+            }
+        }
+
+        // Delete Experience function
+        for (Experience w:databaseResume.get(0).getExperiences()){
+            if(w.getExperienceID()!=0) {
+                if(!experienceListContainId(w.getExperienceID(),resume.getExperiences())) {
+                    System.out.println("experience should be deleted: " + w.toString());
+                    deleteExperienceByID(w.getExperienceID());
+                }
+            }
+        }
+
+        // Delete Project function
+        for (Project w:databaseResume.get(0).getProjects()){
+            if(w.getProjectID()!=0) {
+                if(!projectListContainId(w.getProjectID(),resume.getProjects())) {
+                    System.out.println("project should be deleted: " + w.toString());
+                    deleteProjectByID(w.getProjectID());
+                }
+            }
         }
 
         for(Website w:resume.getWebsites()){
@@ -93,35 +154,35 @@ public class DAOImpl implements DAO {
             }
         }
 
-//        for(Achievement a:resume.getAchievements()){
-//            if(!a.emptyObject()) {
-//                a.setResume(resume);
-//                saveAchievement(a);
-//            }
-//        }
-//
-//
-//        for(Education ed:resume.getEducationList()){
-//            if(!ed.emptyObject()) {
-//                ed.setResume(resume);
-//                saveEducation(ed);
-//            }
-//        }
-//
-//
-//        for(Experience ex:resume.getExperiences()){
-//            if(!ex.emptyObject()) {
-//                ex.setResume(resume);
-//                saveExperience(ex);
-//            }
-//        }
-//
-//        for(Project p:resume.getProjects()){
-//            if(!p.emptyObject()) {
-//                p.setResume(resume);
-//                saveProject(p);
-//            }
-//        }
+        for(Achievement a:resume.getAchievements()){
+            if(!a.emptyObject()) {
+                a.setResume(resume);
+                saveAchievement(a);
+            }
+        }
+
+
+        for(Education ed:resume.getEducationList()){
+            if(!ed.emptyObject()) {
+                ed.setResume(resume);
+                saveEducation(ed);
+            }
+        }
+
+
+        for(Experience ex:resume.getExperiences()){
+            if(!ex.emptyObject()) {
+                ex.setResume(resume);
+                saveExperience(ex);
+            }
+        }
+
+        for(Project p:resume.getProjects()){
+            if(!p.emptyObject()) {
+                p.setResume(resume);
+                saveProject(p);
+            }
+        }
     }
 
 
